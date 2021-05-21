@@ -12,12 +12,12 @@
         <input type="text" name="descricao" pInputText class="p-inputtext-sm" placeholder="Informe a descrição"
         ngModel #descricao="ngModel" required minlength="3">
       </div>
-
+      <!--
       <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
       <app-message [control]="descricao" error="minlength"
       text="Informe o mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres. Faltam: {{ descricao.errors?.minlength?.requiredLength - descricao.errors?.minlength?.actualLength }}">
     </app-message>
-
+-->
       <div class="p-col-12">
         <div class="p-d-flex p-flex-column p-flex-md-row">
 

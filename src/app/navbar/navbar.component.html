@@ -7,11 +7,21 @@
     </div>
   </div>
 
-  <ul class="navbar-menu" [hidden]="exibindoMenu">
+  <!--<ul class="navbar-menu" [hidden]="exibindoMenu">
     <li class="navbar-usuario">Luciano Carrafa</li>
     <li class="navbar-menuitem"><a href="#">DashBoard</a></li>
     <li class="navbar-menuitem"><a href="#">Pessoas</a></li>
     <li class="navbar-menuitem"><a href="#">Lançamentos</a></li>
     <li class="navbar-menuitem"><a href="#">Logout</a></li>
-  </ul>
+  </ul>-->
+
+  <p-sidebar [(visible)]="exibindoMenu" position="left">
+    <ul class="navbar-menu">
+      <li class="navbar-usuario">Luciano Carrafa</li>
+      <li class="navbar-menuitem"><a href="#">DashBoard</a></li>
+      <li class="navbar-menuitem"><a href="#">Pessoas</a></li>
+      <li class="navbar-menuitem"><a href="#">Lançamentos</a></li>
+      <li class="navbar-menuitem"><a href="#">Logout</a></li>
+    </ul>
+</p-sidebar>
 </nav>
