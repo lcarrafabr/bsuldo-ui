@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { SidebarModule } from 'primeng/sidebar';
 import { MessagesModule } from 'primeng/messages';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -41,6 +42,8 @@ import { MessageModule } from 'primeng/message';
     MessagesModule,
     MessageModule,
     SidebarModule,
+
+    SharedModule
   ],
   exports: [
     LancamentoCadastroComponent,
