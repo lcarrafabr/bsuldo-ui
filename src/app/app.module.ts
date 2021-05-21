@@ -13,13 +13,20 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {CardModule} from 'primeng/card';
 import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LancamentoPesquisaComponent,
     NavbarComponent,
-    LancamentoCadastroComponent
+    LancamentoCadastroComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,13 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     TableModule,
     TooltipModule,
     CardModule,
-    InputSwitchModule
+    InputSwitchModule,
+    BrowserAnimationsModule,
+    InputNumberModule,
+    FormsModule,
+    MessagesModule,
+    MessageModule
+
 
   ],
   providers: [],

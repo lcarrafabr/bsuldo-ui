@@ -42,3 +42,19 @@ label {
   text-align: center;
 }
 
+a {
+  color: #337AB7;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+}
+
+.p-button {
+  margin-right: .25em
+}
+.p-message-error {
+  padding: 3px;
+  margin: 0;
+}
