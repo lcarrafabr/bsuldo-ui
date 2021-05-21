@@ -1,4 +1,5 @@
 <div class="container p-grid">
+  <p-card>
   <div class="p-col-12">
     <h1>Lançamentos</h1>
   </div>
@@ -45,9 +46,9 @@
         <tr>
             <td>{{lancamentos.descricao}}</td>
             <td class="col-parcela-content">{{lancamentos.parcela}}</td>
-            <td class="col-data-content">{{lancamentos.dataVencimento}}</td>
-            <td class="col-data-content">{{lancamentos.dataPagamento}}</td>
-            <td class="col-valor-content">{{lancamentos.valor}}</td>
+            <td class="col-data-content">{{lancamentos.dataVencimento | date: 'dd/MM/y'}}</td>
+            <td class="col-data-content">{{lancamentos.dataPagamento | date: 'dd/MM/y'}}</td>
+            <td class="col-valor-content">{{lancamentos.valor | currency: 'BRL'}}</td>
 
             <td class="col-acoes">
               <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary"
@@ -68,10 +69,10 @@
       <button pButton label="Novo Lançamento" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
               pTooltip="Novo lançamento" tooltipPosition="top"></button>
 
-              <button pButton label="Fechar em lote" icon="pi pi-plus-circle" class="p-button-raised p-button-danger"
-              pTooltip="Novo lançamento" tooltipPosition="top"></button>
+              <button pButton label="Fechar em lote" icon="pi pi-exclamation-triangle" class="p-button-raised p-button-danger"
+              pTooltip="Fechar em lote" tooltipPosition="top"></button>
     </div>
   </div>
 
-
+</p-card>
 </div>

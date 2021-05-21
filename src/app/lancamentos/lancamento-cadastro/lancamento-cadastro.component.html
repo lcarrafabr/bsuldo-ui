@@ -1,0 +1,110 @@
+<div class="container">
+  <p-card>
+
+    <div class="p-col-12">
+      <h2>Cadastro de lançamentos</h2>
+    </div>
+
+    <form>
+
+      <div class="p-col-12 p-fluid">
+        <label>Descrição</label>
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Informe a descrição">
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-fluid">
+            <label>Data vencimento</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Informe a descrição">
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-fluid">
+            <label>Data Pagamento</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Informe a descrição">
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-fluid">
+            <label>Valor</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-fluid">
+            <label>Categoria</label>
+            <p-dropdown></p-dropdown>
+          </div>
+
+          <div class="p-mb-1">
+            <button pButton icon="pi pi-plus-circle" class="p-button-raised p-button-rounded p-button-success"
+                pTooltip="Cadastrar categoria" tooltipPosition="top"></button>
+
+                <button pButton icon="pi pi-refresh" class="p-button-raised p-button-rounded p-button-info"
+                pTooltip="Atualizar combo categoria" tooltipPosition="top"></button>
+          </div>
+
+        </div>
+
+        <div class="p-d-flex p-flex-column p-flex-md-row p-col-8">
+          <div class="p-mb-1 p-mr-1 p-fluid">
+            <label>Método de cobrança</label>
+            <p-dropdown></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-4">
+            <button pButton icon="pi pi-plus-circle" class="p-button-raised p-button-rounded p-button-success"
+                pTooltip="Cadastrar categoria" tooltipPosition="top"></button>
+
+                <button pButton icon="pi pi-refresh" class="p-button-raised p-button-rounded p-button-info"
+                pTooltip="Atualizar combo categoria" tooltipPosition="top"></button>
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-fluid">
+            <label>Chave de pesquisa</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Chave de pesquisa">
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-col-2">
+            <label>Parcelado</label>
+            <p-inputSwitch ></p-inputSwitch>
+          </div>
+
+        </div>
+
+        <!---Aqui é a area de parcelamento--->
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-col-2">
+            <label>Qtd parcelas</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="QTD parcelas">
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-col-2">
+            <label>N° da parcela</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="N° da parcela">
+          </div>
+
+        </div>
+
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary"
+              pTooltip="Salvar lançamento" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary"
+              pTooltip="Novo lançamento" tooltipPosition="top"></button>
+
+              <a href="javascript:;">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+
+
+    </form>
+
+  </p-card>
+</div>

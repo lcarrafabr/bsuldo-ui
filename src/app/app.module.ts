@@ -9,11 +9,17 @@ import {DropdownModule} from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import {TooltipModule} from 'primeng/tooltip';
 import { LancamentoPesquisaComponent } from './lancamentos/lancamento-pesquisa/lancamento-pesquisa.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import {CardModule} from 'primeng/card';
+import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LancamentoPesquisaComponent
+    LancamentoPesquisaComponent,
+    NavbarComponent,
+    LancamentoCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,10 @@ import { LancamentoPesquisaComponent } from './lancamentos/lancamento-pesquisa/l
     CalendarModule,
     DropdownModule,
     TableModule,
-    TooltipModule
+    TooltipModule,
+    CardModule,
+    InputSwitchModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

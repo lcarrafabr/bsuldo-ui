@@ -1,0 +1,45 @@
+.navbar {
+  padding: 20px 0 10px;
+  background-color:#7a078c;
+}
+
+.navbar-toggle {
+  color: white;
+}
+
+.navbar-menu {
+  position: fixed;
+  background-color: #3A3633;
+  top: 0%;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  width: 210px;
+  z-index: 99999;
+  list-style: none;
+  padding: 0;
+}
+
+.navbar-usuario {
+
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 15px;
+  border-bottom: 1px solid #525151;
+  margin-bottom: 15px;
+}
+
+.navbar-menuitem {
+
+  padding: 15px;
+}
+
+.navbar-menuitem a {
+  color: #C0BBB7;
+  text-decoration: none;
+}
+
+.navbar-menuitem a:hover {
+  color: white;
+}
