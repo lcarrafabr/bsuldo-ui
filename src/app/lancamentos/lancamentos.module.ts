@@ -17,6 +17,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -43,7 +44,8 @@ import { MessageModule } from 'primeng/message';
     MessageModule,
     SidebarModule,
 
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   exports: [
     LancamentoCadastroComponent,

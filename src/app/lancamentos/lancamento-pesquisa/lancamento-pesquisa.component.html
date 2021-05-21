@@ -9,11 +9,17 @@
     <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por descrição">
   </div>
 
-  <div class="p-col-5">
+  <div class="p-col-12">
     <label style="display: block;">Vencimento</label>
-    <input type="text" pInputText class="p-inputtext-sm" style="width: 95px;">
+    <p-calendar
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            [showIcon]="true"></p-calendar>
     <label>Até: </label>
-    <input type="text" pInputText class="p-inputtext-sm" style="width: 95px;">
+    <p-calendar
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            [showIcon]="true"></p-calendar>
 
     <label class="p-fluid">-------</label>
     <p-dropdown></p-dropdown>
@@ -45,8 +51,8 @@
     <ng-template pTemplate="body" let-lancamentos>
         <tr>
             <td>{{lancamentos.descricao}}</td>
-            <td class="col-parcela-content">{{lancamentos.parcela}}</td>
-            <td class="col-data-content">{{lancamentos.dataVencimento | date: 'dd/MM/y'}}</td>
+            <td class="col-parcela-content">{{lancamentos.numeroParcela}}/{{lancamentos.quantidadeParcelas}}</td>
+            <td class="col-data-content">{{lancamentos.datavencimento | date: 'dd/MM/y'}}</td>
             <td class="col-data-content">{{lancamentos.dataPagamento | date: 'dd/MM/y'}}</td>
             <td class="col-valor-content">{{lancamentos.valor | currency: 'BRL'}}</td>
 
