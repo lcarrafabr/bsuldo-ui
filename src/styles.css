@@ -24,7 +24,11 @@ label {
   width: 120px;
 }
 .col-parcela-header {
-  width: 90px;
+  width: 80px;
+}
+
+.col-situacao-header {
+  width: 110px;
 }
 
 .col-valor-content {
@@ -39,6 +43,9 @@ label {
   text-align: center;
 }
 .col-parcela-content {
+  text-align: center;
+}
+.col-situacao-content {
   text-align: center;
 }
 
@@ -57,5 +64,9 @@ a:hover, a:focus {
 .p-message-error {
   padding: 3px;
   margin: 0;
+}
+
+.p-table {
+  background-color: blue;
 }
 

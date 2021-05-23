@@ -1,46 +1,96 @@
 <div class="container">
   <p-card>
-  <div class="p-col-12">
-    <h1>Lançamentos</h1>
-  </div>
+    <form autocomplete="off" (ngSubmit)="pesquisar();">
+      <div class="p-col-12">
+        <h2>Lançamentos</h2>
+      </div>
 
-  <div class="p-col-12 p-fluid">
-    <label>Descrição</label>
-    <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por descrição">
-  </div>
+      <div class="p-col-12 p-fluid">
+        <label>Descrição</label>
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por descrição" name="descricao" [(ngModel)]="descricao">
+      </div>
 
-  <div class="p-col-12">
-    <label style="display: block;">Vencimento</label>
-    <p-calendar
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true"
-            [showIcon]="true"></p-calendar>
-    <label>Até: </label>
-    <p-calendar
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true"
-            [showIcon]="true"></p-calendar>
 
-    <label class="p-fluid">-------</label>
-    <p-dropdown></p-dropdown>
-  </div>
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
 
-  <div class="p-col-12">
-    <button pButton type="button" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
-  </div>
+          <div class="p-mb-2 p-mr-2 p-fluid">
+            <label style="display: block;">Vencimento</label>
+            <p-calendar
+                    name="vencimentoInicio"
+                    [(ngModel)]="dataVencimentoInicio"
+                    dateFormat="dd/mm/yy"
+                    [readonlyInput]="true"
+                    [showIcon]="true"></p-calendar>
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-fluid" style="margin-top: 30px;">
+            <label>Até: </label>
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-fluid">
+            <label style="color: white;" class="p-fluid">Data Fim</label>
+            <p-calendar
+                name="vencimentoFim"
+                [(ngModel)]="dataVencimentoFim"
+                dateFormat="dd/mm/yy"
+                [readonlyInput]="true"
+                [showIcon]="true"></p-calendar>
+          </div>
+
+
+
+          <div class="p-mb-2 p-mr-2 p-fluid">
+            <label class="p-fluid">Método cobrança</label>
+            <p-dropdown
+            [options]="metodoCobranca"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-fluid">
+            <label class="p-fluid">Status</label>
+            <p-dropdown
+            name="situacao"
+            [(ngModel)]="situacao"
+            [options]="status"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-fluid">
+            <label class="p-fluid">chave de pesquisa</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Chave de pesquisa" name="chavePesquisa" [(ngModel)]="chavePesquisa">
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="p-col-12">
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+      </div>
+
+    </form>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
 
   <div class="p-grid">
     <div class="p=col=12">
       <p-table
+      #tabela
       [value] = lancamentos
       styleClass="p-datatable-gridlines"
       [paginator]="true"
       [rows]="5"
       selectionMode="single"
       [responsive]="true">
+      <ng-template pTemplate="emptymessage">
+        Nenhum lançamento encontrado
+      </ng-template>
       <ng-template pTemplate="header">
         <tr>
             <th>Descricao</th>
+            <th class="col-situacao-header">Status</th>
             <th class="col-parcela-header">Parcela</th>
             <th class="col-data-header">Vencimento</th>
             <th class="col-data-header">Pagamento</th>
@@ -51,6 +101,7 @@
     <ng-template pTemplate="body" let-lancamentos>
         <tr>
             <td>{{lancamentos.descricao}}</td>
+            <td class="col-situacao-content">{{lancamentos.situacao}}</td>
             <td class="col-parcela-content">{{lancamentos.numeroParcela}}/{{lancamentos.quantidadeParcelas}}</td>
             <td class="col-data-content">{{lancamentos.datavencimento | date: 'dd/MM/y'}}</td>
             <td class="col-data-content">{{lancamentos.dataPagamento | date: 'dd/MM/y'}}</td>
@@ -63,7 +114,7 @@
               <label style="color: white;">-</label>
 
               <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger"
-              pTooltip="Remover lançamento" tooltipPosition="top"></button>
+              pTooltip="Remover lançamento" tooltipPosition="top" (click)="excluir(lancamentos)"></button>
             </td>
         </tr>
     </ng-template>
