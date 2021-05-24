@@ -13,7 +13,7 @@ export class MetodoCobrancaService {
   listarTodos(): Promise<any> {
 
     const headers = new HttpHeaders()
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODg0Njc3LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI1OGMzNzlhZi0zZTJlLTQ0MTAtYmYzYy1lMTE5YmQ0NjJmYjgiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.4soIvpHWalSA-_HidxCLYPGh9dHVtFw5MtbQIAdQiCo');
+    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODk1NjY2LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJkNDkxMmNkMy0wNGFlLTRlYzktOWE2YS04YmZjY2Q1OGQxMGYiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.PyVPU9S1Ay8-Tdi3yh8aFW6vPh-HA_1OcpfQt2-x5_A');
 
     return this.http.get(`${this.metodoCobrancaURL}`, { headers })
     .toPromise()

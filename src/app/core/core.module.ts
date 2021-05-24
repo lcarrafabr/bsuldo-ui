@@ -31,7 +31,7 @@ import { CommonModule } from '@angular/common';
     ErrorHandlerService,
     MessageService,
     ConfirmationService,
-    { provide: LOCALE_ID, useValue: 'pt-BR'}
+   // { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })
 export class CoreModule { }

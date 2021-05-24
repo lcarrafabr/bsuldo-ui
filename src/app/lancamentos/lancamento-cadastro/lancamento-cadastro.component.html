@@ -5,7 +5,7 @@
       <h2>Cadastro de lançamentos</h2>
     </div>
 
-    <form autocomplete="off">
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
 
       <div class="p-col-12 p-fluid">
         <label>Descrição</label>
@@ -24,6 +24,8 @@
           <div class="p-mb-1 p-mr-1 p-fluid">
             <label>Data vencimento</label>
             <p-calendar
+            name="dataVencimento"
+            [(ngModel)]="lancamento.datavencimento"
             dateFormat="dd/mm/yy"
             [readonlyInput]="true"
             [showIcon]="true"></p-calendar>
@@ -32,6 +34,8 @@
           <div class="p-mb-1 p-mr-1 p-fluid">
             <label>Data Pagamento</label>
             <p-calendar
+            name="dataPagamento"
+            [(ngModel)]="lancamento.dataPagamento"
             [readonlyInput]="true"
             dateFormat="dd/mm/yy"
             [showIcon]="true"></p-calendar>
@@ -41,12 +45,14 @@
             <label>Valor</label>
             <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
             <p-inputNumber name="valor" mode="decimal" inputId="minmaxfraction" [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"
-            ngModel></p-inputNumber>
+            ngModel [(ngModel)]="lancamento.valor"></p-inputNumber>
           </div>
 
           <div class="p-mb-1 p-mr-1 p-fluid">
             <label>Categoria</label>
             <p-dropdown
+            name="categoria"
+            [(ngModel)]="lancamento.categoria.categoriaId"
             [options]="categoria"
             filter="true"
             placeholder="Selecione"></p-dropdown>
@@ -66,6 +72,8 @@
           <div class="p-mb-1 p-mr-1 p-fluid">
             <label>Método de cobrança</label>
             <p-dropdown
+            name="metododecobranca"
+            [(ngModel)]="lancamento.metodoDeCobranca.metodoCobrancaId"
             [options]="metodoCobranca"
             filter="true"
             placeholder="Selecione"></p-dropdown>
@@ -81,43 +89,46 @@
 
           <div class="p-mb-2 p-mr-2 p-fluid">
             <label>Chave de pesquisa</label>
-            <input type="text" pInputText class="p-inputtext-sm" placeholder="Chave de pesquisa">
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Chave de pesquisa"
+            name="chavePesquisa" [(ngModel)]="lancamento.chavePesquisa" disabled=true>
           </div>
 
           <div class="p-mb-2 p-mr-2 p-col-2">
             <label>Parcelado</label>
-            <p-inputSwitch ></p-inputSwitch>
+            <p-inputSwitch name="parcelado" [(ngModel)]="parcelado"></p-inputSwitch>
           </div>
 
         </div>
 
-        <!---Aqui é a area de parcelamento--->
-        <div class="p-d-flex p-flex-column p-flex-md-row">
+        <div [(hidden)]="!parcelado">
+          <!---Aqui é a area de parcelamento--->
+          <div class="p-d-flex p-flex-column p-flex-md-row">
 
-          <div class="p-mb-1 p-mr-1 p-col-2">
-            <label>Qtd parcelas</label>
-            <input type="text" pInputText class="p-inputtext-sm" placeholder="QTD parcelas">
+            <div class="p-mb-1 p-mr-1 p-col-2">
+              <label>Qtd parcelas</label>
+              <input type="text" pInputText class="p-inputtext-sm" name="qtdParcela" [(ngModel)]="lancamento.quantidadeParcelas" placeholder="QTD parcelas">
+            </div>
+
+            <div class="p-mb-1 p-mr-1 p-col-2">
+              <label>N° da parcela</label>
+              <input type="text" pInputText class="p-inputtext-sm" name="numeroParcela" [(ngModel)]="lancamento.numeroParcela" placeholder="N° da parcela">
+            </div>
+
           </div>
-
-          <div class="p-mb-1 p-mr-1 p-col-2">
-            <label>N° da parcela</label>
-            <input type="text" pInputText class="p-inputtext-sm" placeholder="N° da parcela">
-          </div>
-
-        </div>
+      </div>
 
       </div>
 
       <div style="background-color: thistle;"class="p-col-12">
         <p-card>
 
-          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary"
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
               pTooltip="Salvar lançamento" tooltipPosition="top"></button>
 
-              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary"
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
               pTooltip="Novo lançamento" tooltipPosition="top"></button>
 
-              <a href="javascript:;">Voltar para pesquisa</a>
+              <a href="javascript:;" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
 
         </p-card>
       </div>
