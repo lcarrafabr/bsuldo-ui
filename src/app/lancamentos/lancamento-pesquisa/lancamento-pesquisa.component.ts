@@ -1,4 +1,6 @@
-import { MessageService } from 'primeng/api';
+import { MetodoCobrancaService } from './../../metodo-cobrancas/metodo-cobranca.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table/table';
@@ -25,20 +27,18 @@ export class LancamentoPesquisaComponent implements OnInit{
     {label: 'VENCIDO', value: 'VENCIDO'}
   ]
 
-  metodoCobranca = [
-    {label: 'Cartão Santander', value: 1},
-    {label: 'Cartão Marisa', value: 2},
-    {label: 'Cartão Bradesco', value: 3},
-    {label: 'PIX Inter', value: 4},
-    {label: 'Cartão Inter', value: 1}
-  ]
+  metodoCobranca = []
 
   constructor(private lancamentoService: LancamentoService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmation: ConfirmationService,
+    private errorHandler: ErrorHandlerService,
+    private metodoCobrancaService: MetodoCobrancaService
     ) { }
 
   ngOnInit() {
     this.pesquisar();
+    this.carregarMetodoCobranca();
   }
 
   pesquisar() {
@@ -52,7 +52,18 @@ export class LancamentoPesquisaComponent implements OnInit{
     };
 
     this.lancamentoService.pesquisar(filtro)
-    .then(lancamentos => this.lancamentos = lancamentos);
+    .then(lancamentos => this.lancamentos = lancamentos)
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  confirmarExclusao(lancamento: any) {
+
+    this.confirmation.confirm({
+      message: 'Deseja excluir o lançamento ' + lancamento.descricao + ' no valor de: ' + lancamento.valor + '?',
+      accept: () => {
+        this.excluir(lancamento);
+      }
+    });
   }
 
   excluir(lancamento: any) {
@@ -63,6 +74,18 @@ export class LancamentoPesquisaComponent implements OnInit{
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!', closable: false});
     })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarMetodoCobranca() {
+
+    return this.metodoCobrancaService.listarTodos()
+    .then(metodoCobrancas => {
+      this.metodoCobranca = metodoCobrancas.map(m => {
+        return { label: m.nomeMetodoCob, value: m.metodoCobrancaId }
+      });
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
 
 }
