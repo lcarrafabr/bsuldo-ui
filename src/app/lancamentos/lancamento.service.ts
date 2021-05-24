@@ -26,7 +26,7 @@ export class LancamentoService {
     let urlExtensao = "";
 
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxNzQ4OTA5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJlNWI5ZWEzZS0zNDgyLTQwMDctOTI0Yi02OTA4NDU0NzllZmIiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.R6M8cf70S8O9sICv2kjSluVSqx_mLprUMQCiCkcTMT4');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODc2ODU3LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJkMzQ2NDllNC04OTU5LTQ4ZmYtYTgyMi1hNmI4NjAyMzQ3MzQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.3NOLmhXteGzn15ZJS-9g4Rszw7lN_16GGA2l_mYBXwE');
 
     if(filtro.descricao) {
       params = params.set('descricao', filtro.descricao);
@@ -64,7 +64,7 @@ export class LancamentoService {
   excluir(codigo: number): Promise<void> {
 
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxNzQ4OTA5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJlNWI5ZWEzZS0zNDgyLTQwMDctOTI0Yi02OTA4NDU0NzllZmIiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.R6M8cf70S8O9sICv2kjSluVSqx_mLprUMQCiCkcTMT4');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODc2ODU3LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJkMzQ2NDllNC04OTU5LTQ4ZmYtYTgyMi1hNmI4NjAyMzQ3MzQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.3NOLmhXteGzn15ZJS-9g4Rszw7lN_16GGA2l_mYBXwE');
 
       return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
       .toPromise()

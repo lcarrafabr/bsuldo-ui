@@ -6,6 +6,10 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';;
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SidebarModule} from 'primeng/sidebar';
+import {ToastModule} from 'primeng/toast';
+
+import { MessageService } from 'primeng/api';
+
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -20,6 +24,7 @@ registerLocaleData(localePt);
     BrowserModule,
     BrowserAnimationsModule,
     SidebarModule,
+    ToastModule,
 
     CoreModule,
     LancamentosModule
@@ -27,6 +32,7 @@ registerLocaleData(localePt);
 
   ],
   providers: [
+    MessageService,
     { provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]

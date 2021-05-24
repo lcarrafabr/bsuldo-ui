@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table/table';
@@ -32,7 +33,9 @@ export class LancamentoPesquisaComponent implements OnInit{
     {label: 'Cartão Inter', value: 1}
   ]
 
-  constructor(private lancamentoService: LancamentoService) { }
+  constructor(private lancamentoService: LancamentoService,
+    private messageService: MessageService
+    ) { }
 
   ngOnInit() {
     this.pesquisar();
@@ -56,9 +59,9 @@ export class LancamentoPesquisaComponent implements OnInit{
 
     this.lancamentoService.excluir(lancamento.lancamentoId)
     .then(()=> {
-      console.log('Excluido com sucesso');
       this.grid.reset();
       this.pesquisar();
+      this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!', closable: false});
     })
   }
 
