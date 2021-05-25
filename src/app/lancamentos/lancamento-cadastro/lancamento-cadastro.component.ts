@@ -42,7 +42,22 @@ export class LancamentoCadastroComponent implements OnInit {
     this.carregarCategorias();
   }
 
+  get editando() {
+
+    return Boolean (this.lancamento.lancamentoId)
+  }
+
   salvar(form: FormControl) {
+
+    if(this.editando) {
+
+      this.atualizarLancamento(form);
+    } else {
+      this.adicionarLancamento(form);
+    }
+  }
+
+  adicionarLancamento(form: FormControl) {
 
     this.lancamento.parcelado = this.parcelado
     this.lancamento.numeroParcela = 1;
@@ -57,8 +72,6 @@ export class LancamentoCadastroComponent implements OnInit {
       this.lancamento.situacao = 'PAGO';
     }
 
-    console.log(this.lancamento);
-
     this.lancamentoService.adicionar(this.lancamento)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Lançamento cadastrado com sucesso!', closable: false});
@@ -68,9 +81,25 @@ export class LancamentoCadastroComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
-  get editando() {
+  atualizarLancamento(form: FormControl) {
 
-    return Boolean (this.lancamento.lancamentoId)
+    console.log(this.lancamento.situacao);
+    console.log(this.lancamento.dataPagamento);
+
+    if(this.lancamento.dataPagamento == null && this.lancamento.situacao == 'VENCIDO') {
+      this.lancamento.situacao = 'VENCIDO';
+    }
+
+    if(this.lancamento.dataPagamento != null) {
+      this.lancamento.situacao = 'PAGO';
+    }
+
+    this.lancamentoService.atualizar(this.lancamento)
+    .then(lancamento => {
+      this.lancamento = lancamento;
+      this.messageService.add({severity: 'success', detail: 'Lancamento atualizado com sucesso!', closable: false});
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
 
   carregarMetodoCobranca() {

@@ -30,7 +30,7 @@ export class LancamentoService {
     let urlExtensao = "";
 
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTYzODY5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI2MGU3N2RiZC1kMzFkLTQ0ZWQtODUyNi02NDYyMjY4N2Q0OTMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.IsrjA2IiDYIs0YFTXclHYiHaahYFPnGVqIkTJVQf_N8');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTc0MjAxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJhMjQwNTkyOS1iNDE3LTQ1NzYtYjk0Zi0yOWUyMzJjODUzZGQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.EnddRhTZgZOhdE7B4vTZKr24PjGbUOlAJ9wIA9rwmqg');
 
     if(filtro.descricao) {
       params = params.set('descricao', filtro.descricao);
@@ -72,7 +72,7 @@ export class LancamentoService {
   excluir(codigo: number): Promise<void> {
 
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTYzODY5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI2MGU3N2RiZC1kMzFkLTQ0ZWQtODUyNi02NDYyMjY4N2Q0OTMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.IsrjA2IiDYIs0YFTXclHYiHaahYFPnGVqIkTJVQf_N8');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTc0MjAxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJhMjQwNTkyOS1iNDE3LTQ1NzYtYjk0Zi0yOWUyMzJjODUzZGQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.EnddRhTZgZOhdE7B4vTZKr24PjGbUOlAJ9wIA9rwmqg');
 
       return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
       .toPromise()
@@ -81,7 +81,7 @@ export class LancamentoService {
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
     const headers = new HttpHeaders()
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTYzODY5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI2MGU3N2RiZC1kMzFkLTQ0ZWQtODUyNi02NDYyMjY4N2Q0OTMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.IsrjA2IiDYIs0YFTXclHYiHaahYFPnGVqIkTJVQf_N8')
+    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTc0MjAxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJhMjQwNTkyOS1iNDE3LTQ1NzYtYjk0Zi0yOWUyMzJjODUzZGQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.EnddRhTZgZOhdE7B4vTZKr24PjGbUOlAJ9wIA9rwmqg')
     .append('Content-Type', 'application/json');
 
     return this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { headers })
@@ -113,7 +113,7 @@ export class LancamentoService {
     params = params.set('dataFim', moment(dataFim).format("YYYY-MM-DD"));
 
     const headers = new HttpHeaders()
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTYzODY5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI2MGU3N2RiZC1kMzFkLTQ0ZWQtODUyNi02NDYyMjY4N2Q0OTMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.IsrjA2IiDYIs0YFTXclHYiHaahYFPnGVqIkTJVQf_N8');
+    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTc0MjAxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJhMjQwNTkyOS1iNDE3LTQ1NzYtYjk0Zi0yOWUyMzJjODUzZGQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.EnddRhTZgZOhdE7B4vTZKr24PjGbUOlAJ9wIA9rwmqg');
 
     return this.http.get(`${this.lancamentosUrl}/valor-a-pagar-no-mes`, { headers, params })
     .toPromise()
@@ -123,7 +123,7 @@ export class LancamentoService {
 
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
     const headers = new HttpHeaders()
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTYzODY5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI2MGU3N2RiZC1kMzFkLTQ0ZWQtODUyNi02NDYyMjY4N2Q0OTMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.IsrjA2IiDYIs0YFTXclHYiHaahYFPnGVqIkTJVQf_N8');
+    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTc0MjAxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJhMjQwNTkyOS1iNDE3LTQ1NzYtYjk0Zi0yOWUyMzJjODUzZGQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.EnddRhTZgZOhdE7B4vTZKr24PjGbUOlAJ9wIA9rwmqg');
     headers.append('Content-Type', 'application/json');
 
     return this.http.put(`${this.lancamentosUrl}/${lancamento.lancamentoId}`, lancamento, { headers })
@@ -141,7 +141,7 @@ export class LancamentoService {
   buscarPorCodigo(codigo: number): Promise<Lancamento> {
 
     const headers = new HttpHeaders()
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTYzODY5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI2MGU3N2RiZC1kMzFkLTQ0ZWQtODUyNi02NDYyMjY4N2Q0OTMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.IsrjA2IiDYIs0YFTXclHYiHaahYFPnGVqIkTJVQf_N8');
+    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTc0MjAxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJhMjQwNTkyOS1iNDE3LTQ1NzYtYjk0Zi0yOWUyMzJjODUzZGQiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.EnddRhTZgZOhdE7B4vTZKr24PjGbUOlAJ9wIA9rwmqg');
 
     return this.http.get(`${this.lancamentosUrl}/${codigo}`, { headers })
       .toPromise()

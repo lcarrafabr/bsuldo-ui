@@ -1,3 +1,5 @@
+import { AppRoutingModule } from './app-routing.module';
+import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
 import { CoreModule } from './core/core.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
@@ -15,12 +17,6 @@ import { LancamentoPesquisaComponent } from './lancamentos/lancamento-pesquisa/l
 
 registerLocaleData(localePt);
 
-const routes: Routes = [
-  { path: 'lancamentos', component: LancamentoPesquisaComponent },
-  { path: 'lancamentos/novo', component: LancamentoCadastroComponent },
-  { path: 'lancamentos/:codigo', component: LancamentoCadastroComponent }
-]
-
 @NgModule({
   declarations: [
     AppComponent
@@ -30,13 +26,12 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     SidebarModule,
-    RouterModule.forRoot(routes),
 
 
     CoreModule,
-    LancamentosModule
+    LancamentosModule,
 
-
+    AppRoutingModule
   ],
   providers: [
 

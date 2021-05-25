@@ -1,3 +1,4 @@
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
 import { SidebarModule } from 'primeng/sidebar';
@@ -47,11 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
 
     SharedModule,
     HttpClientModule,
-    RouterModule
+    LancamentosRoutingModule
   ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentoPesquisaComponent
-  ]
+  exports: []
 })
 export class LancamentosModule { }
