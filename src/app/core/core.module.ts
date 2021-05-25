@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
+import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 
 
@@ -37,6 +38,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
     MessageService,
     ConfirmationService,
     AuthService,
+    JwtHelperService,
     { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })

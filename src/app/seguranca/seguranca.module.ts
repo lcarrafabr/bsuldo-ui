@@ -1,3 +1,4 @@
+import { JwtModule } from '@auth0/angular-jwt';
 import { InputTextModule } from 'primeng/inputtext';
 import { SegurancaRoutingModule } from './seguranca.routing-module';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,14 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     SegurancaRoutingModule,
     FormsModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        }
+      }
+    }),
 
     InputTextModule,
     PasswordModule,
