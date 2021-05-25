@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
 import { SidebarModule } from 'primeng/sidebar';
 import { MessagesModule } from 'primeng/messages';
@@ -45,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     SidebarModule,
 
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   exports: [
     LancamentoCadastroComponent,

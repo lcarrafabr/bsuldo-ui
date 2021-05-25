@@ -16,7 +16,7 @@ export class CategoriaService {
     listarTodos(): Promise<any> {
 
       const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODk1NjY2LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJkNDkxMmNkMy0wNGFlLTRlYzktOWE2YS04YmZjY2Q1OGQxMGYiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.PyVPU9S1Ay8-Tdi3yh8aFW6vPh-HA_1OcpfQt2-x5_A');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTAyMTcxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJlNjQxODgzNy1lYWYyLTQ2MzgtOTkxMi02NjdmNmE4OTYwMzYiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.0DxMvBMahpxi4wHvOj4clKuoSe1JzClo10lwoODPcLw');
 
 
       return this.http.get(`${this.categoriaURL}`, { headers })

@@ -10,7 +10,7 @@
       <div class="p-col-12 p-fluid">
         <label>Descrição</label>
         <input type="text" name="descricao" pInputText class="p-inputtext-sm" placeholder="Informe a descrição"
-        ngModel #descricao="ngModel" required minlength="3">
+        ngModel #descricao="ngModel" [(ngModel)]="lancamento.descricao" required minlength="3">
       </div>
 
       <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
@@ -111,7 +111,8 @@
 
             <div class="p-mb-1 p-mr-1 p-col-2">
               <label>N° da parcela</label>
-              <input type="text" pInputText class="p-inputtext-sm" name="numeroParcela" [(ngModel)]="lancamento.numeroParcela" placeholder="N° da parcela">
+              <input type="text" pInputText class="p-inputtext-sm" name="numeroParcela"
+              [(ngModel)]="lancamento.numeroParcela" placeholder="N° da parcela" disabled=true>
             </div>
 
           </div>
@@ -128,7 +129,7 @@
               <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
               pTooltip="Novo lançamento" tooltipPosition="top"></button>
 
-              <a href="javascript:;" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+              <a routerLink="/lancamentos" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
 
         </p-card>
       </div>

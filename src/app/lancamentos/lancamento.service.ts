@@ -27,7 +27,7 @@ export class LancamentoService {
     let urlExtensao = "";
 
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODkxNDM0LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI4OWI4OGRmMi0wZWI0LTRjZDUtYWU2Yy00NmUxNzYwODViZDIiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.APD19yE_5r8s0csi6heRzce_CIrUfNH8LUvO65Cwkfw');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTAyMjk2LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI3MTgyNDUzNy01MmUxLTQ5ZmQtYWVkNS1jNTk0Nzc5MTM0OGUiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.caDzRMiuBhUXbXfr3SmH4gbz20izc0SNu7GkI_R2Qbg');
 
     if(filtro.descricao) {
       params = params.set('descricao', filtro.descricao);
@@ -65,7 +65,7 @@ export class LancamentoService {
   excluir(codigo: number): Promise<void> {
 
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODkxNDM0LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI4OWI4OGRmMi0wZWI0LTRjZDUtYWU2Yy00NmUxNzYwODViZDIiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.APD19yE_5r8s0csi6heRzce_CIrUfNH8LUvO65Cwkfw');
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTAyMTcxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJlNjQxODgzNy1lYWYyLTQ2MzgtOTkxMi02NjdmNmE4OTYwMzYiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.0DxMvBMahpxi4wHvOj4clKuoSe1JzClo10lwoODPcLw');
 
       return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
       .toPromise()
@@ -74,7 +74,7 @@ export class LancamentoService {
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
     const headers = new HttpHeaders()
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxODk2Mjk5LCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiI4MDExYWU4ZS1hYWI0LTQ0MzktOTc1My00NTliYTVmODRjODYiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.W_182YQDNiy73YoZJGNyXd3PCy1eB8-AxcQarhwkBpE')
+    .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJub21lVXN1YXJpbyI6IkxDQVJSQUZBLkJSIiwidXNlcl9uYW1lIjoiTENBUlJBRkEuQlIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjIxOTAyMTcxLCJhdXRob3JpdGllcyI6WyJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9QRVNRVUlTQVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfUEVTU09BUyJdLCJqdGkiOiJlNjQxODgzNy1lYWYyLTQ2MzgtOTkxMi02NjdmNmE4OTYwMzYiLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.0DxMvBMahpxi4wHvOj4clKuoSe1JzClo10lwoODPcLw')
     .append('Content-Type', 'application/json');
 
     return this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { headers })

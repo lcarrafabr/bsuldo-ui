@@ -36,11 +36,17 @@ export class LancamentoCadastroComponent implements OnInit {
   salvar(form: FormControl) {
 
     this.lancamento.parcelado = this.parcelado
-    this.lancamento.pessoa.pessoaID = 1;
     this.lancamento.numeroParcela = 1;
-    this.lancamento.descricao = 'TESTE';
-    console.log('Categorias: ' + this.lancamento.categoria)
-    console.log('Categorias ID: ' + this.lancamento.categoria.categoriaId)
+    this.lancamento.pessoa.pessoaID = 1; //*************TODO pegar o codigo do usuario e enviar aqui **************** */
+
+    if(this.parcelado == false) {
+      this.lancamento.quantidadeParcelas = 1;
+      this.lancamento.numeroParcela = 1;
+    }
+
+    if(this.lancamento.dataPagamento != null) {
+      this.lancamento.situacao = 'PAGO';
+    }
 
     console.log(this.lancamento);
 

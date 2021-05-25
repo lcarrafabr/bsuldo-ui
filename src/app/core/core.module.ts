@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
     SidebarModule,
     ToastModule,
     ConfirmDialogModule,
+    RouterModule
 
   ],
   exports: [
@@ -31,7 +33,7 @@ import { CommonModule } from '@angular/common';
     ErrorHandlerService,
     MessageService,
     ConfirmationService,
-   // { provide: LOCALE_ID, useValue: 'pt-BR'}
+    { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })
 export class CoreModule { }
