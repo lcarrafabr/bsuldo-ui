@@ -17,7 +17,8 @@ registerLocaleData(localePt);
 
 const routes: Routes = [
   { path: 'lancamentos', component: LancamentoPesquisaComponent },
-  { path: 'lancamentos/novo', component: LancamentoCadastroComponent }
+  { path: 'lancamentos/novo', component: LancamentoCadastroComponent },
+  { path: 'lancamentos/:codigo', component: LancamentoCadastroComponent }
 ]
 
 @NgModule({

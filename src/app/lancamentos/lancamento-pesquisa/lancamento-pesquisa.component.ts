@@ -28,6 +28,7 @@ export class LancamentoPesquisaComponent implements OnInit{
   ]
 
   metodoCobranca = []
+  valorAPagarNoMes: number;
 
   constructor(private lancamentoService: LancamentoService,
     private messageService: MessageService,
@@ -39,6 +40,7 @@ export class LancamentoPesquisaComponent implements OnInit{
   ngOnInit() {
     this.pesquisar();
     this.carregarMetodoCobranca();
+    this.carregaValorNoMes();
   }
 
   pesquisar() {
@@ -52,7 +54,10 @@ export class LancamentoPesquisaComponent implements OnInit{
     };
 
     this.lancamentoService.pesquisar(filtro)
-    .then(lancamentos => this.lancamentos = lancamentos)
+    .then(lancamentos => {
+      this.lancamentos = lancamentos
+      this.carregaValorNoMes();
+    })
     .catch(erro => this.errorHandler.handle(erro));
   }
 
@@ -84,6 +89,15 @@ export class LancamentoPesquisaComponent implements OnInit{
       this.metodoCobranca = metodoCobrancas.map(m => {
         return { label: m.nomeMetodoCob, value: m.metodoCobrancaId }
       });
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregaValorNoMes() {
+
+    return this.lancamentoService.buscaValorNoMes()
+    .then(valor => {
+      this.valorAPagarNoMes = valor;
     })
     .catch(erro => this.errorHandler.handle(erro));
   }

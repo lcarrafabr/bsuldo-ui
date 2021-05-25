@@ -110,7 +110,7 @@
 
             <td class="col-acoes">
               <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary"
-              pTooltip="Editar Lançamento" tooltipPosition="top"></button>
+              pTooltip="Editar Lançamento" tooltipPosition="top" [routerLink]="['/lancamentos', lancamentos.lancamentoId]"></button>
 
               <label style="color: white;">-</label>
 
@@ -118,6 +118,12 @@
               pTooltip="Remover lançamento" tooltipPosition="top" (click)="confirmarExclusao(lancamentos)"></button>
             </td>
         </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <h5 style="color: teal;">Valor a pagar no mês: {{ valorAPagarNoMes | currency: 'BRL'}}</h5>
+  </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
     </ng-template>
 
       </p-table>

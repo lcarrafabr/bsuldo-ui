@@ -2,7 +2,7 @@
   <p-card>
 
     <div class="p-col-12">
-      <h2>Cadastro de lançamentos</h2>
+      <h2>{{ editando ? 'Edição de' : 'Cadastro de' }} lançamentos</h2>
     </div>
 
     <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">

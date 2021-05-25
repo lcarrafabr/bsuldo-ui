@@ -6,6 +6,7 @@ import { ErrorHandlerService } from './../../core/error-handler.service';
 import { MetodoCobrancaService } from './../../metodo-cobrancas/metodo-cobranca.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -25,10 +26,18 @@ export class LancamentoCadastroComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private categoriaService: CategoriaService,
     private messageService: MessageService,
-    private lancamentoService: LancamentoService
+    private lancamentoService: LancamentoService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
+    const codigoLancamento = this.route.snapshot.params['codigo'];
+
+    if(codigoLancamento) {
+      this.carregarLancamento(codigoLancamento);
+    }
+
     this.carregarMetodoCobranca();
     this.carregarCategorias();
   }
@@ -59,6 +68,11 @@ export class LancamentoCadastroComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
+  get editando() {
+
+    return Boolean (this.lancamento.lancamentoId)
+  }
+
   carregarMetodoCobranca() {
 
     return this.metodoCobrancaService.listarTodos()
@@ -79,6 +93,18 @@ export class LancamentoCadastroComponent implements OnInit {
       });
     })
     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
+  carregarLancamento(codigo: number) {
+
+    this.lancamentoService.buscarPorCodigo(codigo)
+    .then(lancamento => {
+      this.parcelado = lancamento.parcelado;
+      this.lancamento = lancamento;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+
   }
 
 }
