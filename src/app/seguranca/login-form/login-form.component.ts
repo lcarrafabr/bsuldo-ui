@@ -1,5 +1,7 @@
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -9,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
 export class LoginFormComponent implements OnInit {
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private errorHandler: ErrorHandlerService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -19,7 +23,13 @@ export class LoginFormComponent implements OnInit {
 
     usuario.toUpperCase;
 
-    this.auth.login(usuario, senha);
+    this.auth.login(usuario, senha)
+    .then(() => {
+      this.router.navigate(['lancamentos'])
+    })
+    .catch(erro => {
+      this.errorHandler.handle(erro);
+    });
   }
 
 }

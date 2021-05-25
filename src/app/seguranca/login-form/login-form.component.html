@@ -6,7 +6,7 @@
     <form class="login-form" autocomplete="off" #f="ngForm">
       <input type="text" pInputText name="usuario" ngModel #usuario required placeholder="Username"/>
       <input type="password" name="senha" ngModel #senha required pPassword placeholder="Password"/>
-      <button class="p-button-raised" (click)="login(usuario.value, senha.value)">login</button>
+      <button class="p-button-raised" (click)="login(usuario.value, senha.value); senha.value=''; usuario.value=''">login</button>
     </form>
   </div>
 </div>
