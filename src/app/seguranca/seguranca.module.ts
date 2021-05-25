@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { LoginFormComponent } from './login-form/login-form.component';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -14,6 +15,7 @@ import {ButtonModule} from 'primeng/button';
   imports: [
     CommonModule,
     SegurancaRoutingModule,
+    FormsModule,
 
     InputTextModule,
     PasswordModule,

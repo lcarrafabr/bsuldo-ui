@@ -1,3 +1,4 @@
+import { AuthService } from './../seguranca/auth.service';
 import { RouterModule } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -35,6 +36,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
     ErrorHandlerService,
     MessageService,
     ConfirmationService,
+    AuthService,
     { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })
