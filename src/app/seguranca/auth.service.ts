@@ -1,6 +1,7 @@
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,15 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   authTokenURL = 'http://localhost:8080/oauth/token'
+  tokenRevokeURL = 'http://localhost:8080/tokens/revoke'
 
   jwtPayload: any;
   jwtPayloadId: any;
 
   constructor(
     private http: HttpClient,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private router: Router
   ) {
     this.carregarToken();
    }
@@ -32,11 +35,10 @@ export class AuthService {
       this.jwtPayloadId = response['id'];
       this.armazenarToken(response['access_token']);
 
-      console.log('Refresh Token OK')
       return Promise.resolve(null);
     })
     .catch(response => {
-      console.log('Erro no refresh token: ' + response);
+      console.log('Erro no refresh token: ' + response['error']);
       return Promise.resolve(null);
     });
    }
@@ -87,6 +89,22 @@ export class AuthService {
     }
 
     return false;
+  }
+
+
+  limparAccessToken() {
+
+    this.http.delete(`${this.tokenRevokeURL}`, { withCredentials: true })
+    .toPromise()
+    .then(() => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('ID');
+      this.jwtPayload = null;
+      this.jwtPayloadId = null;
+      this.router.navigate(['/login']);
+    });
+
+
   }
 
   private armazenarToken(token: string) {

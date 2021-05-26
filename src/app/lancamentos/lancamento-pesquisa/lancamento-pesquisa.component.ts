@@ -76,7 +76,7 @@ export class LancamentoPesquisaComponent implements OnInit{
 
     this.lancamentoService.excluir(lancamento.lancamentoId)
     .then(()=> {
-      this.grid.reset();
+      this.grid.clear();
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!', closable: false});
     })
@@ -107,7 +107,6 @@ export class LancamentoPesquisaComponent implements OnInit{
 
     return this.lancamentoService.buscarPorCodigo(codigo)
     .then(lanc => {
-      console.log(lanc.chavePesquisa);
       this.chavePesquisa = lanc.chavePesquisa;
     })
     .catch(erro => this.errorHandler.handle(erro));
