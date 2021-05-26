@@ -20,6 +20,7 @@ export class LancamentoCadastroComponent implements OnInit {
   categoria = []
   metodoCobranca = []
   lancamento = new Lancamento
+  codigoUsuarioLogado: string;
 
   constructor(
     private metodoCobrancaService: MetodoCobrancaService,
@@ -33,6 +34,7 @@ export class LancamentoCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     const codigoLancamento = this.route.snapshot.params['codigo'];
+    this.codigoUsuarioLogado = localStorage.getItem('ID');
 
     if(codigoLancamento) {
       this.carregarLancamento(codigoLancamento);
@@ -61,7 +63,7 @@ export class LancamentoCadastroComponent implements OnInit {
 
     this.lancamento.parcelado = this.parcelado
     this.lancamento.numeroParcela = 1;
-    this.lancamento.pessoa.pessoaID = 1; //*************TODO pegar o codigo do usuario e enviar aqui **************** */
+    this.lancamento.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
 
     if(this.parcelado == false) {
       this.lancamento.quantidadeParcelas = 1;

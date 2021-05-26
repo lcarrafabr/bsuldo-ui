@@ -19,6 +19,28 @@ export class AuthService {
     this.carregarToken();
    }
 
+   obterNovoAccessToken(): Promise<void> {
+
+    const body = 'grant_type=refresh_token';
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+
+    return this.http.post(this.authTokenURL, body, { headers, withCredentials: true })
+    .toPromise()
+    .then(response => {
+      this.jwtPayloadId = response['id'];
+      this.armazenarToken(response['access_token']);
+
+      console.log('Refresh Token OK')
+      return Promise.resolve(null);
+    })
+    .catch(response => {
+      console.log('Erro no refresh token: ' + response);
+      return Promise.resolve(null);
+    });
+   }
+
   login(usuario: string, senha: string): Promise<void> {
 
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
@@ -26,7 +48,7 @@ export class AuthService {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
-     return this.http.post(this.authTokenURL, body, { headers })
+     return this.http.post(this.authTokenURL, body, { headers, withCredentials: true })
       .toPromise()
       .then(response => {
         //console.log('Resposta: ' + response['access_token']);
@@ -38,11 +60,33 @@ export class AuthService {
           const responseJson = response['error'];
 
           if(responseJson.error === 'invalid_grant') {
-            return Promise.reject('Usuário ou senha inválidos');
+            return Promise.reject('Alerta! Aviso de intruso!');
           }
         }
         return Promise.reject(response);
       });
+  }
+
+  isAccessTokenInvalido() {
+    const token = localStorage.getItem('token');
+
+    return !token || this.jwtHelper.isTokenExpired(token);
+  }
+
+  temPermissao(permissao: string) {
+
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
+  }
+
+  temQualquerPermissao(roles) {
+
+    for(const role of roles) {
+      if(this.temPermissao(role)){
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private armazenarToken(token: string) {

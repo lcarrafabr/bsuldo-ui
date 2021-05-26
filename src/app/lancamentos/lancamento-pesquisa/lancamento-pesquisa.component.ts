@@ -18,6 +18,7 @@ export class LancamentoPesquisaComponent implements OnInit{
   dataVencimentoFim: Date;
   situacao: string;
   chavePesquisa: string;
+  chavePesquisaPesquisada = 'Luciano';
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
@@ -98,6 +99,16 @@ export class LancamentoPesquisaComponent implements OnInit{
     return this.lancamentoService.buscaValorNoMes()
     .then(valor => {
       this.valorAPagarNoMes = valor;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  buscarPorCodigo(codigo: number) {
+
+    return this.lancamentoService.buscarPorCodigo(codigo)
+    .then(lanc => {
+      console.log(lanc.chavePesquisa);
+      this.chavePesquisa = lanc.chavePesquisa;
     })
     .catch(erro => this.errorHandler.handle(erro));
   }

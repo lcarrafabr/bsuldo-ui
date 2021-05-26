@@ -59,7 +59,8 @@
 
           <div class="p-mb-2 p-mr-2 p-fluid">
             <label class="p-fluid">chave de pesquisa</label>
-            <input type="text" pInputText class="p-inputtext-sm" placeholder="Chave de pesquisa" name="chavePesquisa" [(ngModel)]="chavePesquisa">
+            <input type="text" pInputText class="p-inputtext-sm"
+            placeholder="Chave de pesquisa" name="chavePesquisa" [(ngModel)]="chavePesquisa" #chavePesquisas>
           </div>
 
         </div>
@@ -109,13 +110,16 @@
             <td class="col-valor-content">{{lancamentos.valor | currency: 'BRL'}}</td>
 
             <td class="col-acoes">
-              <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary"
+              <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined"
               pTooltip="Editar Lançamento" tooltipPosition="top" [routerLink]="['/lancamentos', lancamentos.lancamentoId]"></button>
 
-              <label style="color: white;">-</label>
 
-              <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger"
+
+              <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined"
               pTooltip="Remover lançamento" tooltipPosition="top" (click)="confirmarExclusao(lancamentos)"></button>
+
+              <button pButton icon="pi pi-search" class="p-button-raised p-button-rounded p-button-help p-mr-1 p-button-outlined"
+              pTooltip="Pesquisar chave" tooltipPosition="top" (click)="buscarPorCodigo(lancamentos.lancamentoId)"></button>
             </td>
         </tr>
     </ng-template>
