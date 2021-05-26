@@ -1,0 +1,31 @@
+.col-pessoa-header {
+  width: 200px;
+}
+
+.col-pessoa-content {
+  text-align: center;
+}
+
+.col-status-header {
+  width: 80px;
+}
+
+.col-status-content {
+  text-align: center;
+}
+
+.col-email-header {
+  width: 200px;
+}
+
+.col-email-content {
+  text-align: center;
+}
+
+.col-data-header {
+  width: 80px;
+}
+
+.col-data-content {
+  text-align: center;
+}
