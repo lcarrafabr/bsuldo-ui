@@ -1,3 +1,4 @@
+import { PessoaFiltro, PessoaService } from './../pessoa.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PessoaPesquisaComponent implements OnInit {
 
-  constructor() { }
+  pessoas = [];
+  nomePessoa: string
+
+  constructor(
+    private pessoaService: PessoaService
+  ) { }
 
   ngOnInit(): void {
+    this.pesquisar();
+  }
+
+  pesquisar() {
+
+    const filtro: PessoaFiltro = {
+      nomePessoa: this.nomePessoa
+    }
+
+    this.pessoaService.pesquisarPessoa(filtro)
+    .then(pessoa => {
+      this.pessoas = pessoa;
+    })
   }
 
 }

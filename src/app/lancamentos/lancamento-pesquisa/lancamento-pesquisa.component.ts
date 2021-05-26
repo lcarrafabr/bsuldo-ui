@@ -18,7 +18,7 @@ export class LancamentoPesquisaComponent implements OnInit{
   dataVencimentoFim: Date;
   situacao: string;
   chavePesquisa: string;
-  chavePesquisaPesquisada = 'Luciano';
+  chavePesquisaPesquisada = '';
 
   @ViewChild('tabela', {static: true}) grid: Table;
 

@@ -2,7 +2,7 @@
 
   <p-card>
 
-    <form autocomplete="off">
+    <form autocomplete="off" (ngSubmit)="pesquisar();">
 
       <div class="p-col-12">
         <h2>Pessoas</h2>
@@ -10,7 +10,7 @@
 
       <div class="p-col-12 p-fluid">
         <label>Nome pessoa</label>
-        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por nome pessoa" name="pessoa">
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por nome pessoa" name="pessoa" [(ngModel)]="nomePessoa">
       </div>
       <div class="p-col-12">
         <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
@@ -23,6 +23,7 @@
       <div class="p-col-12">
         <p-table
       #tabela
+      [value] = pessoas
       styleClass="p-datatable-gridlines"
       [paginator]="true"
       [rows]="5"
@@ -35,15 +36,14 @@
       <ng-template pTemplate="header">
         <tr>
             <th class="col-pessoa-header">Pessoa</th>
-            <th class="col-status-header">Status</th>
             <th class="col-email-header">E-mail</th>
             <th class="col-data-header">Data cadastro</th>
+            <th class="col-data-header">Ações</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pessoas>
         <tr>
             <td class="col-pessoa-content">{{pessoas.nomePessoa}}</td>
-            <td class="col-status-content">{{pessoas.status}}</td>
             <td class="col-email-content">{{pessoas.email}}</td>
             <td class="col-data-content">{{pessoas.dataCadastro | date: 'dd/MM/y'}}</td>
 
