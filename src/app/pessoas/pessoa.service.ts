@@ -1,5 +1,7 @@
+import { Pessoa } from './../core/model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 export interface PessoaFiltro {
   nomePessoa: string;
@@ -30,6 +32,53 @@ export class PessoaService {
       return this.http.get(`${this.pessoaURL}` + urlExtensao, { params })
       .toPromise()
       .then(response => response);
+    }
+
+    adicionar(pessoa: Pessoa): Promise<Pessoa> {
+
+      return this.http.post<Pessoa>(this.pessoaURL, pessoa)
+      .toPromise();
+    }
+
+    removerPessoa(codigo: number): Promise<void> {
+
+      return this.http.delete(`${this.pessoaURL}/${codigo}`)
+      .toPromise()
+      .then(() => null);
+    }
+
+    atualizarPessoa(pessoa: Pessoa): Promise<Pessoa> {
+
+      return this.http.put(`${this.pessoaURL}/${pessoa.pessoaID}`, pessoa)
+      .toPromise()
+      .then(response => {
+
+        const pessoaAlterada = response as Pessoa;
+        this.converterStringsParaDatas([pessoa]);
+
+        return pessoaAlterada;
+      });
+    }
+
+
+    buscaPorCodigo(codigo: number): Promise<Pessoa> {
+
+      return this.http.get(`${this.pessoaURL}/${codigo}`)
+      .toPromise()
+      .then(response => {
+
+        const pessoa = response as Pessoa;
+        this.converterStringsParaDatas([pessoa]);
+
+        return pessoa;
+      });
+    }
+
+    private converterStringsParaDatas(lancamentos: Pessoa[]) {
+      for (const pessoa of lancamentos) {
+        pessoa.dataCadastro = moment(pessoa.dataCadastro,
+          'YYYY-MM-DD').toDate();
+      }
     }
 
 }

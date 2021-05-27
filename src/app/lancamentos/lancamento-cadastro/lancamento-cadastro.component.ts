@@ -85,9 +85,6 @@ export class LancamentoCadastroComponent implements OnInit {
 
   atualizarLancamento(form: FormControl) {
 
-    console.log(this.lancamento.situacao);
-    console.log(this.lancamento.dataPagamento);
-
     if(this.lancamento.dataPagamento == null && this.lancamento.situacao == 'VENCIDO') {
       this.lancamento.situacao = 'VENCIDO';
     }

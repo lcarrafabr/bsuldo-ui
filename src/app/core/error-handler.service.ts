@@ -40,6 +40,7 @@ export class ErrorHandlerService {
         errors = errorResponse['error'];
 
         msg = errors[0].mensagemUsuario;
+        console.log(msg);
       } catch (e) { }
 
       console.error('Ocorreu um erro', errorResponse);

@@ -1,5 +1,10 @@
+import { LancamentoService } from './../../lancamentos/lancamento.service';
+import { Pessoa } from './../../core/model';
+import { Table } from 'primeng/table/table';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { PessoaFiltro, PessoaService } from './../pessoa.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-pessoa-pesquisa',
@@ -8,11 +13,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PessoaPesquisaComponent implements OnInit {
 
+  @ViewChild('tabela', {static: true}) grid: Table;
+
   pessoas = [];
   nomePessoa: string
 
   constructor(
-    private pessoaService: PessoaService
+    private pessoaService: PessoaService,
+    private confirmation: ConfirmationService,
+    private messageService: MessageService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +39,33 @@ export class PessoaPesquisaComponent implements OnInit {
     .then(pessoa => {
       this.pessoas = pessoa;
     })
+  }
+
+  confirmarExclusao(pessoa: any) {
+
+    this.confirmation.confirm({
+    message: 'Deseja excluir a pessoa: ' + pessoa.nomePessoa + '?',
+      accept: () => {
+        this.removerPessoa(pessoa);
+      }
+    });
+  }
+
+  removerPessoa(pessoa: any) {
+
+    this.pessoaService.removerPessoa(pessoa.pessoaID)
+    .then(() => {
+      this.grid.clear();
+      this.pesquisar();
+      this.messageService.add({ severity: 'success', detail: 'Pessoa removida com sucesso!', closable: false });
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  buscaPorCodigo(codigo: number) {
+
+    return this.pessoaService.buscaPorCodigo(codigo)
+    .then()
   }
 
 }

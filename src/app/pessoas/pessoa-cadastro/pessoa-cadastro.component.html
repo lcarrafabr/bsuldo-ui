@@ -1,0 +1,50 @@
+<div class="container">
+  <p-card>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} pessoas</h2>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <label>Nome pessoa</label>
+        <input type="text" name="nomePessoa" pInputText class="p-inputtext-sm" placeholder="Nome pessoa"
+        ngModel #nomePessoa="ngModel" [(ngModel)]="pessoa.nomePessoa" required required minlength="3">
+      </div>
+
+      <app-message [control]="nomePessoa" error="required" text="Informe um nome"></app-message>
+      <app-message [control]="nomePessoa" error="minlength"
+      text="Informe o mínimo de {{ nomePessoa.errors?.minlength?.requiredLength }} caracteres. Faltam: {{ nomePessoa.errors?.minlength?.requiredLength - nomePessoa.errors?.minlength?.actualLength }}">
+    </app-message>
+
+      <div class="p-col-12 p-fluid">
+        <label>E-mail</label>
+        <input type="text" name="email" pInputText class="p-inputtext-sm" placeholder="E-mail"
+        ngModel #email="ngModel" [(ngModel)]="pessoa.email" required>
+      </div>
+
+      <app-message [control]="email" error="required" text="Informe um e-mail"></app-message>
+
+      <div><label style="color: white;">----------------</label></div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar lançamento" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+              pTooltip="Novo lançamento" tooltipPosition="top" (click)="novo(f)"></button>
+
+              <a routerLink="/pessoas" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+    </form>
+
+
+
+  </p-card>
+</div>

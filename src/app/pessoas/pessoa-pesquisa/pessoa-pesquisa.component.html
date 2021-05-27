@@ -49,10 +49,10 @@
 
             <td class="col-acoes">
               <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined"
-              pTooltip="Editar Pessoa" tooltipPosition="top"></button>
+              pTooltip="Editar Pessoa" tooltipPosition="top" [routerLink]="['/pessoas', pessoas.pessoaID]"></button>
 
               <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined"
-              pTooltip="Remover Pessoa" tooltipPosition="top"></button>
+              pTooltip="Remover Pessoa" tooltipPosition="top" (click)="confirmarExclusao(pessoas)"></button>
             </td>
         </tr>
     </ng-template>
@@ -63,7 +63,7 @@
 
     <div class="p-col-12">
       <button pButton label="Cadastrar Pessoa" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
-              pTooltip="Cadastrar Pessoa" tooltipPosition="top" routerLink="/lancamentos/novo"></button>
+              pTooltip="Cadastrar Pessoa" tooltipPosition="top" routerLink="/pessoas/novo"></button>
     </div>
 
 
