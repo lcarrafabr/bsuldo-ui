@@ -1,3 +1,4 @@
+import { CategoriasModule } from './categorias/categorias.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { SegurancaModule } from './seguranca/seguranca.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +30,7 @@ registerLocaleData(localePt);
     LancamentosModule,
     SegurancaModule,
     PessoasModule,
+    CategoriasModule,
 
     AppRoutingModule
   ],
