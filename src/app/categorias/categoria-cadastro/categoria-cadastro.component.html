@@ -1,0 +1,55 @@
+<div class="container">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}categorias</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-8">
+            <label>Nome categoria</label>
+            <input type="text" name="nomeCategoria" pInputText class="p-inputtext-sm" placeholder="Nome categoria" [(ngModel)]="categorias.nomeCategoria"
+            ngModel #nomeCategoria="ngModel" required required minlength="3">
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <label>Status</label>
+            <p-dropdown
+            name="status"
+            ngModel
+            [(ngModel)]="categorias.status"
+            [options]="status"
+            placeholder="Selecione" required></p-dropdown>
+        </div>
+
+       <div class="p-col-12">
+          <app-message [control]="nomeCategoria" error="required" text="Informe um nome"></app-message>
+          <app-message [control]="nomeCategoria" error="minlength"
+          text="Informe o mínimo de {{ nomeCategoria.errors?.minlength?.requiredLength }} caracteres. Faltam: {{ nomeCategoria.errors?.minlength?.requiredLength - nomeCategoria.errors?.minlength?.actualLength }}">
+        </app-message>
+       </div>
+
+        <div class="p-field p-col-12">
+            <label>Descrição</label>
+            <textarea type="text" rows="4" pInputTextarea autoResize="true" name="descricao" ngModel [(ngModel)]="categorias.descricao"></textarea>
+        </div>
+
+    </div>
+
+    <div style="background-color: thistle;"class="p-col-12">
+      <p-card>
+
+        <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+            pTooltip="Salvar lançamento" tooltipPosition="top"></button>
+
+            <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+            pTooltip="Novo lançamento" tooltipPosition="top" (click)="novo(f)"></button>
+
+            <a routerLink="/categorias" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+      </p-card>
+    </div>
+
+    </form>
+  </p-card>
+</div>

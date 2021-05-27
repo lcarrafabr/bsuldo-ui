@@ -16,11 +16,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CategoriaPesquisaComponent } from './categoria-pesquisa/categoria-pesquisa.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { CategoriaCadastroComponent } from './categoria-cadastro/categoria-cadastro.component';
 
 
 
 @NgModule({
-  declarations: [CategoriaPesquisaComponent],
+  declarations: [CategoriaPesquisaComponent, CategoriaCadastroComponent],
   imports: [
     CommonModule,
     CommonModule,

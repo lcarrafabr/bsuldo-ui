@@ -41,14 +41,22 @@
           <ng-template pTemplate="body" let-categorias>
               <tr>
                   <td class="col-pessoa-content">{{ categorias.nomeCategoria }}</td>
-                  <td class="col-email-content">{{ categorias.status ? 'ATIVO' : 'INATIVO' }}</td>
+                  <!--<td class="col-email-content">{{ categorias.status ? 'ATIVO' : 'INATIVO' }}</td>-->
+
+
+                  <td class="col-email-content"><a href="javascript:;" [pTooltip]="categorias.status ? 'Desativar' : 'Ativar'"
+                    tooltipPosition="top"
+                    (click)="alterarStatusAtivo(categorias)">
+                      {{categorias.status ? 'ATIVO' : 'INATIVO'}}</a></td>
+
+
 
                   <td class="col-acoes">
                     <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined"
-                    pTooltip="Editar Pessoa" tooltipPosition="top"></button>
+                    pTooltip="Editar Categoria" tooltipPosition="top" [routerLink]="['/categorias', categorias.categoriaId]"></button>
 
                     <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined"
-                    pTooltip="Remover Pessoa" tooltipPosition="top" ></button>
+                    pTooltip="Remover Categoria" tooltipPosition="top" (click)="confirmaExclusao(categorias)"></button>
                   </td>
               </tr>
           </ng-template>
@@ -59,7 +67,7 @@
 
     <div class="p-col-12">
       <button pButton label="Cadastrar categoria" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
-              pTooltip="Cadastrar Pessoa" tooltipPosition="top" routerLink="/pessoas/novo"></button>
+              pTooltip="Cadastrar Categoria" tooltipPosition="top" routerLink="/categorias/novo"></button>
     </div>
 
   </p-card>
