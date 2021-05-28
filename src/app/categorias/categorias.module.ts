@@ -24,7 +24,6 @@ import { CategoriaCadastroComponent } from './categoria-cadastro/categoria-cadas
   declarations: [CategoriaPesquisaComponent, CategoriaCadastroComponent],
   imports: [
     CommonModule,
-    CommonModule,
     FormsModule,
     ButtonModule,
     InputTextModule,

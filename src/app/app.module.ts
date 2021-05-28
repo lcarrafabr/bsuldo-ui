@@ -1,3 +1,4 @@
+import { DashboardModule } from './dashboard/dashboard.module';
 import { MetodoCobrancasModule } from './metodo-cobrancas/metodo-cobrancas.module';
 import { CategoriasModule } from './categorias/categorias.module';
 import { PessoasModule } from './pessoas/pessoas.module';
@@ -33,6 +34,7 @@ registerLocaleData(localePt);
     PessoasModule,
     CategoriasModule,
     MetodoCobrancasModule,
+    DashboardModule,
 
     AppRoutingModule
   ],

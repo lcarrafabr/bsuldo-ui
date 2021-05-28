@@ -1,0 +1,89 @@
+<div class="container_02">
+  <p-card>
+    <h2>Dashboard</h2>
+
+    <form autocomplete="off">
+      <div class="p-col-12">
+        <label>Filtro</label>
+        <p-calendar
+        class="p-mb-2 p-mr-2"
+          view="month"
+          name="dataFiltro"
+          dateFormat="mm/yy"
+          [readonlyInput]="true"
+          [showIcon]="true">
+        </p-calendar>
+
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2"></button>
+      </div>
+    </form>
+
+    <div><label style="color: white;">----------------------</label></div>
+    <div><label style="color: white;">----------------------</label></div>
+
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-2">
+          <p-card>
+            <ng-template pTemplate="header">
+              <div class="card_topo_blue">Valor a pagar no mês</div>
+          </ng-template>
+          <div class="card_centro_blue">
+            2500,00
+          </div>
+          </p-card>
+      </div>
+
+
+      <div class="p-field p-col-12 p-md-2">
+        <p-card>
+          <ng-template pTemplate="header">
+            <div class="card_topo_green">Total Pago</div>
+        </ng-template>
+        <div class="card_centro_green">
+          1500,00
+        </div>
+        </p-card>
+      </div>
+
+
+      <div class="p-field p-col-12 p-md-2">
+        <p-card>
+          <ng-template pTemplate="header">
+            <div class="card_topo_red">Valor a pagar no mês</div>
+        </ng-template>
+        <div class="card_centro_red">
+          1000,00
+        </div>
+        </p-card>
+      </div>
+
+
+      <div class="p-field p-col-12 p-md-2">
+        <p-card>
+          <ng-template pTemplate="header">
+            <div class="card_topo_black">Total devedor</div>
+        </ng-template>
+        <div class="card_centro_black">
+          8500,00
+        </div>
+        </p-card>
+      </div>
+  </div>
+
+  <div class="p-col-12">
+    <label>Percentual pago no mês</label>
+    <p-progressBar [value]="value"></p-progressBar>
+  </div>
+
+
+  <div><label style="color: white;">----------------------</label></div>
+  <div><label style="color: white;">----------------------</label></div>
+
+  <div class="p-col-12">
+    <h2>Dashboard</h2>
+  </div>
+
+
+
+  </p-card>
+</div>

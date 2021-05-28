@@ -1,0 +1,83 @@
+@media (min-width: 1200px){
+  .container_02 {
+    width: 1700px;
+    margin: 0 auto;
+  }
+}
+
+.card_topo_red {
+  background-color: rgb(141, 8, 8) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.card_centro_red {
+  background-color: rgb(100, 5, 5) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  font-size: 50px;
+}
+
+.card_topo_blue {
+  background-color: rgb(4, 39, 116) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.card_centro_blue {
+  background-color: rgb(31, 94, 189) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  font-size: 50px;
+}
+
+.card_topo_green {
+  background-color: rgb(6, 94, 46) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.card_centro_green {
+  background-color: rgb(34, 119, 69) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  font-size: 50px;
+}
+
+.card_topo_black {
+  background-color: rgb(0, 0, 0) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.card_centro_black {
+  background-color: rgb(29, 29, 29) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  font-size: 50px;
+}
+
+.card {
+  margin: 0;
+  padding: 0px;
+}

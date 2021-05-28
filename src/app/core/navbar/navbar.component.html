@@ -18,7 +18,7 @@
   <p-sidebar [(visible)]="exibindoMenu" position="left">
     <ul class="navbar-menu">
       <li class="navbar-usuario">{{ auth.jwtPayload?.nome }}</li>
-      <li class="navbar-menuitem" routerLinkActive="ativo"><a href="#">DashBoard</a></li>
+      <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/dashboard" (click)="exibindoMenu = !exibindoMenu">DashBoard</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/pessoas" (click)="exibindoMenu = !exibindoMenu">Pessoas</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/lancamentos" (click)="exibindoMenu = !exibindoMenu">Lançamentos</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/categorias" (click)="exibindoMenu = !exibindoMenu">Categorias</a></li>
