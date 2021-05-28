@@ -1,3 +1,4 @@
+import { MetodoCobrancasModule } from './metodo-cobrancas/metodo-cobrancas.module';
 import { CategoriasModule } from './categorias/categorias.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { SegurancaModule } from './seguranca/seguranca.module';
@@ -31,6 +32,7 @@ registerLocaleData(localePt);
     SegurancaModule,
     PessoasModule,
     CategoriasModule,
+    MetodoCobrancasModule,
 
     AppRoutingModule
   ],

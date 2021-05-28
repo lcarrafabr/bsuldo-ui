@@ -1,0 +1,55 @@
+<div class="container">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}método de cobrança</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-8">
+            <label>Nome método de cobrança</label>
+            <input type="text" name="nomeMetodoCobranca" pInputText class="p-inputtext-sm" placeholder="Nome método de cobrança"
+            ngModel #nomeMetodoCobranca="ngModel" required required minlength="3" [(ngModel)]="metodoCobranca.nomeMetodoCob ">
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <label>Status</label>
+            <p-dropdown
+            name="status"
+            ngModel
+            [(ngModel)]="metodoCobranca.status"
+            [options]="status"
+            placeholder="Selecione" required></p-dropdown>
+        </div>
+
+        <div class="p-col-12">
+          <app-message [control]="nomeMetodoCobranca" error="required" text="Informe um método de cobrança"></app-message>
+          <app-message [control]="nomeMetodoCobranca" error="minlength"
+          text="Informe o mínimo de {{ nomeMetodoCobranca.errors?.minlength?.requiredLength }} caracteres. Faltam: {{ nomeMetodoCobranca.errors?.minlength?.requiredLength - nomeMetodoCobranca.errors?.minlength?.actualLength }}">
+        </app-message>
+       </div>
+
+        <div class="p-field p-col-12">
+            <label for="address">Descrição</label>
+            <textarea type="text" rows="4" pInputTextarea autoResize="true" name="descricao" ngModel [(ngModel)]="metodoCobranca.descricao"></textarea>
+        </div>
+
+    </div>
+
+    <div style="background-color: thistle;"class="p-col-12">
+      <p-card>
+
+        <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+            pTooltip="Salvar lançamento" tooltipPosition="top"></button>
+
+            <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+            pTooltip="Novo lançamento" tooltipPosition="top" (click)="novo(f)"></button>
+
+            <a routerLink="/metodo-de-cobranca" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+      </p-card>
+    </div>
+
+    </form>
+  </p-card>
+</div>
