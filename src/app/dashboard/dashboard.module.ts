@@ -16,6 +16,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {ChartModule} from 'primeng/chart';
+import {PanelModule} from 'primeng/panel';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     MessageModule,
     SidebarModule,
     ProgressBarModule,
+    ChartModule,
+    PanelModule,
 
     SharedModule,
     DashboardRoutingModule

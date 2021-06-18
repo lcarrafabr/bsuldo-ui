@@ -6,7 +6,8 @@
       <div class="p-col-12">
         <label>Filtro</label>
         <p-calendar
-        class="p-mb-2 p-mr-2"
+          class="p-mb-2 p-mr-2"
+          [(ngModel)]="dataSelecionada"
           view="month"
           name="dataFiltro"
           dateFormat="mm/yy"
@@ -14,7 +15,8 @@
           [showIcon]="true">
         </p-calendar>
 
-        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2"></button>
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2" (click)="atualizarDashboard();"></button>
+        <button pButton type="submit" label="teste" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2" (click)="testeDatas();"></button>
       </div>
     </form>
 
@@ -28,7 +30,7 @@
               <div class="card_topo_blue">Valor a pagar no mês</div>
           </ng-template>
           <div class="card_centro_blue">
-            2500,00
+            {{ valorApagarNoMes | currency: 'BRL' :'' }}
           </div>
           </p-card>
       </div>
@@ -40,7 +42,7 @@
             <div class="card_topo_green">Total Pago</div>
         </ng-template>
         <div class="card_centro_green">
-          1500,00
+          {{ valorPagoNoMes | currency: 'BRL' :'' }}
         </div>
         </p-card>
       </div>
@@ -49,10 +51,10 @@
       <div class="p-field p-col-12 p-md-2">
         <p-card>
           <ng-template pTemplate="header">
-            <div class="card_topo_red">Valor a pagar no mês</div>
+            <div class="card_topo_red">Total vencido</div>
         </ng-template>
         <div class="card_centro_red">
-          1000,00
+          {{ valorVencidoNoMes | currency: 'BRL' :'' }}
         </div>
         </p-card>
       </div>
@@ -64,7 +66,7 @@
             <div class="card_topo_black">Total devedor</div>
         </ng-template>
         <div class="card_centro_black">
-          8500,00
+          {{valorDevedorPorAno | currency: 'BRL' :'' }}
         </div>
         </p-card>
       </div>
@@ -76,12 +78,21 @@
   </div>
 
 
-  <div><label style="color: white;">----------------------</label></div>
-  <div><label style="color: white;">----------------------</label></div>
+  <div><label style="color: white;">-----------------------</label></div>
+  <div><label style="color: white;">-----------------------</label></div>
 
   <div class="p-col-12">
     <h2>Dashboard</h2>
   </div>
+
+  <div class="p-col-5">
+    <p-panel header="Lançamento por categoria">
+      <p-chart type="pie" [data]="data"></p-chart>
+  </p-panel>
+
+  </div>
+
+
 
 
 
