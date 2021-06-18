@@ -81,6 +81,20 @@ export class DashboardService {
     .then(response => response);
   }
 
+  lancamentosPorCategoria(dataReferencia): Promise<Array<any>> {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/total-categoria-mes`, { params })
+    .toPromise()
+    .then(response => response as Array<any>);
+  }
+
 
   private pegaDataIniEFim(dataReferencia: Date) {
 

@@ -19,23 +19,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-  data = {
-    labels: ['A','B','C'],
-    datasets: [
-        {
-            data: [300, 50, 100],
-            backgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ],
-            hoverBackgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ]
-        }]
-    };
+  data: any;
 
   constructor(
     private dashboardService: DashboardService,
@@ -58,6 +42,7 @@ export class DashboardComponent implements OnInit {
     this.pegarvalorVencidoNoMes();
     this.pegarvalorDevedorPorAno();
     this.percentualPagoNoMes();
+    this.configurarGraficoPizza();
 
   }
 
@@ -142,6 +127,28 @@ export class DashboardComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
+  configurarGraficoPizza() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.lancamentosPorCategoria(dataReferencia)
+    .then(dados => {
+
+      this.data = {
+        labels: dados.map(dado => dado.categoria),
+        datasets: [
+            {
+                data: dados.map(dado => dado.totais),
+                backgroundColor: ["#DD4477","#2c58a3","#d9b541","#208f1e", "#DC3912", "#4a10a1", "#34999e", "#8c0b0b",
+              "#3b212b"],
+                hoverBackgroundColor: ["#db6b91","#397ced","#FFCE56","#1dc41a", "#e37054", "#7747bf", "#81c4c7", "#bd4444",
+              "#704254"]
+            }]
+        };
+
+    })
+  }
+
 
   testeDatas() {
 
@@ -155,7 +162,6 @@ export class DashboardComponent implements OnInit {
     const teste = {'dataIni' : startOfMonth, 'dataFim' : endOfMonth, 'ano' : year};
 
     console.log(teste.ano);
-    //console.log("Ultimo dia: " + endOfMonth);
   }
 
 
