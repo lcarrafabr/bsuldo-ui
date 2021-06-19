@@ -85,12 +85,48 @@
     <h2>Dashboard</h2>
   </div>
 
-  <div class="p-col-5">
-    <p-panel header="Lançamento por categoria">
-      <p-chart type="pie" [data]="data"></p-chart>
-  </p-panel>
+
+  <div class="p-fluid p-formgrid p-grid">
+    <div class="p-field p-col-12 p-md-6">
+      <div>
+        <p-panel header="Lançamento por categoria">
+          <p-chart type="pie" [data]="graficoCategoriaMes"></p-chart>
+        </p-panel>
+      </div>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <div>
+        <p-panel header="Lançamento por método de cobrança">
+          <p-chart type="pie" [data]="graficoMetodoCobrancaMes"></p-chart>
+        </p-panel>
+      </div>
+    </div>
 
   </div>
+
+
+  <div class="p-fluid p-formgrid p-grid">
+    <div class="p-field p-col-12 p-md-6">
+      <div>
+        <p-panel header="Lançamentos por dia">
+          <p-chart type="line" [data]="lancamentosPorDia"></p-chart>
+        </p-panel>
+      </div>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
 
 
 

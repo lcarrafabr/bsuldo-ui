@@ -95,6 +95,20 @@ export class DashboardService {
     .then(response => response as Array<any>);
   }
 
+  lancamentosPorMetodoCobrancaMes(dataReferencia): Promise<Array<any>> {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/total-metodo-cob-mes`, { params })
+    .toPromise()
+    .then(response => response as Array<any>);
+  }
+
 
   private pegaDataIniEFim(dataReferencia: Date) {
 

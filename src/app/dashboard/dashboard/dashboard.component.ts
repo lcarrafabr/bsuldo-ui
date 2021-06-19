@@ -19,7 +19,11 @@ export class DashboardComponent implements OnInit {
 
 
 
-  data: any;
+  graficoMetodoCobrancaMes: any;
+  graficoCategoriaMes: any;
+
+
+  lancamentosPorDia: any;
 
   constructor(
     private dashboardService: DashboardService,
@@ -42,7 +46,9 @@ export class DashboardComponent implements OnInit {
     this.pegarvalorVencidoNoMes();
     this.pegarvalorDevedorPorAno();
     this.percentualPagoNoMes();
-    this.configurarGraficoPizza();
+    this.configurarGraficoPizzaCategoriaMes();
+    this.configurarGraficoPizzaMetodoCobranca();
+    this.graficoLancamentosPorDia();
 
   }
 
@@ -127,14 +133,14 @@ export class DashboardComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
-  configurarGraficoPizza() {
+  configurarGraficoPizzaCategoriaMes() {
 
     const dataReferencia = this.dataSelecionada;
 
     this.dashboardService.lancamentosPorCategoria(dataReferencia)
     .then(dados => {
 
-      this.data = {
+      this.graficoCategoriaMes = {
         labels: dados.map(dado => dado.categoria),
         datasets: [
             {
@@ -146,7 +152,48 @@ export class DashboardComponent implements OnInit {
             }]
         };
 
-    })
+    });
+  }
+
+
+  configurarGraficoPizzaMetodoCobranca() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.lancamentosPorMetodoCobrancaMes(dataReferencia)
+    .then(dados => {
+
+      this.graficoMetodoCobrancaMes = {
+        labels: dados.map(dado => dado.nomeMetodoCobranca),
+        datasets: [
+            {
+                data: dados.map(dado => dado.totais),
+                backgroundColor: ["#DD4477","#2c58a3","#d9b541","#208f1e", "#DC3912", "#4a10a1", "#34999e", "#8c0b0b",
+              "#3b212b"],
+                hoverBackgroundColor: ["#db6b91","#397ced","#FFCE56","#1dc41a", "#e37054", "#7747bf", "#81c4c7", "#bd4444",
+              "#704254"]
+            }]
+        };
+
+    });
+  }
+
+  graficoLancamentosPorDia() {
+
+
+    this.lancamentosPorDia = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+          {
+              label: 'First Dataset',
+              data: [65, 59, 80, 81, 56, 55, 40],
+              fill: false,
+              borderColor: '#42A5F5'
+          }
+      ]
+  }
+
+
   }
 
 
