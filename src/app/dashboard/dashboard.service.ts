@@ -110,6 +110,33 @@ export class DashboardService {
   }
 
 
+  lancamentosPordia(dataReferencia): Promise<Array<any>> {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/lancamentos-por-dia`, { params })
+    .toPromise()
+    .then(response => response as Array<any>);
+  }
+
+ gradeTotaisPorAno(dataReferencia): Promise<any> {
+
+    let params = new HttpParams();
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/totais-por-ano`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
   private pegaDataIniEFim(dataReferencia: Date) {
 
     const mesReferencia = dataReferencia;

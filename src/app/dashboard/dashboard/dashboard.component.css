@@ -81,3 +81,16 @@
   margin: 0;
   padding: 0px;
 }
+
+.col-mes-header {
+  width: 80px;
+}
+
+.col-mes-content {
+  text-align: center;
+}
+
+.col-total-content {
+  text-align: center;
+  font-weight: bold;
+}

@@ -115,7 +115,72 @@
     </div>
     <div class="p-field p-col-12 p-md-6">
       <div>
+        <p-panel header="Situação no mês">
+          <p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"></p-chart>
+        </p-panel>
+      </div>
+    </div>
 
+  </div>
+
+
+  <div class="p-fluid p-formgrid p-grid">
+    <div class="p-field p-col-12 p-md-12">
+      <div>
+        <p-panel header="Total por mês">
+          <div class="p=col=12">
+            <p-table
+            #tabela
+            [value] = totaisPorAno
+            styleClass="p-datatable-gridlines"
+            [paginator]="false"
+            [rows]="5"
+            selectionMode="single"
+            [responsive]="true"
+            selectionMode="single">
+            <ng-template pTemplate="emptymessage">
+              Nenhum valor encontrado
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                  <th class="col-mes-header">JAN</th>
+                  <th class="col-mes-header">FEV</th>
+                  <th class="col-mes-header">MAR</th>
+                  <th class="col-mes-header">ABR</th>
+                  <th class="col-mes-header">MAI</th>
+                  <th class="col-mes-header">JUN</th>
+                  <th class="col-mes-header">JUL</th>
+                  <th class="col-mes-header">AGO</th>
+                  <th class="col-mes-header">SET</th>
+                  <th class="col-mes-header">OUT</th>
+                  <th class="col-mes-header">NOV</th>
+                  <th class="col-mes-header">DEZ</th>
+                  <th class="col-mes-header">TOTAL</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-totaisPorAno>
+              <tr>
+                  <td class="col-mes-content">{{totaisPorAno.jan | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.fev  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.mar  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.abr  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.mai  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.jun  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.jul  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.ago  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.set  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.out  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.nov  | currency: 'BRL'}}</td>
+                  <td class="col-mes-content">{{totaisPorAno.dez  | currency: 'BRL'}}</td>
+                  <td class="col-total-content">{{totaisPorAno.total  | currency: 'BRL'}}</td>
+
+
+              </tr>
+          </ng-template>
+
+            </p-table>
+          </div>
+        </p-panel>
       </div>
     </div>
 

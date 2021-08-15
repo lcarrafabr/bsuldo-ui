@@ -16,6 +16,10 @@ export class DashboardComponent implements OnInit {
   valorPagoNoMes: any = 0;
   valorVencidoNoMes: any = 0;
   valorDevedorPorAno: any = 0;
+  basicData: any = 0;
+  basicOptions: any;
+
+  totaisPorAno = [];
 
 
 
@@ -49,6 +53,9 @@ export class DashboardComponent implements OnInit {
     this.configurarGraficoPizzaCategoriaMes();
     this.configurarGraficoPizzaMetodoCobranca();
     this.graficoLancamentosPorDia();
+    this.graficoSituacaoMes();
+    this.basicOptionsConfig();
+    this.carregaGradeTotaisPorAno();
 
   }
 
@@ -125,6 +132,7 @@ export class DashboardComponent implements OnInit {
       if(response != null){
         const valor = new Number(response);
         this.value = valor.toFixed(2);
+        this.graficoSituacaoMes();
       } else {
         this.value = 0;
       }
@@ -180,20 +188,74 @@ export class DashboardComponent implements OnInit {
 
   graficoLancamentosPorDia() {
 
+    const dataReferencia = this.dataSelecionada;
 
-    this.lancamentosPorDia = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    this.dashboardService.lancamentosPordia(dataReferencia)
+    .then(dados => {
+
+      this.lancamentosPorDia = {
+        labels: dados.map(dado => dado.dia),
+        datasets: [
+            {
+                label: 'Lancamentos por dia',
+                data: dados.map(dado => dado.totais),
+                fill: true,
+                backgroundColor: 'rgba(247, 176, 240,0.2)',
+                borderColor: '#731469'
+            }
+        ]
+    }
+
+    });
+  }
+
+  graficoSituacaoMes() {
+
+    this.basicData = {
+      labels: ['Pagar no mês', 'Total pago', 'Total vencido'],
       datasets: [
           {
-              label: 'First Dataset',
-              data: [65, 59, 80, 81, 56, 55, 40],
-              fill: false,
-              borderColor: '#42A5F5'
+              label: 'Situação no mês',
+              backgroundColor: '#731469',
+              data: [this.valorApagarNoMes, this.valorPagoNoMes, this.valorVencidoNoMes,0]
           }
       ]
+  };
+  }
+
+  basicOptionsConfig() {
+
+    this.basicOptions = {
+      legend: {
+          labels: {
+              fontColor: '#495057'
+          }
+      },
+      scales: {
+          xAxes: [{
+              ticks: {
+                  fontColor: '#495057'
+              }
+          }],
+          yAxes: [{
+              ticks: {
+                  fontColor: '#495057'
+              }
+          }]
+      }
+  };
   }
 
 
+  carregaGradeTotaisPorAno() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.gradeTotaisPorAno(dataReferencia)
+    .then(response => {
+      this.totaisPorAno = response;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
 
 
