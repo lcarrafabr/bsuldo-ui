@@ -137,6 +137,37 @@ export class DashboardService {
   }
 
 
+  gradeTotalMetodoCobrancaPorMes(dataReferencia): Promise<any> {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/total-metodo-cob-mes`, { params })
+    .toPromise()
+    .then(response => response);
+
+  }
+
+gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia): Promise<any> {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/grade-lancamentos-por-metodo_cobranca`, { params })
+    .toPromise()
+    .then(response => response);
+
+  }
+
+
   private pegaDataIniEFim(dataReferencia: Date) {
 
     const mesReferencia = dataReferencia;

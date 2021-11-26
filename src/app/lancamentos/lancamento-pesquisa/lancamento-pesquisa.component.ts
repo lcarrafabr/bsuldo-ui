@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { MetodoCobrancaService } from './../../metodo-cobrancas/metodo-cobranca.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -19,6 +20,7 @@ export class LancamentoPesquisaComponent implements OnInit{
   situacao: string;
   chavePesquisa: string;
   chavePesquisaPesquisada = '';
+  jwtPayloadId: any;
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
@@ -35,13 +37,19 @@ export class LancamentoPesquisaComponent implements OnInit{
     private messageService: MessageService,
     private confirmation: ConfirmationService,
     private errorHandler: ErrorHandlerService,
-    private metodoCobrancaService: MetodoCobrancaService
+    private metodoCobrancaService: MetodoCobrancaService,
+    private jwtHelper: JwtHelperService,
     ) { }
 
   ngOnInit() {
     this.pesquisar();
     this.carregarMetodoCobranca();
     this.carregaValorNoMes();
+
+
+    this.jwtPayloadId = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+    localStorage.setItem('ID', this.jwtPayloadId.id);
+
   }
 
   pesquisar() {

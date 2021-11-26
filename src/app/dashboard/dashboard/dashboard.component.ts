@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   basicOptions: any;
 
   totaisPorAno = [];
+  totalMetodoCobrancaMes = [];
+  products = [];
 
 
 
@@ -56,6 +58,8 @@ export class DashboardComponent implements OnInit {
     this.graficoSituacaoMes();
     this.basicOptionsConfig();
     this.carregaGradeTotaisPorAno();
+    this.carregaGradeTotalMetodoCobrancaMes();
+    this.carregaGradeLancMetodoCobrancaMesExpansivo();
 
   }
 
@@ -256,6 +260,30 @@ export class DashboardComponent implements OnInit {
       this.totaisPorAno = response;
     })
     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregaGradeTotalMetodoCobrancaMes() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.gradeTotalMetodoCobrancaPorMes(dataReferencia)
+    .then(response => {
+      this.totalMetodoCobrancaMes = response;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+
+  }
+
+  carregaGradeLancMetodoCobrancaMesExpansivo() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia)
+    .then(response => {
+      this.products = response;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+
   }
 
 
