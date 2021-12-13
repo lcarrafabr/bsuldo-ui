@@ -1,0 +1,108 @@
+<div class="container">
+
+  <p-card>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} usuários</h2>
+      </div>
+
+
+        <div class="p-col-12 p-fluid">
+          <p-fieldset legend="Usuários elegíveis">
+
+          <h4>{{ mensagemTela }}</h4>
+          <div [hidden]="ocultaComboUsuario">
+            <p-dropdown name="pessoas" #pessoa [options]="pessoas" placeholder="Selecione" (click)="pegaValorUsuario(pessoa.selectedOption);"></p-dropdown>
+          </div>
+
+        </p-fieldset>
+        </div>
+
+
+      <div class="p-col-12 p-fluid">
+        <label>Nome Usuário</label>
+        <input type="text" autocomplete="off" pInputText class="p-inputtext-sm" placeholder="Nome usuário" name="nomeUsuario"
+        [(ngModel)]="usuario.nomeUsuario" required minlength="5">
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6">
+              <label>Senha</label>
+              <input pInputText type="password" autocomplete="disabled" name="senha"
+              #senha [(ngModel)]="usuario.senha" minlength="8" required>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+              <label>Repetir senha</label>
+              <input pInputText type="password" autocomplete="disabled" name="repetirSenha" minlength="8" #repetirSenha
+              (blur)="validaSenhas(senha.value, repetirSenha.value)"required>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-col-12">
+        <button icon="pi pi-check" iconPos="left" pButton type="submit" label="Salvar" class="p-button-raised"></button>
+        <button icon="pi pi-file-o" iconPos="left" pButton type="button" label="Novo"
+         class="p-button-secondary ui-button-raised"></button>
+        <a routerLink="/usuarios">Voltar para a pesquisa de usuários</a>
+
+    </div>
+
+
+    </form>
+
+
+    <div style="background-color: white;">
+      <label style="color: white;">-----------------------------------</label>
+    </div>
+
+    <div>
+      <p-panel header="Permissões" [toggleable]="true" [collapsed]="true">
+        <div class="p-grid">
+          <div class="p-col-12">
+          <p-table
+            #tabela
+            [value] = usuarioPermissaoGrade
+            styleClass="p-datatable-sm"
+            [paginator]="true"
+            [rows]="5"
+            selectionMode="single"
+            [responsive]="true"
+            selectionMode="single">
+            <ng-template pTemplate="caption">
+              <button pButton pRipple type="button" (click)="showModalDialog()" icon="pi pi-external-link"></button>
+          </ng-template>
+            <ng-template pTemplate="emptymessage">
+              Nenhuma permissão encontrada
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                  <th class="col-pessoa-header">Usuario</th>
+                  <th class="col-pessoa-header">Permissão</th>
+              </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-usuarios>
+                  <tr>
+                      <td class="col-pessoa-content">{{usuario.nomeUsuario}}</td>
+                      <td class="col-pessoa-content">{{usuarios.descricao}}</td>
+                  </tr>
+              </ng-template>
+
+          </p-table>
+          </div>
+        </div>
+      </p-panel>
+   </div>
+
+
+   <p-dialog header="Cadastro de permissões" [(visible)]="displayModal" [modal]="true"
+   [draggable]="true" [resizable]="true">
+   <app-usuario-permissao></app-usuario-permissao>
+</p-dialog>
+
+
+  </p-card>
+
+</div>

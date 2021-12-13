@@ -38,6 +38,9 @@ label {
 .col-data-header {
   width: 120px;
 }
+.col-data-header02 {
+  width: 170px;
+}
 
 .col-data-content {
   text-align: center;

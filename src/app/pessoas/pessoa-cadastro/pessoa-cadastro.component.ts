@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa;
+  selectedCity = [];
 
   constructor(
     private pessoaService: PessoaService,

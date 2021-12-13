@@ -37,3 +37,14 @@ export class MetodoDeCobranca {
   status: string;
   descricao: string;
 }
+
+export class Usuario {
+
+  usuarioId: number;
+  nomeUsuario: string;
+  senha: string;
+  status: boolean;
+  pessoa = new Pessoa();
+  permissoes: any[];
+
+}
