@@ -128,7 +128,6 @@ export class UsuarioCadastroComponent implements OnInit {
     this.usuarioService.buscaPorIDPegarPermissoes(codigo)
     .then(usuario => {
       usuario.senha = '';
-      console.log(usuario);
       this.usuarioPermissaoGrade = usuario.permissoes;
       this.validaTelaEditando(true);
     })

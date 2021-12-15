@@ -46,5 +46,10 @@ export class Usuario {
   status: boolean;
   pessoa = new Pessoa();
   permissoes: any[];
+}
 
+export class Permissoes {
+
+  permissaoId: number;
+  descricao: string;
 }

@@ -3,12 +3,12 @@
 
     <form autocomplete="off">
 
-      <p-pickList >
-        <ng-template let-car pTemplate="item">
-            <div>
-
-            </div>
-        </ng-template>
+      <p-pickList [source]="listSource" [target]="listTarget" sourceHeader="Disponíveis" targetHeader="Concedidos">
+        <ng-template let-perm pTemplate="item">
+          <div>
+              <div>{{perm.descricao}}</div>
+          </div>
+      </ng-template>
     </p-pickList>
 
     </form>

@@ -1,4 +1,4 @@
-import { Usuario } from './../core/model';
+import { Usuario, Permissoes } from './../core/model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -13,6 +13,7 @@ export class UsuariosService {
 
  usuarioURL = 'http://localhost:8080/usuarios'
  pessoaURL = 'http://localhost:8080/pessoas'
+ usuarioPermissoes = 'http://localhost:8080/user-permition'
 
   constructor(
     private http: HttpClient
@@ -83,6 +84,21 @@ export class UsuariosService {
 
       return usuarioAlterado;
     })
+  }
+
+
+
+  //***********************************Usuario Permissoes************************************ */
+
+  buscaPermissoesDisponiveis(codigo: number): Promise<any> {
+
+    return this.http.get(`${this.usuarioPermissoes}/user-permition-disponiveis/${codigo}`)
+    .toPromise()
+    .then(response => {
+      const permissoesDisponiveis = response as Permissoes
+
+      return permissoesDisponiveis
+    });
   }
 
 
