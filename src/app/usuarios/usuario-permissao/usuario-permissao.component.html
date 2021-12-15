@@ -3,7 +3,8 @@
 
     <form autocomplete="off">
 
-      <p-pickList [source]="listSource" [target]="listTarget" sourceHeader="Disponíveis" targetHeader="Concedidos">
+      <p-pickList [source]="listSource" [target]="listTarget" sourceHeader="Disponíveis" targetHeader="Concedidos"
+      dragdrop="true" [responsive]="true">
         <ng-template let-perm pTemplate="item">
           <div>
               <div>{{perm.descricao}}</div>
@@ -12,6 +13,12 @@
     </p-pickList>
 
     </form>
+
+    <div style="color: white;">------</div>
+    <div style="background-color: #d9bce3;" class="p-col-12 p-mb-2 p-lg-12 p-mb-lg-0">
+      <button icon="pi pi-check" iconPos="left" pButton type="submit" label="Salvar"
+      class="p-button-raised p-button-rounded p-button-sm" (click)="verificaItem02()"></button>
+    </div>
 
 
   </p-card>

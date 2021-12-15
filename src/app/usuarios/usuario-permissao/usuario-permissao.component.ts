@@ -14,6 +14,8 @@ export class UsuarioPermissaoComponent implements OnInit {
   listSource = [];
   listTarget = [];
 
+  idUsuario: number
+
   constructor(
     private usuarioService: UsuariosService,
     private confirmation: ConfirmationService,
@@ -25,6 +27,7 @@ export class UsuarioPermissaoComponent implements OnInit {
   ngOnInit(): void {
 
     const codigoUsuario = this.route.snapshot.params['codigo']
+    this.idUsuario = codigoUsuario;
 
     console.log('codigo usuario: ' + codigoUsuario);
 
@@ -51,6 +54,28 @@ export class UsuarioPermissaoComponent implements OnInit {
     })
     .catch(erro => this.errorHandler.handle(erro));
   }
+
+
+  verificaItem02() {
+
+    let codigoPermissao: number;
+
+
+
+      console.log(this.listTarget);
+
+
+
+      this.usuarioService.adicionarPermissoesAoUsuario(this.listTarget, this.idUsuario)
+      .then(() => {
+        this.messageService.add({ severity: 'success', detail: 'Usuario cadastrado com sucesso', closable: false });
+        //form.reset();
+
+        //this.usuario = new Usuario;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+    }
+
 
 
 }

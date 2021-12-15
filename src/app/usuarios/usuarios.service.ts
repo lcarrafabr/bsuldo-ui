@@ -102,4 +102,17 @@ export class UsuariosService {
   }
 
 
+  adicionarPermissoesAoUsuario(lista: any, codigo: number): Promise<any> {
+
+    let params = new HttpParams();
+
+    const id = codigo.toString();
+
+    params = params.set('id', id);
+
+    return this.http.post<Usuario>(`${this.usuarioPermissoes}/cadastrat-permissoes`, lista, { params })
+    .toPromise();
+   }
+
+
 }
