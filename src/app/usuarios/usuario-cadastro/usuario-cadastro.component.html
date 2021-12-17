@@ -97,10 +97,12 @@
    </div>
 
 
-   <p-dialog header="Cadastro de permissões" [(visible)]="displayModal" [modal]="true"
-   [draggable]="true" [resizable]="true">
-   <app-usuario-permissao></app-usuario-permissao>
-</p-dialog>
+   <div [hidden]="false">
+    <p-dialog header="Cadastro de permissões" [(visible)]="displayModal" [modal]="true"
+    [draggable]="true" [resizable]="true">
+    <app-usuario-permissao></app-usuario-permissao>
+    </p-dialog>
+   </div>
 
 
   </p-card>

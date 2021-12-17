@@ -1,5 +1,5 @@
 import { Usuario, Permissoes } from './../core/model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 export interface UsuarioFiltro {
@@ -84,6 +84,15 @@ export class UsuariosService {
 
       return usuarioAlterado;
     })
+  }
+
+  mudarStatusAtivo(codigo: number, ativo: boolean) {
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http.put(`${this.usuarioURL}/${codigo}/ativo`, ativo, { headers })
+    .toPromise()
+    .then(() => null);
   }
 
 

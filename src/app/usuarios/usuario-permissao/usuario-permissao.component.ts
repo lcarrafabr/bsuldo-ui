@@ -29,10 +29,13 @@ export class UsuarioPermissaoComponent implements OnInit {
     const codigoUsuario = this.route.snapshot.params['codigo']
     this.idUsuario = codigoUsuario;
 
-    console.log('codigo usuario: ' + codigoUsuario);
+    if(codigoUsuario != undefined && codigoUsuario != null && codigoUsuario != NaN && codigoUsuario) {
 
-    this.carregarUsuarioPorIDPegarPermissoes(codigoUsuario);
-    this.carregarPermissoesDisponiveis(codigoUsuario);
+      this.carregarUsuarioPorIDPegarPermissoes(codigoUsuario);
+      this.carregarPermissoesDisponiveis(codigoUsuario);
+    }
+
+
   }
 
   carregarUsuarioPorIDPegarPermissoes(codigo: number) {
@@ -50,7 +53,6 @@ export class UsuarioPermissaoComponent implements OnInit {
     this.usuarioService.buscaPermissoesDisponiveis(codigo)
     .then(permissoes => {
       this.listSource = permissoes;
-      console.log(permissoes);
     })
     .catch(erro => this.errorHandler.handle(erro));
   }
@@ -58,17 +60,9 @@ export class UsuarioPermissaoComponent implements OnInit {
 
   verificaItem02() {
 
-    let codigoPermissao: number;
-
-
-
-      console.log(this.listTarget);
-
-
-
       this.usuarioService.adicionarPermissoesAoUsuario(this.listTarget, this.idUsuario)
       .then(() => {
-        this.messageService.add({ severity: 'success', detail: 'Usuario cadastrado com sucesso', closable: false });
+        this.messageService.add({ severity: 'success', detail: 'Permissao atualizada com sucesso', closable: false });
         //form.reset();
 
         //this.usuario = new Usuario;

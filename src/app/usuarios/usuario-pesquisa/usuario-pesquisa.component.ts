@@ -44,6 +44,20 @@ export class UsuarioPesquisaComponent implements OnInit {
 
   }
 
+  alterarStatusAtivo(usuarios: any): void {
+
+    const novoStatus = !usuarios.status;
+
+    this.usuarioService.mudarStatusAtivo(usuarios.usuarioId, novoStatus)
+    .then(() => {
+      const acao = novoStatus ? 'ATIVO' : 'INATIVO';
+
+      usuarios.status = novoStatus;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
 
 
 

@@ -48,7 +48,7 @@
                   <td class="col-pessoa-content">{{usuarios.nomeUsuario}}</td>
                   <td><a href="javascript:;" [pTooltip]="usuarios.status ? 'Desativar' : 'Ativar'"
                     tooltipPosition="top"
-                    (click)="alterarStatusAtivo(categorias)">
+                    (click)="alterarStatusAtivo(usuarios)">
                       {{usuarios.status ? 'ATIVO' : 'INATIVO'}}</a></td>
 
                   <td class="col-acoes">

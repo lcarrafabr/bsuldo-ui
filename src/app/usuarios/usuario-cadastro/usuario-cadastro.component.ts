@@ -182,6 +182,7 @@ export class UsuarioCadastroComponent implements OnInit {
     }
   }
 
+
   private validaTelaEditando(booleam) {
 
     if(booleam) {
