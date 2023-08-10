@@ -1,0 +1,80 @@
+<div class="container p-shadow-2">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Pesquisa emissores</h2>
+    </div>
+
+    <form autocomplete="off" (ngSubmit)="pesquisar();">
+
+      <div class="p-col-12 p-fluid">
+        <label>Emissor</label>
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por nome emissor" name="nomeEmissor"  [(ngModel)]="nomeEmissor">
+      </div>
+      <div class="p-col-12">
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+      </div>
+    </form>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value] = emissores
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="5"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhuma ordem de renda fixa encontrada
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th class="col-RF-header">Emissor</th>
+              <th class="col-RF-header">Status</th>
+              <th class="col-RF-header">Data cadastro</th>
+              <th class="col-RF-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-emissores>
+              <tr>
+                  <td class="col-pessoa-content">{{emissores.nomeEmissor}}</td>
+
+                  <td class="col-status-content"><a href="javascript:;" [pTooltip]="emissores.status ? 'Desativar' : 'Ativar'"
+                    tooltipPosition="top"
+                    (click)="alterarStatusAtivo(emissores)">
+                      {{emissores.status ? 'ATIVO' : 'INATIVO'}}</a></td>
+
+                  <td class="col-pessoa-content">{{emissores.dataCadastro | date: 'dd/MM/y'}}</td>
+
+                  <td class="col-RF-header">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Editar Emissor" tooltipPosition="top" [routerLink]="['/emissores', emissores.emissorId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Remover Emissor" tooltipPosition="top" (click)="confirmaExclusao(emissores)"></button>
+                  </td>
+
+
+
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+    <div class="p-col-12">
+      <button pButton label="Cadastrar Emissor" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
+              pTooltip="Cadastrar Emissor" tooltipPosition="top" routerLink="/emissores/novo"></button>
+    </div>
+
+  </p-card>
+
+
+
+</div>

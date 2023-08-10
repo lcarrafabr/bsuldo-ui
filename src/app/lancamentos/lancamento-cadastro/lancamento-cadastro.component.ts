@@ -16,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 export class LancamentoCadastroComponent implements OnInit {
 
   parcelado: boolean = false;
+  recorrente: boolean = false;
+  lancRecorrente: number;
 
   categoria = []
   metodoCobranca = []
@@ -55,7 +57,14 @@ export class LancamentoCadastroComponent implements OnInit {
 
       this.atualizarLancamento(form);
     } else {
-      this.adicionarLancamento(form);
+      if(this.recorrente == false) {
+        this.adicionarLancamento(form);
+
+      } else {
+
+        this.adicionarLancamentoRecorrente(form);
+      }
+
     }
   }
 
@@ -64,6 +73,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamento.parcelado = this.parcelado
     this.lancamento.numeroParcela = 1;
     this.lancamento.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
+    this.lancamento.lancRecorrente = false;
 
     if(this.parcelado == false) {
       this.lancamento.quantidadeParcelas = 1;
@@ -82,6 +92,33 @@ export class LancamentoCadastroComponent implements OnInit {
     })
     .catch(erro => this.errorHandler.handle(erro));
   }
+
+
+  adicionarLancamentoRecorrente(form: FormControl) {
+
+    this.lancamento.parcelado = false
+    this.lancamento.numeroParcela = 1;
+    this.lancamento.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
+    this.lancamento.lancRecorrente = true;
+
+    if(this.parcelado == false) {
+      this.lancamento.quantidadeParcelas = 1;
+      this.lancamento.numeroParcela = 1;
+    }
+
+    if(this.lancamento.dataPagamento != null) {
+      this.lancamento.situacao = 'PAGO';
+    }
+
+    this.lancamentoService.adicionarLancamentoRecorrente(this.lancamento, this.lancRecorrente.toString())
+    .then(() => {
+      this.messageService.add({ severity: 'success', detail: 'Lançamento recorrente cadastrado com sucesso!', closable: false});
+      form.reset();
+      this.lancamento = new Lancamento();
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
 
   atualizarLancamento(form: FormControl) {
 
@@ -129,6 +166,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.buscarPorCodigo(codigo)
     .then(lancamento => {
       this.parcelado = lancamento.parcelado;
+      this.recorrente = lancamento.lancRecorrente;
       this.lancamento = lancamento;
     })
     .catch(erro => this.errorHandler.handle(erro));

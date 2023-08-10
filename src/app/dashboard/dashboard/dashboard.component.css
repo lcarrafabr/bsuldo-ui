@@ -77,6 +77,24 @@
   font-size: 35px;
 }
 
+.card_topo_gray {
+  background-color: rgb(80, 105, 116) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.card_centro_gray {
+  background-color: rgb(80, 105, 116) !important;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  font-size: 35px;
+}
+
 .card {
   margin: 0;
   padding: 0px;

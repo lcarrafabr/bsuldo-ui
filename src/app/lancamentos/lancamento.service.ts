@@ -50,7 +50,7 @@ export class LancamentoService {
     }
 
     if(filtro.situacao) {
-      console.log(filtro.situacao)
+      //console.log(filtro.situacao)
       params = params.set('situacao', filtro.situacao);
       urlExtensao = "/busca-por-situacao"
     }
@@ -76,6 +76,15 @@ export class LancamentoService {
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
 
     return this.http.post<Lancamento>(this.lancamentosUrl, lancamento)
+      .toPromise();
+  }
+
+  adicionarLancamentoRecorrente(lancamento: Lancamento, qtdDias: string): Promise<Lancamento> {
+
+    let params = new HttpParams();
+    params = params.set('qtd_dias', qtdDias);
+
+    return this.http.post<Lancamento>(`${this.lancamentosUrl}/lancamento-recorrente`, lancamento, { params })
       .toPromise();
   }
 

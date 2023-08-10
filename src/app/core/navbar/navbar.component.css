@@ -47,3 +47,17 @@
 .navbar-menuitem.ativo {
   background-color: #494541;
 }
+
+.navbar-menuitem-invest {
+
+  color: white;
+  padding: 15px;
+}
+
+.navbar-menuitem-logout {
+
+  border-top: 1px solid #525151;
+  padding: 15px;
+  color: #C0BBB7;
+  text-decoration: none;
+}

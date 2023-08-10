@@ -20,6 +20,7 @@ export class Lancamento {
   pessoa = new Pessoa();
   categoria = new Categoria();
   metodoDeCobranca = new MetodoDeCobranca();
+  lancRecorrente: boolean;
 }
 
 export class Categoria {
@@ -52,4 +53,12 @@ export class Permissoes {
 
   permissaoId: number;
   descricao: string;
+}
+
+export class Emissores {
+
+  emissorId: number;
+  nomeEmissor: string;
+  status: boolean;
+  dataCadastro: Date;
 }

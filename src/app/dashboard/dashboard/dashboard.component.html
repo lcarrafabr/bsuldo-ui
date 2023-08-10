@@ -16,7 +16,6 @@
         </p-calendar>
 
         <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2" (click)="atualizarDashboard();"></button>
-        <button pButton type="submit" label="teste" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2" (click)="testeDatas();"></button>
       </div>
     </form>
 
@@ -63,14 +62,26 @@
       <div class="p-field p-col-12 p-md-2">
         <p-card>
           <ng-template pTemplate="header">
-            <div class="card_topo_black">Total devedor</div>
+            <div class="card_topo_gray">Total devedor</div>
+        </ng-template>
+        <div class="card_centro_gray">
+          {{valorPagoPorAno | currency: 'BRL' :'' }}
+        </div>
+        </p-card>
+      </div>
+
+      <div class="p-field p-col-12 p-md-2">
+        <p-card>
+          <ng-template pTemplate="header">
+            <div class="card_topo_black">Total do ano</div>
         </ng-template>
         <div class="card_centro_black">
           {{valorDevedorPorAno | currency: 'BRL' :'' }}
         </div>
         </p-card>
       </div>
-  </div>
+
+    </div>
 
   <div class="p-col-12">
     <label>Percentual pago no mês</label>

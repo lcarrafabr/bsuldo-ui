@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   valorPagoNoMes: any = 0;
   valorVencidoNoMes: any = 0;
   valorDevedorPorAno: any = 0;
+  valorPagoPorAno: any = 0;
   basicData: any = 0;
   basicOptions: any;
 
@@ -60,6 +61,7 @@ export class DashboardComponent implements OnInit {
     this.carregaGradeTotaisPorAno();
     this.carregaGradeTotalMetodoCobrancaMes();
     this.carregaGradeLancMetodoCobrancaMesExpansivo();
+    this.pegarvalorPagoPorAno();
 
   }
 
@@ -121,6 +123,22 @@ export class DashboardComponent implements OnInit {
         this.valorDevedorPorAno = response;
       } else {
         this.valorDevedorPorAno = 0;
+      }
+
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  pegarvalorPagoPorAno() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.valorpagoPorAno(dataReferencia)
+    .then(response => {
+      if(response != null){
+        this.valorPagoPorAno = response;
+      } else {
+        this.valorPagoPorAno = 0;
       }
 
     })

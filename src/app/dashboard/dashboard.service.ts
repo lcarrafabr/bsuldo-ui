@@ -67,6 +67,18 @@ export class DashboardService {
     .then(response => response);
   }
 
+  valorpagoPorAno(dataReferencia: Date) {
+
+    let params = new HttpParams();
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/total-pago-por-ano`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
   percentualPagoNoMes(dataReferencia: Date) {
 
     let params = new HttpParams();

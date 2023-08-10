@@ -102,6 +102,11 @@
             <p-inputSwitch name="parcelado" [(ngModel)]="parcelado"></p-inputSwitch>
           </div>
 
+          <div class="p-mb-1 p-mr-1 p-col-1">
+            <label>Recorrente</label>
+            <p-inputSwitch name="recorente" [(ngModel)]="recorrente"></p-inputSwitch>
+          </div>
+
         </div>
 
         <div [(hidden)]="!parcelado">
@@ -119,8 +124,22 @@
               [(ngModel)]="lancamento.numeroParcela" placeholder="N° da parcela" disabled=true>
             </div>
 
+
+
           </div>
-      </div>
+        </div>
+
+        <div [(hidden)]="!recorrente">
+          <!---Aqui é a area de recorrente--->
+          <div class="p-d-flex p-flex-column p-flex-md-row">
+
+            <div class="p-mb-1 p-mr-1 p-col-2">
+              <label>Qtd vezes recorrente</label>
+              <input type="text" pInputText class="p-inputtext-sm" name="lancRecorrente" [(ngModel)]="lancRecorrente" placeholder="Qtd vezes recorrente">
+            </div>
+
+          </div>
+        </div>
 
       </div>
 

@@ -1,4 +1,5 @@
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { EmissoresModule } from './emissores/emissores.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { MetodoCobrancasModule } from './metodo-cobrancas/metodo-cobrancas.module';
 import { CategoriasModule } from './categorias/categorias.module';
@@ -37,6 +38,7 @@ registerLocaleData(localePt);
     MetodoCobrancasModule,
     DashboardModule,
     UsuariosModule,
+    EmissoresModule,
 
     AppRoutingModule
   ],
