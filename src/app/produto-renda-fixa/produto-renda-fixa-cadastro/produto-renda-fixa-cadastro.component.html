@@ -1,0 +1,134 @@
+<div class="container p-shadow-2">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando2 ? 'Edição de ' : 'Cadastro de ' }} de produtos renda fixa</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12 p-fluid, status">
+        <label>Status: {{ editandoStatus ? 'Ativo' : 'Inativo' }}</label>
+      </div>
+
+
+      <div class="p-col-12 p-fluid">
+        <label>Nome Produto</label>
+        <input type="text" name="nomeProduto" pInputText class="p-inputtext-sm" placeholder="Informe o nome do produto"
+        [(ngModel)]="produtoRendaFixa.nomeProduto" required minlength="3">
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Sigla</label>
+            <input type="text" name="sigla" pInputText class="p-inputtext-sm" placeholder="Informe a sigla" [(ngModel)]="produtoRendaFixa.sigla" required>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Emissor</label>
+            <p-dropdown
+            name="emissor"
+            [(ngModel)]="produtoRendaFixa.emissores.emissorId"
+            [options]="emissores"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Data vencimento</label>
+            <p-calendar
+            name="dataVencimento"
+            [(ngModel)]="produtoRendaFixa.dataVencimento"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            [showIcon]="true"
+            [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
+          </div>
+        </div>
+      </div>
+<!------------------------------------------------------------------------------------------->
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Grau de risco</label>
+            <p-dropdown
+            name="grauDeRisco"
+            [options]="grauDeRisco"
+            [(ngModel)]="produtoRendaFixa.grauDeRiscoEnum"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Liquidez</label>
+            <p-dropdown
+            name="liquidez"
+            [options]="liquidez"
+            [(ngModel)]="produtoRendaFixa.liquidezEnum"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-1 p-fluid">
+            <label>Imposto</label>
+            <p-inputSwitch name="temImposto" [(ngModel)]="temImposto" ></p-inputSwitch>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-3 p-fluid" [(hidden)]="!temImposto">
+            <label>Percentual</label>
+            <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+            <p-inputNumber name="temImposto" mode="decimal" inputId="minmaxfraction" [(ngModel)]="produtoRendaFixa.valorImposto"
+            [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+          </div>
+        </div>
+      </div>
+
+<!------------------------------------------------------------------------------------------->
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Tipo Imposto</label>
+            <p-dropdown
+            name="tipoImposto"
+            [options]="tipoImposto"
+            [(ngModel)]="produtoRendaFixa.impostoDeRendaEnum"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Valor mínimo</label>
+            <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+            <p-inputNumber name="valorMinimo" mode="decimal" inputId="minmaxfraction" [(ngModel)]="produtoRendaFixa.valorMinimo"
+            [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Rentabilidade</label>
+            <input type="text" name="rentabilidade" pInputText class="p-inputtext-sm" [(ngModel)]="produtoRendaFixa.rentabilidade"
+            placeholder="Informe a rentabilidade ex: 100% do CDI + IPCA"  required>
+          </div>
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar produto" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+              pTooltip="Novo lançamento" tooltipPosition="top"></button>
+
+              <a routerLink="/produto-renda-fixa" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+    </form>
+  </p-card>
+
+</div>

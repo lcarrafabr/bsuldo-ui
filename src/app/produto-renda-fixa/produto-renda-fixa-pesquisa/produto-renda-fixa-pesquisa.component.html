@@ -1,0 +1,86 @@
+<div class="container p-shadow-2">
+
+  <p-card>
+    <div class="p-col-12">
+      <h2>Pesquisa produtos renda fixa</h2>
+    </div>
+
+    <form >
+
+      <div class="p-col-12 p-fluid">
+        <label>Produto</label>
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por nome produto" name="nomeProduto">
+      </div>
+      <div class="p-col-12">
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+      </div>
+    </form>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value] = produtosRendaFixa
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="5"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhuma produto de renda fixa encontrada
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th class="col-RF-header">Produto</th>
+              <th class="col-RF-header">Sigla</th>
+              <th class="col-RF-header">Emissor</th>
+              <th class="col-RF-header">Valor mínimo</th>
+              <th class="col-RF-header">Grau de risco</th>
+              <th class="col-RF-header">Status</th>
+              <th class="col-RF-header">Data vencimento</th>
+              <th class="col-RF-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-produtosRendaFixa>
+              <tr>
+                  <td class="col-pessoa-content">{{produtosRendaFixa.nomeProduto}}</td>
+                  <td class="col-pessoa-content">{{produtosRendaFixa.sigla}}</td>
+                  <td class="col-pessoa-content">{{produtosRendaFixa.emissores.nomeEmissor}}</td>
+                  <td class="col-pessoa-content">{{produtosRendaFixa.valorMinimo  | currency: 'BRL'}}</td>
+                  <td class="col-pessoa-content">{{produtosRendaFixa.grauDeRiscoEnum}}</td>
+
+
+                  <td class="col-status-content"><a href="javascript:;" [pTooltip]="produtosRendaFixa.status ? 'Desativar' : 'Ativar'"
+                    tooltipPosition="top">
+                      {{produtosRendaFixa.status ? 'ATIVO' : 'INATIVO'}}</a></td>
+
+                      <td class="col-pessoa-content">{{produtosRendaFixa.dataVencimento  | date: 'dd/MM/y'}}</td>
+
+                  <td class="col-RF-header">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Editar produto" tooltipPosition="top" [routerLink]="['/produto-renda-fixa', produtosRendaFixa.produtoRendaFixaId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Remover produto" tooltipPosition="top" (click)="confirmaExclusao(produtosRendaFixa)"></button>
+                  </td>
+
+
+
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+    <div class="p-col-12">
+      <button pButton label="Cadastrar Produto" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
+              pTooltip="Cadastrar Produto" tooltipPosition="top" routerLink="/produto-renda-fixa/novo"></button>
+    </div>
+
+  </p-card>
+
+</div>

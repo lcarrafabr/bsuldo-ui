@@ -49,13 +49,13 @@ export class UsuarioCadastroComponent implements OnInit {
     //console.log(codigoUsuario)
 
     this.pegaValorUsuario('');
-    if (codigoUsuario != undefined && codigoUsuario != null && codigoUsuario != NaN && codigoUsuario) {
+    if (codigoUsuario != undefined && codigoUsuario != null && codigoUsuario) {
       this.carregarUsuarioPorID(codigoUsuario);
     }
 
-    this.carregarPessoas();
+    this.carregarPessoas()
     //this.pegaValorUsuario('');
-    if(codigoUsuario != undefined && codigoUsuario != null && codigoUsuario != NaN && codigoUsuario) {
+    if(codigoUsuario != undefined && codigoUsuario != null && codigoUsuario) {
       this.carregarUsuarioPorIDPegarPermissoes(codigoUsuario);
     }
 

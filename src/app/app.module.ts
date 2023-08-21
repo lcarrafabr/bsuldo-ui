@@ -1,3 +1,4 @@
+import { ProdutoRendaFixaModule } from './produto-renda-fixa/produto-renda-fixa.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { EmissoresModule } from './emissores/emissores.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -39,6 +40,7 @@ registerLocaleData(localePt);
     DashboardModule,
     UsuariosModule,
     EmissoresModule,
+    ProdutoRendaFixaModule,
 
     AppRoutingModule
   ],

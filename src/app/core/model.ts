@@ -62,3 +62,18 @@ export class Emissores {
   status: boolean;
   dataCadastro: Date;
 }
+export class ProdutoRendaFixa {
+  produtoRendaFixaId: number;
+  nomeProduto: string;
+  sigla: string;
+  dataVencimento: Date;
+  temImposto: boolean;
+  valorImposto: number;
+  grauDeRiscoEnum: string;
+  liquidezEnum: string;
+  impostoDeRendaEnum: string;
+  valorMinimo: number;
+  rentabilidade: string;
+  status: boolean;
+  emissores = new Emissores();
+}
