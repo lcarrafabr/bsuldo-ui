@@ -1,0 +1,180 @@
+<div class="container p-shadow-2">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Controle renda fixa</h2>
+    </div>
+
+    <div class="p-shadow-1">
+      <p-panel header="Filtro de pesquisa" [toggleable]="true" [collapsed]="true">
+        <form >
+
+          <div class="p-col-12">
+            <div class="p-d-flex p-flex-column p-flex-md-row">
+
+              <div class="p-col-2 p-fluid">
+                <label>Produto</label>
+                <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa nome produto" name="nomeProduto">
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-fluid">
+                <label style="display: block;">Data transação</label>
+                <p-calendar
+                        name="vencimentoInicio"
+
+                        dateFormat="dd/mm/yy"
+                        [readonlyInput]="true"
+                        [showIcon]="true"></p-calendar>
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-fluid" style="margin-top: 30px;">
+                <label>Até: </label>
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-fluid">
+                <label style="color: white;" class="p-fluid">Data Fim</label>
+                <p-calendar
+                    name="vencimentoFim"
+
+                    dateFormat="dd/mm/yy"
+                    [readonlyInput]="true"
+                    [showIcon]="true"></p-calendar>
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-fluid">
+                <label class="p-fluid">Tipo ordem</label>
+                <p-dropdown
+
+                filter="true"
+                placeholder="Selecione"></p-dropdown>
+              </div>
+
+
+            </div>
+
+            <div class="p-col-12">
+              <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+            </div>
+          </div>
+
+        </form>
+
+
+      </p-panel>
+    </div>
+
+
+
+
+
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-d-flex p-flex-column p-flex-md-row">
+      <div class="p-col-2 quadro">
+
+        <div class="teste p-shadow-1">
+          <article>
+            <h5>Valor total aplicado</h5>
+            <div class="number">{{valorTotalAplicado  | currency: 'BRL'}} <i class="pi pi-chart-line"></i></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="p-col-2 quadro">
+
+        <div class="teste p-shadow-1">
+          <article>
+            <h5>Valor total resgatado</h5>
+            <div class="number-resgate">{{valorTotalResgatado  | currency: 'BRL'}} <i class="pi pi-angle-double-down"></i></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="p-col-2 quadro">
+
+        <div class="teste p-shadow-2">
+          <article>
+            <h5>Valor aplicado disponível</h5>
+            <div class="number">{{valorAplicadoDisponivel  | currency: 'BRL'}} <i class="pi pi-money-bill"></i></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="p-col-2 quadro">
+
+        <div class="teste p-shadow-2">
+          <article>
+            <h5>Total Rendimento</h5>
+            <div class="number">EM PRODUÇÃO<i class="pi pi-cog"></i></div>
+          </article>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value] = ordemRendaFixa
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="5"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhuma ordem de renda fixa encontrada
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th class="col-RF-header">Produto</th>
+              <th class="col-RF-header">Tipo ordem</th>
+              <th class="col-RF-header">Data transação</th>
+              <th class="col-RF-header">Data vencimento</th>
+              <th class="col-RF-header">Valor</th>
+              <th class="col-RF-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-ordemRendaFixa>
+              <tr>
+                  <td class="col-pessoa-content">{{ordemRendaFixa.produtoRendaFixa.sigla}}</td>
+                  <td class="col-pessoa-content">{{ordemRendaFixa.tipoOrdemRendaFixaEnum}}</td>
+                  <td class="col-pessoa-content">{{ordemRendaFixa.dataTransacao   | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{ordemRendaFixa.produtoRendaFixa.dataVencimento   | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">
+                    <span [style.color]="ordemRendaFixa.tipoOrdemRendaFixaEnum === 'RESGATE' ? 'red' : 'blue'">
+                    {{ordemRendaFixa.valorTransacao | currency: 'BRL'}}</span></td>
+
+                  <td class="col-RF-header">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Editar produto" tooltipPosition="top" [routerLink]="['/ordem-renda-fixa', ordemRendaFixa.ordemRendaFixaId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Estornar Ordem Renda Fixa" (click)="confirmaExclusao(ordemRendaFixa)" tooltipPosition="top" ></button>
+                  </td>
+
+
+
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+    <div class="p-col-12">
+      <button pButton label="Inserir ordem" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
+              pTooltip="Inserir ordem" tooltipPosition="top" routerLink="/ordem-renda-fixa/novo"></button>
+    </div>
+
+
+  </p-card>
+
+
+</div>
+
+

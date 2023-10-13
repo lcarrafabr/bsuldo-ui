@@ -115,7 +115,7 @@ export class ProdutoRendaFixaCadastroComponent implements OnInit {
       this.produtoRendaFixa.valorImposto = 0;
       this.produtoRendaFixa.impostoDeRendaEnum = "ISENTO";
     }
-    console.log(this.produtoRendaFixa.impostoDeRendaEnum);
+
 
     this.produtoRendaFixaService.adicionar(this.produtoRendaFixa)
     .then(() => {

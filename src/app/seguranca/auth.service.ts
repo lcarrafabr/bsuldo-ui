@@ -56,6 +56,7 @@ export class AuthService {
         //console.log('Resposta: ' + response['access_token']);
         this.jwtPayloadId = response['id'];
         this.armazenarToken(response['access_token']);
+        localStorage.setItem('IDS', response['id']);
       })
       .catch(response => {
         if(response.status === 400) {
@@ -99,6 +100,7 @@ export class AuthService {
     .then(() => {
       localStorage.removeItem('token');
       localStorage.removeItem('ID');
+      localStorage.removeItem('IDS');
       this.jwtPayload = null;
       this.jwtPayloadId = null;
       this.router.navigate(['/login']);

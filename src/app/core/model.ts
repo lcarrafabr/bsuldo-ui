@@ -77,3 +77,12 @@ export class ProdutoRendaFixa {
   status: boolean;
   emissores = new Emissores();
 }
+
+export class OrdemRendaFixa {
+  ordemRendaFixaId: number;
+  tipoOrdemRendaFixaEnum: string;
+  dataTransacao: Date;
+  valorTransacao: number;
+  pessoa = new Pessoa();
+  produtoRendaFixa = new ProdutoRendaFixa();
+}

@@ -1,0 +1,71 @@
+<div class="container">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} ordem renda fixa</h2>
+    </div>
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <p-selectButton name="tipoOrdemRendaFixaEnum" [options]="tipos" #tipo [(ngModel)]="tipoOrdem">
+      </p-selectButton>
+      </div>
+
+      <div class="p-col-12">
+
+        <div class="p-mb-1 p-mr-6 p-lg-12 p-fluid">
+          <label>Produto</label>
+          <p-dropdown
+          name="produto"
+          [options]="produtos"
+          [(ngModel)]="ordemRendaFixa.produtoRendaFixa.produtoRendaFixaId"
+          filter="true"
+          placeholder="Selecione"></p-dropdown>
+        </div>
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-mb-1 p-mr-6 p-lg-12 p-fluid">
+          <label>Data transação {{ tipo.value === 'APLICACAO' ? ' Aplicação' : 'Resgate' }}</label>
+          <p-calendar
+          name="dataVencimento"
+          [(ngModel)]="ordemRendaFixa.dataTransacao"
+          dateFormat="dd/mm/yy"
+          [readonlyInput]="true"
+          [showIcon]="true"
+          [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
+        </div>
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-mb-1 p-mr-16 p-lg-12 p-fluid">
+          <label>Valor transação {{tipo.value}}</label>
+          <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+          <p-inputNumber name="valorMinimo" mode="decimal" inputId="minmaxfraction" [(ngModel)]="ordemRendaFixa.valorTransacao"
+          [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar produto" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+              pTooltip="Novo lançamento" tooltipPosition="top"></button>
+
+              <a routerLink="/ordem-renda-fixa" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+
+    </form>
+
+
+  </p-card>
+  <div class="p-col-12" style="color: white;">----------------------</div>
+  <div class="p-col-12" style="color: white;">----------------------</div>
+  <div class="p-col-12" style="color: white;">----------------------</div>
+
+</div>
