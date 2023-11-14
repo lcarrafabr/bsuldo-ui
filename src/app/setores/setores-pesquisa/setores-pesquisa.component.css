@@ -1,0 +1,16 @@
+
+.col-nome-setor-header {
+  width: 200px;
+}
+.col-status-header {
+  width: 50px;
+}
+.col-acoes-header {
+  width: 40px;
+}
+.col-status-content {
+  text-align: center;
+}
+.col-acoes-content {
+  text-align: center;
+}

@@ -86,3 +86,9 @@ export class OrdemRendaFixa {
   pessoa = new Pessoa();
   produtoRendaFixa = new ProdutoRendaFixa();
 }
+
+export class Setores {
+  setorId: number;
+  nomeSetor: string;
+  status: boolean;
+}

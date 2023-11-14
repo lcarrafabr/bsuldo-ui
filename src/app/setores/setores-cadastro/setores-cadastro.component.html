@@ -1,0 +1,35 @@
+<div class="container p-shadow-2">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de' : 'Cadastro de' }} setores</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+          <label>Nome Setor</label>
+          <input type="text" name="nomeSetor" [(ngModel)]="setores.nomeSetor" ngModel #nomeEmissor="ngModel" pInputText class="p-inputtext-sm" placeholder="Nome setor" required required minlength="3">
+        </div>
+
+        <div class="p-mb-1 p-mr-1 p-col-1">
+          <label>Status setor</label>
+          <p-inputSwitch name="status" [(ngModel)]="status" [(ngModel)]="setores.status" ngModel></p-inputSwitch>
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar setor" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+              pTooltip="Novo setor" tooltipPosition="top"></button>
+
+              <a routerLink="/setores" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+    </form>
+  </p-card>
+</div>

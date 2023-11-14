@@ -1,3 +1,4 @@
+import { SetoresModule } from './setores/setores.module';
 import { OrdemRendaFixaModule } from './ordem-renda-fixa/ordem-renda-fixa.module';
 import { ProdutoRendaFixaModule } from './produto-renda-fixa/produto-renda-fixa.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
@@ -43,6 +44,7 @@ registerLocaleData(localePt);
     EmissoresModule,
     ProdutoRendaFixaModule,
     OrdemRendaFixaModule,
+    SetoresModule,
 
     AppRoutingModule
   ],
