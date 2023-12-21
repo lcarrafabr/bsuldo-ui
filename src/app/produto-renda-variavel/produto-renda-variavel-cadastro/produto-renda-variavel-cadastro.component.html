@@ -1,0 +1,149 @@
+<div class="container p-shadow-2">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} produtos renda variável</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Ticker</label>
+            <input type="text" name="ticker" pInputText class="p-inputtext-sm" placeholder="Informe o ticker" [(ngModel)]="tickerValor" required>
+          </div>
+
+          <div class="p-mb-1" [(hidden)]="btnSalvarRapido">
+            <button pButton icon="pi pi-save"
+            class="p-button-raised p-button-rounded p-button-success p-button-outlined p-mb-1 p-mr-1" style="margin-top: 20px;"
+                pTooltip="Cadastrar Rápido" tooltipPosition="top" (click)="cadastrarRapido()"></button>
+          </div>
+
+        </div>
+      </div>
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Short name</label>
+            <input type="text" name="shortName" pInputText class="p-inputtext-sm" placeholder="Informe o short name"
+            [(ngModel)]="produtoRendaVariavel.shortName" ngModel required>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Long name</label>
+            <input type="text" name="longName" pInputText class="p-inputtext-sm" placeholder="Informe long name"
+            [(ngModel)]="produtoRendaVariavel.longName" ngModel required>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-2 p-fluid">
+            <label>Currency</label>
+            <input type="text" name="currency" pInputText class="p-inputtext-sm" placeholder="Currency ex: BRL"
+            [(ngModel)]="produtoRendaVariavel.currency" ngModel required>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Emissor</label>
+            <p-dropdown
+            name="emissor"
+            [(ngModel)]="produtoRendaVariavel.emissor.emissorId"
+            [options]="emissores"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Segmento</label>
+            <p-dropdown
+            name="segmento"
+            [(ngModel)]="produtoRendaVariavel.segmento.segmentoId"
+            [options]="segmentos"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Setor</label>
+            <p-dropdown
+            name="Setor"
+            [(ngModel)]="produtoRendaVariavel.setor.setorId"
+            [options]="setores"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-6 p-fluid">
+            <label>CNPJ</label>
+            <p-inputMask name="cnpj" mask="99.999.999/9999-99" [(ngModel)]="produtoRendaVariavel.cnpj" ngModel required></p-inputMask>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-6 p-fluid">
+            <label>Cotas emitidas</label>
+            <input type="text" pKeyFilter="int" name="cotasEmitidas" pInputText class="p-inputtext-sm" placeholder="Qtd cotas emitidas"
+            [(ngModel)]="produtoRendaVariavel.cotasEmitidas" ngModel required>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12 p-fluid">
+        <label>URL logo</label>
+        <input type="text" name="logoUrl" pInputText class="p-inputtext-sm" placeholder="URL logo (Não obrigatório)"
+        [(ngModel)]="produtoRendaVariavel.logoUrl" ngModel required>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12 p-fluid">
+        <p-checkbox name="geraDividendos" inputId="geraDividendos" [binary]="true" [(ngModel)]="produtoRendaVariavel.geraDividendos" ngModel ></p-checkbox>
+        <label for="geraDividendos"> Gera dividendos</label>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <p-checkbox name="status" [binary]="true" inputId="status" [(ngModel)]="produtoRendaVariavel.status" ngModel></p-checkbox>
+        <label for="status"> Status</label>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <label>Descrição</label>
+        <textarea type="text" rows="4" pInputTextarea autoResize="true" name="descricao" [(ngModel)]="produtoRendaVariavel.descricao" ngModel ></textarea>
+    </div>
+
+    <div style="background-color: thistle;"class="p-col-12">
+      <p-card>
+
+        <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+            pTooltip="Salvar setor" tooltipPosition="top"></button>
+
+            <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+            pTooltip="Novo setor" tooltipPosition="top"></button>
+
+            <a routerLink="/produto-renda-variavel" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+      </p-card>
+    </div>
+
+    </form>
+  </p-card>
+</div>

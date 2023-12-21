@@ -92,3 +92,40 @@ export class Setores {
   nomeSetor: string;
   status: boolean;
 }
+
+export class Segmentos {
+  segmentoId: number;
+  nomeSegmento: string;
+  status: boolean;
+}
+
+export class ProdutoRendaVariavel {
+  produtoId: number;
+  longName: string;
+  shortName: string;
+  ticker: string;
+  currency: string;
+  cnpj: string;
+  geraDividendos: boolean;
+  status: boolean;
+  cotasEmitidas: number;
+  logoUrl: string;
+  descricao: string;
+  emissor = new Emissores();
+  segmento = new Segmentos();
+  setor = new Setores();
+}
+
+export class OrdemDeCompra {
+  ordemDeCompraId: number;
+  tipoProdutoEnum: string;
+  tipoOrdemRendaVariavelEnum: string;
+  dataTransacao: Date;
+  dataExecucao: Date;
+  quantidadeCotas: number;
+  precoUnitarioCota: number;
+  valorInvestido: number;
+  pessoa = new Pessoa();
+  produtoRendaVariavel = new ProdutoRendaVariavel();
+
+}

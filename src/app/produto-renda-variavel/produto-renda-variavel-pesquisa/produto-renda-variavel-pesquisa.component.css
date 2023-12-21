@@ -1,0 +1,21 @@
+.col-logo-header {
+  width: 5px;
+}
+.col-ticker-header {
+  width: 30px;
+}
+.col-short-name-header {
+  width: 100px;
+}
+.col-status-header {
+  width: 50px;
+}
+.col-acoes-header {
+  width: 40px;
+}
+.col-status-content {
+  text-align: center;
+}
+.col-acoes-content {
+  text-align: center;
+}

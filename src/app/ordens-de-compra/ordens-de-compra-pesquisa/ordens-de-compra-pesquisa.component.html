@@ -1,0 +1,89 @@
+<div class="container2 p-shadow-2">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Pesquisa ordem de compra renda variável</h2>
+    </div>
+
+    <form autocomplete="off" (ngSubmit)="pesquisar();">
+      <div class="p-col-4 p-fluid">
+        <label>Ticker</label>
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por ticker" name="ticker" [(ngModel)]="ticker">
+      </div>
+      <div class="p-col-12">
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+      </div>
+    </form>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <!------------ Botão de cadastro ------------------>
+    <div class="p-col-12">
+      <button pButton label="Cadastrar ordem de compra/venda" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary"
+              pTooltip="Cadastrar ordem de compra e venda" tooltipPosition="top" routerLink="/ordens-de-compra/novo"></button>
+    </div>
+    <!-------------------------------------------------->
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value] = ordensDeCompra
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="10"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single"
+        styleClass="p-datatable-sm">
+        <ng-template pTemplate="emptymessage">
+          Nenhuma ordem de compra encontrada
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th class="col-logo-header">Tipo produto</th>
+              <th class="col-ticker-header">Segmento</th>
+              <th class="col-short-name-header">Setor</th>
+              <th class="col-status-header">Ticker</th>
+              <th class="col-status-header">Tipo ordem</th>
+              <th class="col-status-header">Data compra</th>
+              <th class="col-status-header">Data execução</th>
+              <th class="col-status-header">Preço 1 cota</th>
+              <th class="col-status-header">Qtd comprado</th>
+              <th class="col-status-header">Valor investido</th>
+              <th class="col-acoes-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-ordensDeCompra>
+              <tr>
+                  <td class="col-pessoa-content">{{ordensDeCompra.tipoProdutoEnum}}</td>
+                  <td class="col-pessoa-content">{{ordensDeCompra.produtoRendaVariavel.segmento.nomeSegmento}}</td>
+                  <td class="col-pessoa-content">{{ordensDeCompra.produtoRendaVariavel.setor.nomeSetor}}</td>
+                  <td class="col-pessoa-content" pTooltip={{ordensDeCompra.produtoRendaVariavel.longName}} tooltipPosition="top">
+                    {{ordensDeCompra.produtoRendaVariavel.ticker}}</td>
+                  <td class="col-pessoa-content"><span [style.color]="ordensDeCompra.tipoOrdemRendaVariavelEnum === 'VENDA' ? 'red' : 'blue'">
+                    {{ordensDeCompra.tipoOrdemRendaVariavelEnum}}</span></td>
+                  <td class="col-pessoa-content">{{ordensDeCompra.dataTransacao | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{ordensDeCompra.dataExecucao | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{ordensDeCompra.precoUnitarioCota | currency: 'BRL'}}</td>
+
+                  <td class="col-pessoa-content">{{ordensDeCompra.quantidadeCotas}}</td>
+
+                  <td class="col-status-content">{{ordensDeCompra.valorInvestido | currency: 'BRL'}}</td>
+
+                  <td class="col-acoes-content">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Editar ordem" tooltipPosition="top" [routerLink]="['/ordens-de-compra', ordensDeCompra.ordemDeCompraId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Remover ordem" tooltipPosition="top" (click)="confirmaExclusao(ordensDeCompra)"></button>
+                  </td>
+
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+  </p-card>
+</div>

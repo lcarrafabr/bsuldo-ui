@@ -1,0 +1,114 @@
+<div class="container3 p-shadow-2">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}  ordem de compra/venda</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-3 p-fluid">
+        <p-selectButton [options]="options" [(ngModel)]="value1" name="tipoCompraVenda"></p-selectButton>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Tipo produto</label>
+            <p-dropdown
+            name="emissor"
+            [(ngModel)]="tipoProdutoValue"
+            [options]="tipoProduto"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Ticker</label>
+            <p-dropdown
+            name="segmento"
+            [(ngModel)]="ordemDeCompra.produtoRendaVariavel.produtoId"
+            [options]="ticker"
+            filter="true"
+            placeholder="Selecione"
+            (onChange)="onTickerChange($event.value)"></p-dropdown>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Data transação</label>
+            <p-calendar
+            name="dataVencimento"
+            [(ngModel)]="ordemDeCompra.dataTransacao"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            [showIcon]="true"></p-calendar>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Data execução</label>
+            <p-calendar
+            name="dataVencimento"
+            [(ngModel)]="ordemDeCompra.dataExecucao"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            [showIcon]="true"></p-calendar>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Quantidade adquirida de cotas</label>
+            <input type="text" pKeyFilter="int" name="cotasEmitidas" pInputText class="p-inputtext-sm"
+              placeholder="Qtd cotas emitidas" [(ngModel)]="quantidadeCotas" (ngModelChange)="calcularValorInvestido()">
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Valor Un. por cota</label>
+            <p-inputNumber name="valor" mode="decimal" inputId="minmaxfraction" [minFractionDigits]="2" [maxFractionDigits]="5"
+              placeholder="0,00" [(ngModel)]="valorUnitario" (ngModelChange)="calcularValorInvestido()"></p-inputNumber>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+      <div class="p-col-10 p-fluid">
+        <label>Valor investido</label>
+        <p-inputNumber name="valorInvestido" mode="decimal" inputId="minmaxfraction" [minFractionDigits]="2" [maxFractionDigits]="5"
+          placeholder="0,00" [(ngModel)]="valorInvestidoValue"></p-inputNumber>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar setor" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+              pTooltip="Novo setor" tooltipPosition="top"></button>
+
+              <a routerLink="/ordens-de-compra" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+    </form>
+
+  </p-card>
+</div>

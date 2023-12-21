@@ -17,6 +17,20 @@ label {
   }
 }
 
+@media (min-width: 1200px){
+  .container2 {
+    width: 1500px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 900px){
+  .container3 {
+    width: 900px;
+    margin: 0 auto;
+  }
+}
+
 .col-valor-header {
   width: 120px;
 }

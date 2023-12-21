@@ -39,7 +39,7 @@ export class CategoriaPesquisaComponent implements OnInit {
     .then(response => {
       this.categorias = response;
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
   }
 
   confirmaExclusao(categorias: any) {

@@ -1,3 +1,6 @@
+import { OrdensDeCompraModule } from './ordens-de-compra/ordens-de-compra.module';
+import { ProdutoRendaVariavelModule } from './produto-renda-variavel/produto-renda-variavel.module';
+import { SegmentosModule } from './segmentos/segmentos.module';
 import { SetoresModule } from './setores/setores.module';
 import { OrdemRendaFixaModule } from './ordem-renda-fixa/ordem-renda-fixa.module';
 import { ProdutoRendaFixaModule } from './produto-renda-fixa/produto-renda-fixa.module';
@@ -45,6 +48,9 @@ registerLocaleData(localePt);
     ProdutoRendaFixaModule,
     OrdemRendaFixaModule,
     SetoresModule,
+    SegmentosModule,
+    ProdutoRendaVariavelModule,
+    OrdensDeCompraModule,
 
     AppRoutingModule
   ],
