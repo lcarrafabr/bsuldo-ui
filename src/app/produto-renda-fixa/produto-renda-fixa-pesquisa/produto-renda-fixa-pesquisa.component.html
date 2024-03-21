@@ -1,4 +1,4 @@
-<div class="container p-shadow-2">
+<div class="container p-shadow-2 body-content">
 
   <p-card>
     <div class="p-col-12">
@@ -40,7 +40,6 @@
               <th class="col-RF-header">Valor mínimo</th>
               <th class="col-RF-header">Grau de risco</th>
               <th class="col-RF-header">Status</th>
-              <th class="col-RF-header">Data vencimento</th>
               <th class="col-RF-header">Ações</th>
           </tr>
           </ng-template>
@@ -56,8 +55,6 @@
                   <td class="col-status-content"><a href="javascript:;" [pTooltip]="produtosRendaFixa.status ? 'Desativar' : 'Ativar'"
                     tooltipPosition="top">
                       {{produtosRendaFixa.status ? 'ATIVO' : 'INATIVO'}}</a></td>
-
-                      <td class="col-pessoa-content">{{produtosRendaFixa.dataVencimento  | date: 'dd/MM/y'}}</td>
 
                   <td class="col-RF-header">
                     <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"

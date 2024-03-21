@@ -10,7 +10,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -22,14 +22,27 @@ export function tokenGetter(): string {
     CommonModule,
     SegurancaRoutingModule,
     FormsModule,
+    HttpClientModule,
+
 
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-    allowedDomains: ['localhost:8080'],
-    disallowedRoutes: ['http://localhost:8080/oauth/token']
+    allowedDomains: ['192.168.1.106:8080'],
+    disallowedRoutes: ['http://192.168.1.106:8080/oauth/token']
       }
     }),
+
+
+    /*
+    // Abaixo é o codigo antes de ir para produção
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+        //allowedDomains: environment.tokenWhitelistedDomains,
+        //disallowedRoutes: environment.tokenBlackListdRoutes
+      }
+    }),*/
 
     InputTextModule,
     PasswordModule,

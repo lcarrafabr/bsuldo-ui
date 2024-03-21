@@ -1,0 +1,99 @@
+<div class="container2 p-shadow-2 body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Pesquisa controle de dividendos</h2>
+    </div>
+
+    <form>
+      <div class="p-col-12 p-fluid">
+        <label>Ticker</label>
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por ticker" name="ticker">
+      </div>
+      <div class="p-col-12">
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+      </div>
+    </form>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value] = controleDividendos
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="6"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhum dividendo encontrado
+        </ng-template>
+        <ng-template pTemplate="header">
+
+          <tr>
+            <th  colspan="7">Total dividendos recebido:  {{totalDivRecebido.totalDivRecebido | currency: 'BRL'}}</th>
+            <th  colspan="6">Dividendos disponível: {{ totalDivDisponivel.totalDivDisponivel | currency: 'BRL'}}</th>
+        </tr>
+
+          <tr>
+              <th class="col-logo-header">Tipo ativo</th>
+              <th class="col-ticker-header">Segmento</th>
+              <th class="col-short-name-header">Setor</th>
+              <th class="col-status-header">Ticker</th>
+              <th class="col-status-header">Tipo recebimento</th>
+              <th class="col-status-header">Tipo Dividendo</th>
+              <th class="col-status-header">Data referencia</th>
+              <th class="col-status-header">Data Com</th>
+              <th class="col-status-header">Data pagamento</th>
+              <th class="col-status-header">Valor por cota</th>
+              <th class="col-status-header">Dividendo recebido</th>
+              <th class="col-status-header">Div utilizado</th>
+              <th class="col-acoes-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-controleDividendos>
+              <tr>
+                  <td class="col-pessoa-content">{{controleDividendos.tipoAtivoEnum}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.produtosRendaVariavel.segmento.nomeSegmento}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.produtosRendaVariavel.setor.nomeSetor}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.produtosRendaVariavel.ticker}}</td>
+                  <td class="col-pessoa-content"><span
+                    [style.color]="controleDividendos.tipoDivRecebimentoEnum === 'A_RECEBER' ? '#d488065' : '#1c4f2a'"
+                    [style.backgroundColor]="controleDividendos.tipoDivRecebimentoEnum === 'A_RECEBER' ? '#ebe575' : '#81cc95'">
+                    {{controleDividendos.tipoDivRecebimentoEnum}} </span></td>
+                  <td class="col-pessoa-content">{{controleDividendos.tipoDividendoEnum}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.dataReferencia | date: 'MMM/y'}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.dataCom | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.dataPagamento | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.valorPorCota | currency: 'BRL'}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.valorRecebido | currency: 'BRL'}}</td>
+
+                  <td class="col-pessoa-content"><a href="javascript:;" [pTooltip]="controleDividendos.divUtilizado ? 'DIV JÁ UTILIZADO' : 'DISPONÍVEL'"
+                    tooltipPosition="top"
+                    (click)="alterarStatusAtivo(controleDividendos)">
+                    {{controleDividendos.divUtilizado  ? 'DIV JÁ UTILIZADO' : 'DISPONÍVEL'}}</a></td>
+
+                  <td class="col-acoes-content">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Editar controle dividendo" tooltipPosition="top" [routerLink]="['/controle-dividendos', controleDividendos.controleDividendoId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Remover controle dividendo" tooltipPosition="top" (click)="confirmaExclusao(controleDividendos)"></button>
+                  </td>
+
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+    <div class="p-col-12">
+      <button pButton label="Cadastrar dividendo" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
+              pTooltip="Cadastrar dividendos" tooltipPosition="top" routerLink="/controle-dividendos/novo"></button>
+    </div>
+
+  </p-card>
+</div>

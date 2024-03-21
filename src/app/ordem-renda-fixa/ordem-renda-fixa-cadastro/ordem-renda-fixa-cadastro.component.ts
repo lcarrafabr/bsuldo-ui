@@ -40,7 +40,7 @@ export class OrdemRendaFixaCadastroComponent implements OnInit {
     this.codigoUsuarioLogado = localStorage.getItem('IDS');
 
     this.tipoOrdem= 'APLICACAO';
-    this.title.setTitle('Ordem de lançamentos RF')
+    this.title.setTitle('Ordem de lançamentos RF');
     this.carregarComboProdutos();
 
     const codigoOrdemRF = this.route.snapshot.params['codigo'];
@@ -102,7 +102,7 @@ export class OrdemRendaFixaCadastroComponent implements OnInit {
       this.ordemRendaFixa = ordemRF;
 
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
   }
 
   atualizarOrdemRF(form: FormControl) {
@@ -115,6 +115,7 @@ export class OrdemRendaFixaCadastroComponent implements OnInit {
       this.ordemRendaFixa = response;
       this.messageService.add({ severity: 'success', detail: 'Ordem Renda Fixa atualizado com sucesso!', closable: false });
     })
+    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
   }
 
   novo(form: NgForm) {

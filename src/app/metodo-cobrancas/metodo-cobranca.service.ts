@@ -1,6 +1,7 @@
 import { MetodoDeCobranca } from './../core/model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 export interface MetodoCobrancaFiltro {
   nomeMetodoConranca: string;
@@ -11,9 +12,12 @@ export interface MetodoCobrancaFiltro {
 })
 export class MetodoCobrancaService {
 
-  metodoCobrancaURL = 'http://localhost:8080/metodo-de-cobranca'
+  //metodoCobrancaURL = 'http://localhost:8080/metodo-de-cobranca'
+  metodoCobrancaURL: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.metodoCobrancaURL = `${environment.apiUrl}/metodo-de-cobranca`;
+  }
 
   listarTodos(): Promise<any> {
 

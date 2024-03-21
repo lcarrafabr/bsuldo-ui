@@ -1,0 +1,81 @@
+<div class="container p-shadow-2 body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Histórico rendimentos renda fixa</h2>
+    </div>
+
+    <div class="p-shadow-1">
+      <p-panel header="Filtro de pesquisa" [toggleable]="true" [collapsed]="true">
+        <form>
+
+          <div class="p-col-12">
+            <div class="p-d-flex p-flex-column p-flex-md-row">
+              <div class="p-col-12 p-fluid">
+                <label>DECIDIR QUE TIPO DE FILTRO SERÁ USADO</label>
+                <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa nome produto" name="nomeProduto">
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </p-panel>
+    </div>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-col-12">
+      <button pButton label="Cadastrar histórico" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
+              pTooltip="Cadastrar histórico" tooltipPosition="top" routerLink="/historico-renda-fixa/novo"></button>
+    </div>
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value]="historicoRF"
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="30"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhum dado histórico encontrado
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th class="col-RF-header">Data</th>
+              <th class="col-RF-header">Dia da semana</th>
+              <th class="col-RF-header">Valor resgate</th>
+              <th class="col-RF-header">Rendimento</th>
+              <th class="col-RF-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-historicoRF>
+              <tr>
+                  <td class="col-pessoa-content">{{historicoRF.dataRentabilidade | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{historicoRF.diaDaSemana}}</td>
+                  <td class="col-pessoa-content">{{historicoRF.valorResgateApp | currency: 'BRL'}}</td>
+                  <td class="col-pessoa-content">{{historicoRF.rendimento | currency: 'BRL'}}</td>
+
+                  <td class="col-RF-header">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Editar produto" tooltipPosition="top" [routerLink]="['/historico-renda-fixa', historicoRF.histRentabilidadeRFId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Estornar Ordem Renda Fixa"  tooltipPosition="top" (click)="confirmaExclusao(historicoRF)"></button>
+                  </td>
+
+
+
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+
+
+  </p-card>
+</div>

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProdutoRendaVariavel } from '../core/model';
+import { environment } from 'src/environments/environment';
 
 export interface ProdutoRVFiltro {
   ticker: string;
@@ -11,14 +12,24 @@ export interface ProdutoRVFiltro {
 })
 export class ProdutoRendaVariavelServiceService {
 
-  produtoRendaVariavelURL = 'http://localhost:8080/produto-renda-variavel';
-  emissoresURL = 'http://localhost:8080/emissores';
-  segmentosURL = 'http://localhost:8080/segmentos';
-  setoresURL = 'http://localhost:8080/setores';
+  //produtoRendaVariavelURL = 'http://localhost:8080/produto-renda-variavel';
+  //emissoresURL = 'http://localhost:8080/emissores';
+  //segmentosURL = 'http://localhost:8080/segmentos';
+  //setoresURL = 'http://localhost:8080/setores';
+
+  produtoRendaVariavelURL: string;
+  emissoresURL: string;
+  segmentosURL: string;
+  setoresURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.produtoRendaVariavelURL = `${environment.apiUrl}/produto-renda-variavel`;
+    this.emissoresURL = `${environment.apiUrl}/emissores`;
+    this.segmentosURL = `${environment.apiUrl}/segmentos`;
+    this.setoresURL = `${environment.apiUrl}/setores`;
+   }
 
   listarTodos(): Promise<any> {
 

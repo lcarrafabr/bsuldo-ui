@@ -1,0 +1,585 @@
+<div><label style="color: white;">----------------------</label></div>
+<div class="container2 body2 body-content">
+  <p-tabView>
+    <p-tabPanel header="Dados gerais" leftIcon="pi pi-chart-bar">
+      <p-card>
+        <h2>Dashboard de investimentos</h2>
+
+        <form autocomplete="off">
+          <div class="p-col-12">
+            <label>Filtro</label>
+            <p-calendar
+              class="p-mb-2 p-mr-2"
+              [(ngModel)]="dataSelecionada"
+              view="month"
+              name="dataFiltro"
+              dateFormat="mm/yy"
+              [readonlyInput]="true"
+              [showIcon]="true">
+            </p-calendar>
+
+            <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2"></button>
+          </div>
+        </form>
+
+        <div><label style="color: white;">----------------------</label></div>
+        <div><label style="color: white;">----------------------</label></div>
+
+        <!-----------------------------------------Valor Total RF Aplicado----------------------------------------------------------------------------->
+
+        <div class="p-col-12">
+          <div class="p-d-flex p-flex-column p-flex-md-row">
+
+            <div class="p-col-2">
+              <div class="card">
+              <div class="card-block">
+              <div class="row align-items-center">
+              <div class="p-col-12">
+              <h4 class="text-c-green f-w-600">Valor Total RF Aplicado</h4>
+              </div>
+              <div class="p-col-8 text-right">
+              <i class="feather icon-file-text f-28"></i>
+              </div>
+              </div>
+              </div>
+              <div class="card-footer bg-c-green">
+              <div class="row align-items-center">
+              <div class="p-col-12">
+              <p class="text-white m-b-0">{{valorTotalAplicadoRF | currency: 'BRL' }}</p>
+              </div>
+              <div class="p-col-8 text-right">
+              <i class="feather icon-trending-up text-white f-16"></i>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+
+              <!---------------------------------------------Valor total RF Resgatado----------------------------------------------------------------------------------->
+
+              <div class="p-col-2">
+                <div class="card">
+                <div class="card-block">
+                <div class="row align-items-center">
+                <div class="p-col-12">
+                <h4 class="text-c-green f-w-600">Valor total RF Resgatado</h4>
+                </div>
+                <div class="p-col-8 text-right">
+                <i class="feather icon-file-text f-28"></i>
+                </div>
+                </div>
+                </div>
+                <div class="card-footer bg-c-green">
+                <div class="row align-items-center">
+                <div class="p-col-12">
+                <p class="text-white m-b-0">{{valorTotalResgatadoRF | currency: 'BRL' }}</p>
+                </div>
+                <div class="p-col-8 text-right">
+                <i class="feather icon-trending-up text-white f-16"></i>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+
+                <!----------------------------------------------INVESTIMENTO TOTAL RV---------------------------------------------------------------------------------->
+
+                <div class="p-col-2">
+                  <div class="card">
+                  <div class="card-block">
+                  <div class="row align-items-center">
+                  <div class="p-col-12">
+                  <h4 class="text-c-green f-w-600">Valor RF Dispinível</h4>
+                  </div>
+                  <div class="p-col-8 text-right">
+                  <i class="feather icon-file-text f-28"></i>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="card-footer bg-c-green">
+                  <div class="row align-items-center">
+                  <div class="p-col-12">
+                  <p class="text-white m-b-0">{{valorAplicadoDisponivelRF | currency: 'BRL' }}</p>
+                  </div>
+                  <div class="p-col-8 text-right">
+                  <i class="feather icon-trending-up text-white f-16"></i>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+                  <!--------------------------------------------------RENDIMENTO TOTAL RV------------------------------------------------------------------------------>
+
+                  <div class="p-col-2">
+                    <div class="card">
+                    <div class="card-block">
+                    <div class="row align-items-center">
+                    <div class="p-col-12">
+                    <h4 class="text-c-green f-w-600">Rend. Total RF</h4>
+                    </div>
+                    <div class="p-col-8 text-right">
+                    <i class="feather icon-file-text f-28"></i>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="card-footer bg-c-green">
+                    <div class="row align-items-center">
+                    <div class="p-col-12">
+                    <p class="text-white m-b-0">RS: Em Desenv.</p>
+                    </div>
+                    <div class="p-col-8 text-right">
+                    <i class="feather icon-trending-up text-white f-16"></i>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+                    <!---------------------------------------------------TOTAL DIVI RECEBIDOS----------------------------------------------------------------------------->
+
+                    <div class="p-col-2">
+                      <div class="card">
+                      <div class="card-block">
+                      <div class="row align-items-center">
+                      <div class="p-col-12">
+                      <h4 class="text-c-green f-w-600">Total Investido RV</h4>
+                      </div>
+                      <div class="p-col-8 text-right">
+                      <i class="feather icon-file-text f-28"></i>
+                      </div>
+                      </div>
+                      </div>
+                      <div class="card-footer bg-c-green">
+                      <div class="row align-items-center">
+                      <div class="p-col-12">
+                      <p class="text-white m-b-0">{{valorInvestidoRV.valorTotalInvestidoRendaVariavel | currency: 'BRL' }}</p>
+                      </div>
+                      <div class="p-col-8 text-right">
+                      <i class="feather icon-trending-up text-white f-16"></i>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+
+                      <!-------------------------------------------------------------------------------------------------------------------------------->
+
+                      <!---------------------------------------------------TOTAL DIVI RECEBIDOS----------------------------------------------------------------------------->
+
+                    <div class="p-col-2">
+                      <div class="card">
+                      <div class="card-block">
+                      <div class="row align-items-center">
+                      <div class="p-col-12">
+                      <h4 class="text-c-green f-w-600">Total Div. Recebidos</h4>
+                      </div>
+                      <div class="p-col-8 text-right">
+                      <i class="feather icon-file-text f-28"></i>
+                      </div>
+                      </div>
+                      </div>
+                      <div class="card-footer bg-c-green">
+                      <div class="row align-items-center">
+                      <div class="p-col-12">
+                      <p class="text-white m-b-0">{{ totalDivRecebido.totalDivRecebido | currency: 'BRL' }}</p>
+                      </div>
+                      <div class="p-col-8 text-right">
+                      <i class="feather icon-trending-up text-white f-16"></i>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+
+
+
+          </div>
+        </div>
+
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-12">
+            <div>
+              <p-panel header="Dividendos recebidos" class="p-chart">
+                <p-chart type="bar" [data]="graficoBarrasDividendoRecebido" [options]="basicOptions" width="1410px" height="300px" responsive="true"></p-chart>
+              </p-panel>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-12">
+            <div>
+              <p-panel header="Total dividendos recebidos por mês">
+                <div class="p=col=12">
+                  <p-table
+                  #tabela
+                  [value] = totalDivRecebidoNoAno
+                  styleClass="p-datatable-gridlines"
+                  [paginator]="false"
+                  [rows]="5"
+                  selectionMode="single"
+                  [responsive]="true"
+                  selectionMode="single">
+                  <ng-template pTemplate="emptymessage">
+                    Nenhum valor encontrado
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                        <th class="col-mes-header">JAN</th>
+                        <th class="col-mes-header">FEV</th>
+                        <th class="col-mes-header">MAR</th>
+                        <th class="col-mes-header">ABR</th>
+                        <th class="col-mes-header">MAI</th>
+                        <th class="col-mes-header">JUN</th>
+                        <th class="col-mes-header">JUL</th>
+                        <th class="col-mes-header">AGO</th>
+                        <th class="col-mes-header">SET</th>
+                        <th class="col-mes-header">OUT</th>
+                        <th class="col-mes-header">NOV</th>
+                        <th class="col-mes-header">DEZ</th>
+                        <th class="col-mes-header">TOTAL</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <tr>
+                        <td class="col-mes-content">{{valorDivRecGridJAN  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridFEV  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridMAR  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridABR  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridMAI  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridJUN  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridJUL  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridAGO  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridSET  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridOUT  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridNOV  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{valorDivRecGridDEZ  | currency: 'BRL'}}</td>
+                        <td class="col-total-content">{{valorTotalDivGrid  | currency: 'BRL'}}</td>
+
+
+                    </tr>
+                </ng-template>
+
+                  </p-table>
+                </div>
+              </p-panel>
+            </div>
+          </div>
+          </div>
+
+
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+              <div>
+                <p-panel header="Quantidade de Fiis e Ações" class="p-chart">
+                  <p-chart type="bar" [data]="graficoBarrasQtdTotalCotasEAcoes" [options]="basicOptions" width="1410px" height="300px" responsive="true"></p-chart>
+                </p-panel>
+              </div>
+            </div>
+          </div>
+
+
+
+
+      </p-card>
+  </p-tabPanel> <!--============ FIM DO TAB MENU 01 =============================-->
+
+
+  <p-tabPanel header="Informações da carteira" leftIcon="pi pi-chart-line"> <!--============ INICIO DO TAB MENU 02 =============================-->
+
+    <div><label style="color: white;">----------------------</label></div>
+    <div><label style="color: white;">----------------------</label></div>
+
+    <p-panel header="Ações" [toggleable]="true" [collapsed]="false">
+
+      <div class="p=col=12">
+        <p-table
+        #tabela
+        [value] = relatorioCompletoAcoesGrid
+        styleClass="p-datatable-gridlines p-datatable-sm"
+        [paginator]="false"
+        [rows]="15"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhum valor encontrado
+        </ng-template>
+        <ng-template pTemplate="header">
+
+          <tr>
+
+            <th  colspan="5">
+              Total projetivo:  {{totalProjetivoGridAcoes | currency: 'BRL'}}
+              <ng-container *ngIf="totalProjetivoGridAFiis < 0; else plusIcon">
+                <i class="pi pi-arrow-down" [ngStyle]="{'color': totalProjetivoGridAcoes < 0 ? '#a10e0e' : 'green'}"></i>
+              </ng-container>
+              <ng-template #plusIcon>
+                <i class="pi pi-arrow-up" [ngStyle]="{'color': totalProjetivoGridAcoes < 0 ? '#a10e0e' : 'green'}"></i>
+              </ng-template>
+            </th>
+
+            <th  colspan="5">Total investido: {{totalInvestidoAcoesGrid | currency: 'BRL'}}</th>
+          </tr>
+
+          <tr>
+            <th class="col-mes-header">Logo</th>
+              <th class="col-mes-header">Ticker</th>
+              <th class="col-mes-header">Quantidade</th>
+              <th class="col-mes-header">Preço médio</th>
+              <th class="col-mes-header">Preço atual</th>
+              <th class="col-mes-header">Variação</th>
+              <th class="col-mes-header">Valor investido</th>
+              <th class="col-mes-header">Saldo variação</th>
+              <th class="col-mes-header">Projetivo</th>
+              <th class="col-mes-header">Perc. Ações</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-relatorioCompletoAcoesGrid>
+          <tr>
+            <td class="col-mes-content"><img [src]="relatorioCompletoAcoesGrid.logoUrl" width="30" class="p-shadow-4" /></td>
+
+            <td class="col-mes-content" pTooltip="{{ relatorioCompletoAcoesGrid.valorCotacaoAtual === 0 ? 'Erro ao tentar consultar esse ativo' : '' }}" tooltipPosition="top">
+              <span [style.color]="relatorioCompletoAcoesGrid.valorCotacaoAtual === 0 ? '#FFFFFF' : '#1c4f2a'"
+                    [style.backgroundColor]="relatorioCompletoAcoesGrid.valorCotacaoAtual === 0 ? '#b31535' : '#FFFFFF'">
+                {{relatorioCompletoAcoesGrid.ticker}}
+              </span>
+            </td>
+
+
+              <!--<td class="col-mes-content">{{relatorioCompletoAcoesGrid.ticker}}</td>-->
+              <td class="col-mes-content">{{relatorioCompletoAcoesGrid.quantidadeCotas}}</td>
+              <td class="col-mes-content">{{relatorioCompletoAcoesGrid.mediaInvestida  | currency: 'BRL'}}</td>
+              <td class="col-mes-content">{{relatorioCompletoAcoesGrid.valorCotacaoAtual  | currency: 'BRL'}}</td>
+
+              <td class="col-mes-content" [ngStyle]="{'color': relatorioCompletoAcoesGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+                <ng-container *ngIf="relatorioCompletoAcoesGrid.variacao < 0; else plusIcon">
+                  <i class="pi pi-arrow-down"></i>
+                </ng-container>
+                <ng-template #plusIcon>
+                  <i class="pi pi-arrow-up"></i>
+                </ng-template>
+                {{relatorioCompletoAcoesGrid.variacao.toFixed(2).replace('.', ',')}}%</td>
+
+              <td class="col-mes-content">{{relatorioCompletoAcoesGrid.valorInvestido  | currency: 'BRL'}}</td>
+
+              <td class="col-mes-content" [ngStyle]="{'color': relatorioCompletoAcoesGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+                {{relatorioCompletoAcoesGrid.saldoVariacao  | currency: 'BRL'}}</td>
+
+                <td class="col-mes-content" [ngStyle]="{'color': relatorioCompletoAcoesGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+                  {{relatorioCompletoAcoesGrid.ganhoPerdaProjetiva  | currency: 'BRL'}}</td>
+
+              <td class="col-mes-content">{{relatorioCompletoAcoesGrid.percentualValorInvestido.toFixed(2).replace('.', ',')}}%</td>
+
+
+          </tr>
+      </ng-template>
+
+        </p-table>
+      </div>
+
+
+    </p-panel>
+
+    <div><label style="color: white;">----------------------</label></div>
+
+    <p-panel header="FIIs" [toggleable]="true" [collapsed]="false">
+
+      <div class="p=col=12">
+        <p-table
+        #tabela
+        [value] = relatorioCompletoFIISsGrid
+        styleClass="p-datatable-gridlines p-datatable-sm"
+        [paginator]="false"
+        [rows]="15"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhum valor encontrado
+        </ng-template>
+        <ng-template pTemplate="header">
+
+          <tr>
+            <th  colspan="5">
+              Total projetivo:  {{totalProjetivoGridAFiis | currency: 'BRL'}}
+              <ng-container *ngIf="totalProjetivoGridAFiis < 0; else plusIcon">
+                <i class="pi pi-arrow-down" [ngStyle]="{'color': totalProjetivoGridAFiis < 0 ? '#a10e0e' : 'green'}"></i>
+              </ng-container>
+              <ng-template #plusIcon>
+                <i class="pi pi-arrow-up" [ngStyle]="{'color': totalProjetivoGridAFiis < 0 ? '#a10e0e' : 'green'}"></i>
+              </ng-template>
+            </th>
+
+            <th  colspan="5">Total investido: {{totalInvestidoFiisGrid | currency: 'BRL'}}</th>
+          </tr>
+
+          <tr>
+            <th class="col-mes-header">Logo</th>
+              <th class="col-mes-header">Ticker</th>
+              <th class="col-mes-header">Quantidade</th>
+              <th class="col-mes-header">Preço médio</th>
+              <th class="col-mes-header">Preço atual</th>
+              <th class="col-mes-header">Variação</th>
+              <th class="col-mes-header">Valor investido</th>
+              <th class="col-mes-header">Saldo variação</th>
+              <th class="col-mes-header">Projetivo</th>
+              <th class="col-mes-header">Perc. FIIs</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-relatorioCompletoFIISsGrid>
+          <tr>
+            <td class="col-mes-content"><img [src]="relatorioCompletoFIISsGrid.logoUrl" width="30" class="p-shadow-4" /></td>
+
+            <td class="col-mes-content" pTooltip="{{ relatorioCompletoFIISsGrid.valorCotacaoAtual === 0 ? 'Erro ao tentar consultar esse ativo' : '' }}" tooltipPosition="top">
+              <span [style.color]="relatorioCompletoFIISsGrid.valorCotacaoAtual === 0 ? '#FFFFFF' : '#1c4f2a'"
+                    [style.backgroundColor]="relatorioCompletoFIISsGrid.valorCotacaoAtual === 0 ? '#b31535' : '#FFFFFF'">
+                {{relatorioCompletoFIISsGrid.ticker}}
+              </span>
+            </td>
+           <!-- <td class="col-pessoa-content">{{relatorioCompletoFIISsGrid.ticker}}</td> -->
+              <td class="col-mes-content">{{relatorioCompletoFIISsGrid.quantidadeCotas}}</td>
+              <td class="col-mes-content">{{relatorioCompletoFIISsGrid.mediaInvestida  | currency: 'BRL'}}</td>
+              <td class="col-mes-content">{{relatorioCompletoFIISsGrid.valorCotacaoAtual  | currency: 'BRL'}}</td>
+
+              <td class="col-mes-content" [ngStyle]="{'color': relatorioCompletoFIISsGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+                <ng-container *ngIf="relatorioCompletoFIISsGrid.variacao < 0; else plusIcon">
+                  <i class="pi pi-arrow-down"></i>
+                </ng-container>
+                <ng-template #plusIcon>
+                  <i class="pi pi-arrow-up"></i>
+                </ng-template>
+                {{relatorioCompletoFIISsGrid.variacao.toFixed(2).replace('.', ',')}}%</td>
+
+              <td class="col-mes-content">{{relatorioCompletoFIISsGrid.valorInvestido  | currency: 'BRL'}}</td>
+
+              <td class="col-mes-content" [ngStyle]="{'color': relatorioCompletoFIISsGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+                {{relatorioCompletoFIISsGrid.saldoVariacao  | currency: 'BRL'}}</td>
+
+                <td class="col-mes-content" [ngStyle]="{'color': relatorioCompletoFIISsGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+                  {{relatorioCompletoFIISsGrid.ganhoPerdaProjetiva  | currency: 'BRL'}}</td>
+
+              <td class="col-mes-content">{{relatorioCompletoFIISsGrid.percentualValorInvestido.toFixed(2).replace('.', ',')}}%</td>
+
+
+          </tr>
+      </ng-template>
+
+        </p-table>
+      </div>
+
+
+    </p-panel>
+
+    <div><label style="color: white;">----------------------</label></div>
+    <div><label style="color: white;">----------------------</label></div>
+
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+        <div>
+          <p-panel header="Percentual total carteira">
+            <p-chart type="pie" [data]="graficoPizzaAcoesFiisRendaFixa"></p-chart>
+          </p-panel>
+        </div>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <div>
+          <p-panel header="Ações / Fiis">
+            <p-chart type="pie" [data]="graficoPizzaAcoesFiis"></p-chart>
+          </p-panel>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+        <div>
+          <p-panel header="Percentual Ações | QTD Ações: {{quantidadeTotalAcoes}}">
+            <p-chart type="doughnut" [data]="graficoPercentualAcoes"></p-chart>
+          </p-panel>
+        </div>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <div>
+          <p-panel header="Percentual FIIs | QTD FIIs: {{quantidadeTotalFiis}}">
+            <p-chart type="doughnut" [data]="graficoPercentualFiis"></p-chart>
+          </p-panel>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <div class="p-formgrid p-grid">
+      <div class="p-field p-col-6 p-md-6">
+        <div>
+          <p-panel header="Informações dos ativos">
+            <div class="p=col=12">
+              <p-table
+              #tabela
+              [value] = relatorioBasicoVisualizacao
+              styleClass="p-datatable-gridlines"
+              [paginator]="false"
+              [rows]="5"
+              selectionMode="single"
+              [responsive]="true"
+              selectionMode="single">
+              <ng-template pTemplate="emptymessage">
+                Nenhum valor encontrado
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                    <th class="col-mes-header">Tipo Ativo</th>
+                    <th class="col-mes-header">Ticker</th>
+                    <th class="col-mes-header">Qtd Cotas</th>
+                    <th class="col-mes-header">Valor investido</th>
+                    <th class="col-mes-header">Preço médio</th>
+                    <th class="col-mes-header">% na carteira</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-relatorioBasicoVisualizacao>
+                <tr>
+                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.tipoProdutoEnum}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.ticker}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.quantidadeCotas}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.valorInvestido | currency: 'BRL'}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.mediaInvestida | currency: 'BRL'}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.percentualValorInvestido.toFixed(2).replace('.', ',')}} %</td>
+
+
+                </tr>
+            </ng-template>
+
+              </p-table>
+            </div>
+          </p-panel>
+        </div>
+      </div>
+
+      <div class="p-field p-col-6 p-md-6">
+        <div>
+          <p-panel header="Percentual dos ativos na carteira" class="p-chart">
+            <p-chart type="doughnut" [data]="graficoPizzaTotalCarteira" [options]="basicOptions" responsive="true"></p-chart>
+          </p-panel>
+        </div>
+
+
+
+      </div>
+
+      </div>
+
+
+
+
+
+  </p-tabPanel>
+  </p-tabView>
+
+</div>

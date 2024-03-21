@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Emissores } from '../core/model';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 export interface EmissorFiltro {
   nomeEmissor: string;
@@ -12,11 +13,14 @@ export interface EmissorFiltro {
 })
 export class EmissoresService {
 
-  emissoresURL = 'http://localhost:8080/emissores'
+  //emissoresURL = 'http://localhost:8080/emissores'
+  emissoresURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.emissoresURL = `${environment.apiUrl}/emissores`;
+   }
 
   listarTodos(filtro: EmissorFiltro): Promise<any> {
 

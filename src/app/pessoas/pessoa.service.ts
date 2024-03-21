@@ -2,6 +2,7 @@ import { Pessoa } from './../core/model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 export interface PessoaFiltro {
   nomePessoa: string;
@@ -12,11 +13,14 @@ export interface PessoaFiltro {
 })
 export class PessoaService {
 
-  pessoaURL = 'http://localhost:8080/pessoas'
+  //pessoaURL = 'http://localhost:8080/pessoas'
+  pessoaURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.pessoaURL = `${environment.apiUrl}/pessoas`;
+  }
 
 
     pesquisarPessoa(filtro: PessoaFiltro): Promise<any> {

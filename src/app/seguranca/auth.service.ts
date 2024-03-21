@@ -2,15 +2,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  authTokenURL = 'http://localhost:8080/oauth/token'
-  tokenRevokeURL = 'http://localhost:8080/tokens/revoke'
+  //authTokenURL = 'http://192.168.1.106:8080/oauth/token'
+  //tokenRevokeURL = 'http://192.168.1.106:8080/tokens/revoke'
 
+  authTokenURL: string;
+  tokenRevokeURL: string;
   jwtPayload: any;
   jwtPayloadId: any;
 
@@ -19,6 +22,8 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
     private router: Router
   ) {
+    this.authTokenURL = `${environment.apiUrl}/oauth/token`;
+    this.tokenRevokeURL = `${environment.apiUrl}`;
     this.carregarToken();
    }
 

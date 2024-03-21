@@ -1,15 +1,19 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
 
-  lancamentosDashboardUrl = 'http://localhost:8080/lancamentos';
+  //lancamentosDashboardUrl = 'http://localhost:8080/lancamentos';
+  lancamentosDashboardUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.lancamentosDashboardUrl = `${environment.apiUrl}/lancamentos`;
+  }
 
 
   valorApagarNoMes(dataReferencia: Date) {

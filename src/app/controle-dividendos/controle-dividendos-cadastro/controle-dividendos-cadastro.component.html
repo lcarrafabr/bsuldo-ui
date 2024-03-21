@@ -1,0 +1,133 @@
+<div class="container p-shadow-2 body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}  dividendos</h2>
+    </div>
+
+    <form utocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Ticker</label>
+            <p-dropdown
+            name="produto"
+            [(ngModel)]="controleDividendos.produtosRendaVariavel.produtoId"
+            [options]="produtos"
+            filter="true"
+            placeholder="Selecione"
+            (onChange)="onTickerChange($event.value)"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Tipo recebimento</label>
+            <p-dropdown
+            name="tipoRecebimento"
+            [(ngModel)]="controleDividendos.tipoDivRecebimentoEnum"
+            [options]="tipoRecebimento"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Tipo dividendo</label>
+            <p-dropdown
+            name="tipoDividendo"
+            [(ngModel)]="controleDividendos.tipoDividendoEnum"
+            [options]="tipoDividendo"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Data referencia</label>
+            <p-calendar
+            name="dataReferencia"
+            [(ngModel)]="controleDividendos.dataReferencia"
+            view="month"
+            dateFormat="mm/yy"
+            [readonlyInput]="true"
+            [showIcon]="true"
+            [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Data COM</label>
+            <p-calendar
+            name="dataCom"
+            [(ngModel)]="controleDividendos.dataCom"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="false"
+            [showIcon]="true"
+            [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Data pagamento</label>
+            <p-calendar
+            name="dataPagamento"
+            [(ngModel)]="controleDividendos.dataPagamento"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="false"
+            [showIcon]="true"
+            [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Valor por cota</label>
+            <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+            <p-inputNumber name="valorPorCota" mode="decimal" inputId="minmaxfraction" [(ngModel)]="controleDividendos.valorPorCota"
+            [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Valor recebido</label>
+            <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+            <p-inputNumber name="valorRecebido" mode="decimal" inputId="minmaxfraction" [(ngModel)]="controleDividendos.valorRecebido"
+            [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label style="color: white;">____________________________________________________</label>
+            <p-checkbox name="divUtilizado" inputId="divUtilizado" [binary]="true"  [(ngModel)]="controleDividendos.divUtilizado" ngModel ></p-checkbox>
+            <label for="divUtilizado"> Dividendo usado</label>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar dividendo" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+              pTooltip="Novo setor" tooltipPosition="top"></button>
+
+              <a routerLink="/controle-dividendos" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+    </form>
+
+  </p-card>
+</div>

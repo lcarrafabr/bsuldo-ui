@@ -2,18 +2,25 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProdutoRendaFixa } from '../core/model';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoRendaFixaServiceService {
 
-  produtosRendaFixaURL = 'http://localhost:8080/produto-renda-fixa'
-  emissoresURL = 'http://localhost:8080/emissores'
+ // produtosRendaFixaURL = 'http://localhost:8080/produto-renda-fixa'
+  //emissoresURL = 'http://localhost:8080/emissores'
+
+  produtosRendaFixaURL: string;
+  emissoresURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.produtosRendaFixaURL = `${environment.apiUrl}/produto-renda-fixa`;
+    this.emissoresURL = `${environment.apiUrl}/emissores`;
+  }
 
   listarTodos(): Promise<any> {
 

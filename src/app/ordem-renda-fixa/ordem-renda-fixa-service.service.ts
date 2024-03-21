@@ -4,21 +4,28 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { ErrorHandlerService } from '../core/error-handler.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdemRendaFixaServiceService {
 
-  ordemRendaFixaURL = 'http://localhost:8080/ordem-renda-fixa';
-  produtoRendaFixaURL = 'http://localhost:8080/produto-renda-fixa';
+  //ordemRendaFixaURL = 'http://localhost:8080/ordem-renda-fixa';
+  //produtoRendaFixaURL = 'http://localhost:8080/produto-renda-fixa';
+
+  ordemRendaFixaURL: string;
+  produtoRendaFixaURL: string;
 
   constructor(
     private http: HttpClient,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
     private errorHandler: ErrorHandlerService
-    ) { }
+    ) {
+      this.ordemRendaFixaURL = `${environment.apiUrl}/ordem-renda-fixa`;
+      this.produtoRendaFixaURL = `${environment.apiUrl}/produto-renda-fixa`;
+     }
 
   listarTodos(): Promise<any> {
 
@@ -96,6 +103,10 @@ export class OrdemRendaFixaServiceService {
   private converterStringsParaDatas(ordemRF: OrdemRendaFixa[]) {
     for (const ordemRendaFixa of ordemRF) {
       ordemRendaFixa.dataTransacao = moment(ordemRendaFixa.dataTransacao,
+        'YYYY-MM-DD').toDate();
+    }
+    for (const ordemRendaFixa of ordemRF) {
+      ordemRendaFixa.dataVencimento = moment(ordemRendaFixa.dataVencimento,
         'YYYY-MM-DD').toDate();
     }
   }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Categoria } from '../core/model';
+import { environment } from 'src/environments/environment';
 
 export interface CategoriaFiltro {
   nomeCategoria: string;
@@ -11,11 +12,14 @@ export interface CategoriaFiltro {
 })
 export class CategoriaService {
 
-  categoriaURL = 'http://localhost:8080/categorias'
+  //categoriaURL = 'http://localhost:8080/categorias'
+  categoriaURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.categoriaURL = `${environment.apiUrl}/categorias`;
+   }
 
 
     listarTodos(): Promise<any> {

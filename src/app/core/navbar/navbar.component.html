@@ -1,8 +1,17 @@
 <nav class="navbar">
-  <div class="container">
+  <div >
     <div class="p-grid">
       <div class="p-col-12">
-        <a href="javascript:;" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="pi pi-bars"></i></a>
+      <!-- <a href="javascript:;" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="pi pi-bars"></i></a>-->
+       <!-- <p-tabMenu [model]="items"  [activeItem]="items[0]"></p-tabMenu> -->
+        <p-menubar [model]="items">
+          <span class="p-overlay-badge">
+            <button pButton icon="pi pi-bell" class="p-button-secondary p-button-rounded p-button-outlined" (click)="alertas();"></button>
+            <span class="p-badge p-badge-danger">5</span>
+          </span>
+          <label style="color: white;">--------</label>
+          <button pButton icon="pi pi-power-off" class="p-button-secondary" (click)="logout();"></button>
+      </p-menubar>
       </div>
     </div>
   </div>
@@ -26,13 +35,16 @@
 
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/usuarios" (click)="exibindoMenu = !exibindoMenu">Usuários</a></li>
       <li class="navbar-menuitem-invest">¯¯¯¯¯¯¯¯¯  Investimentos  ¯¯¯¯¯¯¯¯</li>
+      <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/dashboard-investimentos" (click)="exibindoMenu = !exibindoMenu">Dasboard Investimentos</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/emissores" (click)="exibindoMenu = !exibindoMenu">Emissores</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/setores" (click)="exibindoMenu = !exibindoMenu">Setores</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/segmentos" (click)="exibindoMenu = !exibindoMenu">Segmentos</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/produto-renda-fixa" (click)="exibindoMenu = !exibindoMenu">Produto Renda Fixa</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/produto-renda-variavel" (click)="exibindoMenu = !exibindoMenu">Produto Renda Variável</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/ordem-renda-fixa" (click)="exibindoMenu = !exibindoMenu">Controle Renda Fixa</a></li>
+      <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/historico-renda-fixa" (click)="exibindoMenu = !exibindoMenu">Histórico Renda Fixa</a></li>
       <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/ordens-de-compra" (click)="exibindoMenu = !exibindoMenu">Ordens de compra RV</a></li>
+      <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/controle-dividendos" (click)="exibindoMenu = !exibindoMenu">Controle Dividendos</a></li>
 
       <li class="navbar-menuitem"><a href="javascript:;" (click)="logout()">Logout</a></li>
 

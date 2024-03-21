@@ -82,6 +82,7 @@ export class OrdemRendaFixa {
   ordemRendaFixaId: number;
   tipoOrdemRendaFixaEnum: string;
   dataTransacao: Date;
+  dataVencimento: Date;
   valorTransacao: number;
   pessoa = new Pessoa();
   produtoRendaFixa = new ProdutoRendaFixa();
@@ -127,5 +128,25 @@ export class OrdemDeCompra {
   valorInvestido: number;
   pessoa = new Pessoa();
   produtoRendaVariavel = new ProdutoRendaVariavel();
+}
 
+export class ControleDividendos {
+  controleDividendoId: number;
+  tipoAtivoEnum: string;
+  tipoDivRecebimentoEnum: string;
+  dataReferencia: Date;
+  tipoDividendoEnum: string;
+  dataCom: Date;
+  dataPagamento: Date;
+  valorPorCota: number;
+  valorRecebido: number;
+  divUtilizado: boolean;
+  pessoa = new Pessoa();
+  produtosRendaVariavel = new ProdutoRendaVariavel();
+}
+export class HistoricoRendimentoRF {
+  histRentabilidadeRFId: number;
+  dataRentabilidade: Date;
+  valorResgateApp: number;
+  pessoa = new Pessoa();
 }

@@ -1,0 +1,46 @@
+<div class="container body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}histórico de rendimentos</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+      <div class="p-col-12">
+        <div class="p-mb-1 p-mr-6 p-lg-12 p-fluid">
+          <label>Data correspondente</label>
+          <p-calendar
+          name="dataAplicacao"
+          [(ngModel)]="historicoRendimentoRF.dataRentabilidade"
+          dateFormat="dd/mm/yy"
+          [readonlyInput]="false"
+          [showIcon]="true"
+          [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
+        </div>
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-mb-1 p-mr-16 p-lg-12 p-fluid">
+          <label>Valor do rendimento</label>
+          <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+          <p-inputNumber name="valorMinimo" mode="decimal" inputId="minmaxfraction" [(ngModel)]="historicoRendimentoRF.valorResgateApp"
+          [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar produto" tooltipPosition="top"></button>
+
+              <a routerLink="/historico-renda-fixa" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+    </form>
+
+
+
+  </p-card>
+</div>

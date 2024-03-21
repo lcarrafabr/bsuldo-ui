@@ -1,17 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Setores } from '../core/model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SetoresServiceService {
 
-  setorURL = 'http://localhost:8080/setores';
+  //setorURL = 'http://localhost:8080/setores';
+  setorURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.setorURL = `${environment.apiUrl}/setores`;
+   }
 
 
   listarTodos(): Promise<any> {

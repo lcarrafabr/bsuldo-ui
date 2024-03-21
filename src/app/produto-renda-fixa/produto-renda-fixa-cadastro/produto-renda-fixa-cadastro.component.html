@@ -1,4 +1,4 @@
-<div class="container p-shadow-2">
+<div class="container p-shadow-2 body-content">
   <p-card>
     <div class="p-col-12">
       <h2>{{ editando2 ? 'Edição de ' : 'Cadastro de ' }} de produtos renda fixa</h2>
@@ -33,17 +33,6 @@
             [options]="emissores"
             filter="true"
             placeholder="Selecione"></p-dropdown>
-          </div>
-
-          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Data vencimento</label>
-            <p-calendar
-            name="dataVencimento"
-            [(ngModel)]="produtoRendaFixa.dataVencimento"
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true"
-            [showIcon]="true"
-            [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
           </div>
         </div>
       </div>

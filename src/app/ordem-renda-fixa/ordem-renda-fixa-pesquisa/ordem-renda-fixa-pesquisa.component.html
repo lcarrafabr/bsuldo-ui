@@ -1,4 +1,4 @@
-<div class="container p-shadow-2">
+<div class="container p-shadow-2 body-content">
   <p-card>
     <div class="p-col-12">
       <h2>Controle renda fixa</h2>
@@ -144,7 +144,7 @@
                   <td class="col-pessoa-content">{{ordemRendaFixa.produtoRendaFixa.sigla}}</td>
                   <td class="col-pessoa-content">{{ordemRendaFixa.tipoOrdemRendaFixaEnum}}</td>
                   <td class="col-pessoa-content">{{ordemRendaFixa.dataTransacao   | date: 'dd/MM/y'}}</td>
-                  <td class="col-pessoa-content">{{ordemRendaFixa.produtoRendaFixa.dataVencimento   | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{ordemRendaFixa.dataVencimento   | date: 'dd/MM/y'}}</td>
                   <td class="col-pessoa-content">
                     <span [style.color]="ordemRendaFixa.tipoOrdemRendaFixaEnum === 'RESGATE' ? 'red' : 'blue'">
                     {{ordemRendaFixa.valorTransacao | currency: 'BRL'}}</span></td>

@@ -1,0 +1,38 @@
+.text-c-green{
+  color:#404C51
+}
+.card{
+  -webkit-box-shadow:0 1px 20px 0 rgba(69,90,100,.08);
+  box-shadow:0 1px 20px 0 rgba(69,90,100,.08);
+  border:none;
+  margin-bottom:30px;
+  background-color: #f0efef;
+  border-radius: 10px;
+}
+.card-block{padding:2px}
+.text-muted{color:#919aa3!important}
+.card-footer{
+  background-color:#fff;
+  border-top:none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.bg-c-green{background:-webkit-gradient(linear,left top,right top,from(#3b2d79),to(#7b66d8));background:linear-gradient(to right,#3b2d79,#7b66d8)}
+.f-w-600{
+  font-weight:600;
+  font-size: 18px;
+}
+.m-b-0{margin-bottom:0}
+.f-28{font-size:20px}
+.text-white {
+  color: white;
+  font-size: 22px;
+}
+
+.body-content {
+  margin-top: 79px; /* Ajuste conforme a altura da sua barra de navegação */
+  /*padding: 2px; /* Adicione um espaçamento superior ao conteúdo para compensar a barra de navegação fixa */
+  background-color: white; /* Adicione isso para cobrir a barra de navegação fixa */
+  position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
+  z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
+}

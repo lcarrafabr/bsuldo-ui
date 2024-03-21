@@ -1,3 +1,6 @@
+import { HistoricoRfModule } from './historico-rf/historico-rf.module';
+import { DashboardInvestimentosModule } from './dashboard-investimentos/dashboard-investimentos.module';
+import { ControleDividendosModule } from './controle-dividendos/controle-dividendos.module';
 import { OrdensDeCompraModule } from './ordens-de-compra/ordens-de-compra.module';
 import { ProdutoRendaVariavelModule } from './produto-renda-variavel/produto-renda-variavel.module';
 import { SegmentosModule } from './segmentos/segmentos.module';
@@ -28,7 +31,7 @@ registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
 
   ],
   imports: [
@@ -51,6 +54,9 @@ registerLocaleData(localePt);
     SegmentosModule,
     ProdutoRendaVariavelModule,
     OrdensDeCompraModule,
+    ControleDividendosModule,
+    DashboardInvestimentosModule,
+    HistoricoRfModule,
 
     AppRoutingModule
   ],

@@ -5,3 +5,10 @@
 .col-status-content {
   text-align: center;
 }
+.body-content {
+  margin-top: 79px; /* Ajuste conforme a altura da sua barra de navegação */
+  /*padding: 2px; /* Adicione um espaçamento superior ao conteúdo para compensar a barra de navegação fixa */
+  background-color: white; /* Adicione isso para cobrir a barra de navegação fixa */
+  position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
+  z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
+}

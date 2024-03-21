@@ -1,6 +1,7 @@
 import { Usuario, Permissoes } from './../core/model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 export interface UsuarioFiltro {
   nomeUsuario: string;
@@ -11,13 +12,21 @@ export interface UsuarioFiltro {
 })
 export class UsuariosService {
 
- usuarioURL = 'http://localhost:8080/usuarios'
- pessoaURL = 'http://localhost:8080/pessoas'
- usuarioPermissoes = 'http://localhost:8080/user-permition'
+ //usuarioURL = 'http://localhost:8080/usuarios'
+ //pessoaURL = 'http://localhost:8080/pessoas'
+ //usuarioPermissoes = 'http://localhost:8080/user-permition'
+
+ usuarioURL: string;
+ pessoaURL: string;
+ usuarioPermissoes: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.usuarioURL = `${environment.apiUrl}/usuarios`;
+    this.pessoaURL = `${environment.apiUrl}/pessoas`;
+    this.usuarioPermissoes = `${environment.apiUrl}/user-permition`;
+   }
 
 
   listarUsuarios(filtro: UsuarioFiltro): Promise<any> {

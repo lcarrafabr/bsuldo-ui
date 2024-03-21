@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrdemDeCompra } from '../core/model';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 export interface OrdemCompraVendaTicker {
   ticker: string;
@@ -13,12 +14,18 @@ export interface OrdemCompraVendaTicker {
 export class OrdensDeCompraService {
 
 
-  ordemDeCompraURL = 'http://localhost:8080/ordens-de-compra';
-  produtoRendaVariavelURL = 'http://localhost:8080/produto-renda-variavel';
+  //ordemDeCompraURL = 'http://localhost:8080/ordens-de-compra';
+  //produtoRendaVariavelURL = 'http://localhost:8080/produto-renda-variavel';
+
+  ordemDeCompraURL: string;
+  produtoRendaVariavelURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.ordemDeCompraURL = `${environment.apiUrl}/ordens-de-compra`;
+    this.produtoRendaVariavelURL = `${environment.apiUrl}/produto-renda-variavel`;
+   }
 
 
   listarTodos(): Promise<any> {

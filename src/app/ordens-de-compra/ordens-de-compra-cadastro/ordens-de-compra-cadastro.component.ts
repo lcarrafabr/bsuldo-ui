@@ -147,6 +147,10 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
       this.messageService.add({ severity: 'success', detail: 'Ordem de Compra/Venda cadastrado com sucesso!', closable: false});
       form.reset();
       this.ordemDeCompra = new OrdemDeCompra();
+      this.value1 = "COMPRA";
+      this.valorInvestidoValue = 0;
+      this.quantidadeCotas = 1;
+      this.valorUnitario = 0;
     })
     .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
   }

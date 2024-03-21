@@ -3,3 +3,11 @@
   color: rgb(31, 42, 105);
   text-align: right;
 }
+
+.body-content {
+  margin-top: 56px; /* Ajuste conforme a altura da sua barra de navegação */
+  padding: 20px; /* Adicione um espaçamento superior ao conteúdo para compensar a barra de navegação fixa */
+  background-color: white; /* Adicione isso para cobrir a barra de navegação fixa */
+  position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
+  z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
+}

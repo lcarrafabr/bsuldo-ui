@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container body-content">
   <p-card>
     <div class="p-col-12">
       <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} ordem renda fixa</h2>
@@ -27,10 +27,23 @@
         <div class="p-mb-1 p-mr-6 p-lg-12 p-fluid">
           <label>Data transação {{ tipo.value === 'APLICACAO' ? ' Aplicação' : 'Resgate' }}</label>
           <p-calendar
-          name="dataVencimento"
+          name="dataAplicacao"
           [(ngModel)]="ordemRendaFixa.dataTransacao"
           dateFormat="dd/mm/yy"
-          [readonlyInput]="true"
+          [readonlyInput]="false"
+          [showIcon]="true"
+          [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
+        </div>
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-mb-1 p-mr-6 p-lg-12 p-fluid">
+          <label>Data Vencimento</label>
+          <p-calendar
+          name="dataVencimento"
+          [(ngModel)]="ordemRendaFixa.dataVencimento"
+          dateFormat="dd/mm/yy"
+          [readonlyInput]="false"
           [showIcon]="true"
           [yearNavigator]="true" yearRange="2018:2090"></p-calendar>
         </div>

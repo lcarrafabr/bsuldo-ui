@@ -1,17 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Segmentos } from '../core/model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SegmentoServiceService {
 
-  segmentoURL = 'http://localhost:8080/segmentos';
+  //segmentoURL = 'http://localhost:8080/segmentos';
+  segmentoURL: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.segmentoURL = `${environment.apiUrl}/segmentos`;
+  }
 
   listarTodos(): Promise<any> {
 

@@ -1,16 +1,17 @@
+/* Mantenha o estilo existente para a barra de navegação */
 .navbar {
   padding: 20px 0 10px;
-  background-color:#7a078c;
-}
-
-.navbar-toggle {
-  color: white;
+  background-color: #7a078c;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .navbar-menu {
-  position: fixed;
   background-color: #3A3633;
-  top: 0%;
+  position: fixed;
+  top: 0;
   bottom: 0;
   right: 0;
   margin: 0;
@@ -18,10 +19,16 @@
   z-index: 99999;
   list-style: none;
   padding: 0;
+  /*overflow-y: auto; /* Adicionado para permitir rolar dentro da barra lateral, se necessário */
 }
 
-.navbar-usuario {
+.body-content {
+  margin-top: 56px; /* Ajuste conforme a altura da sua barra de navegação */
+  padding: 20px; /* Adicione um espaçamento superior ao conteúdo para compensar a barra de navegação fixa */
+}
 
+/* Restante do seu estilo existente */
+.navbar-usuario {
   color: white;
   font-weight: bold;
   text-transform: uppercase;
@@ -31,7 +38,6 @@
 }
 
 .navbar-menuitem {
-
   padding: 15px;
 }
 
@@ -49,15 +55,15 @@
 }
 
 .navbar-menuitem-invest {
-
   color: white;
   padding: 15px;
 }
 
 .navbar-menuitem-logout {
-
   border-top: 1px solid #525151;
   padding: 15px;
   color: #C0BBB7;
   text-decoration: none;
 }
+
+@import "primeicons/primeicons.css";
