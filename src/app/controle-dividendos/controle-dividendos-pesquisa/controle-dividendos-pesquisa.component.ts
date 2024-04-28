@@ -3,6 +3,7 @@ import { ControleDividendosService } from './../controle-dividendos.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-controle-dividendos-pesquisa',
@@ -13,6 +14,8 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
+  codigoUsuarioLogado: string;
+
   controleDividendos = [];
   totalDivRecebido: any = 0;
   totalDivDisponivel: number = 0;
@@ -21,16 +24,21 @@ export class ControleDividendosPesquisaComponent implements OnInit {
     private controleDividendosService: ControleDividendosService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Controle Dividendos');
+
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+
     this.pesquisar();
   }
 
   pesquisar() {
 
-    this.controleDividendosService.listarTodos()
+    this.controleDividendosService.listarTodos(this.codigoUsuarioLogado)
     .then(response => {
       this.controleDividendos = response;
       this.totalDividendoRecebido();
@@ -62,7 +70,7 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
   totalDividendoRecebido() {
 
-    this.controleDividendosService.totalDividendoRecebido()
+    this.controleDividendosService.totalDividendoRecebido(this.codigoUsuarioLogado)
     .then(response => {
       this.totalDivRecebido = response;
     })
@@ -71,7 +79,7 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
   totalDividendoDisponivel() {
 
-    this.controleDividendosService.totalDividendoDisponivel()
+    this.controleDividendosService.totalDividendoDisponivel(this.codigoUsuarioLogado)
     .then(response => {
       this.totalDivDisponivel = response;
     })

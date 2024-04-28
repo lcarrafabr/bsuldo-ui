@@ -1,0 +1,152 @@
+<div class="container2 p-shadow-2 body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Acompanhamento estratégico pesquisa</h2>
+    </div>
+
+    <form autocomplete="off" (ngSubmit)="pesquisarByFiltro();">
+
+      <div class="p-shadow-1">
+        <p-panel [toggleable]="true" [collapsed]="true">
+          <ng-template pTemplate="header">
+            <div style="display: flex; align-items: center;">
+              <i [class]="iconePanel" style="margin-right: 5px;"></i>
+              <span>Filtro de pesquisa</span>
+            </div>
+          </ng-template>
+
+          <div class="p-col-12">
+            <div class="p-d-flex p-flex-column p-flex-md-row">
+
+              <div class="p-mb-1 p-mr-1 p-lg-2 p-fluid">
+                <label>Ticker</label>
+                <input type="text" name="ticker" pInputText class="p-inputtext-sm" placeholder="ticker" [(ngModel)]="tickerFiltro">
+              </div>
+
+              <div class="p-mb-1 p-mr-1 p-lg-3 p-fluid">
+                <label>Segmento</label>
+                <p-dropdown
+                name="segmento"
+                [(ngModel)]="segmentoIdFiltro"
+                [options]="segmentos"
+                filter="true"
+                placeholder="Selecione"></p-dropdown>
+              </div>
+
+              <div class="p-mb-1 p-mr-1 p-lg-3 p-fluid">
+                <label>Setor</label>
+                <p-dropdown
+                name="setores"
+                [(ngModel)]="setorIdFiltro"
+                [options]="setores"
+                filter="true"
+                placeholder="Selecione"></p-dropdown>
+              </div>
+
+              <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+                <label>Status</label>
+                <p-dropdown
+                name="statusAcompanhamento"
+                [(ngModel)]="statusAcompanhamentoFiltro"
+                [options]="statusAcompanhamento"
+                filter="true"
+                placeholder="Selecione"></p-dropdown>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="p-col-12">
+            <div class="p-d-flex p-flex-row p-flex-md-row">
+
+                <div style="margin-right: 10px;">
+                    <button pButton type="submit" label="Pesquisar" [icon]="iconeFiltro" class="p-button-raised p-button-rounded"></button>
+                </div>
+                <div>
+                    <button pButton type="button" label="Limpar filtros" icon="pi pi-filter-slash" class="p-button-raised p-button-rounded p-button-info"
+                    (click)="resetarCamposFiltro()"></button>
+                </div>
+
+            </div>
+        </div>
+
+
+        </p-panel>
+      </div>
+
+    </form>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <!------------ Botão de cadastro ------------------>
+    <div class="p-col-12">
+      <button pButton label="Cadastrar acomp. estratégico" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary"
+              pTooltip="Cadastrar acompanhamento" tooltipPosition="top" routerLink="/acompanhamento-estrategico/novo"></button>
+    </div>
+    <!-------------------------------------------------->
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value] = acompanhamnetoEstrategicoResponse
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="20"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single"
+        styleClass="p-datatable-sm">
+        <ng-template pTemplate="emptymessage">
+          Nenhum acompanhamento encontrado
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th class="col-ticker-header">Ticker</th>
+              <th class="col-segmento-header">Segmento</th>
+              <th class="col-setor-header">Setor</th>
+              <th class="col-data-header">Data cadastro</th>
+              <th class="col-valor-header">Valor ativo</th>
+              <th class="col-valor-header">Último div pago</th>
+              <th class="col-status-header">Status</th>
+              <th class="col-acoes-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-acompanhamnetoEstrategicoResponse>
+              <tr>
+                  <td class="col-ticker-content">{{acompanhamnetoEstrategicoResponse.ticker}}</td>
+                  <td class="col-segmento-content">{{acompanhamnetoEstrategicoResponse.segmento.nomeSegmento}}</td>
+                  <td class="col-setor-content">{{acompanhamnetoEstrategicoResponse.setor.nomeSetor}}</td>
+                  <td class="col-data-content">{{acompanhamnetoEstrategicoResponse.dataCadastro | date: 'dd/MM/y'}}</td>
+                  <td class="col-valor-content">{{acompanhamnetoEstrategicoResponse.valorCota | currency: 'BRL'}}</td>
+                  <td class="col-valor-content">{{acompanhamnetoEstrategicoResponse.valorDividendo | currency: 'BRL'}}</td>
+
+                  <td class="col-status-content" [ngClass]="{
+                    'status-em-analise': acompanhamnetoEstrategicoResponse.statusAcompanhamentoEnum === 'EM_ANALISE',
+                    'status-aprovado-compra': acompanhamnetoEstrategicoResponse.statusAcompanhamentoEnum === 'APROVADO_COMPRA',
+                    'status-comprado': acompanhamnetoEstrategicoResponse.statusAcompanhamentoEnum === 'COMPRADO',
+                    'status-possivel-compra': acompanhamnetoEstrategicoResponse.statusAcompanhamentoEnum === 'POSSIVEL_COMPRA',
+                    'status-congelado-para-analise': acompanhamnetoEstrategicoResponse.statusAcompanhamentoEnum === 'CONGELADO_PARA_ANALISE',
+                    'status-rejeitado': acompanhamnetoEstrategicoResponse.statusAcompanhamentoEnum === 'REJEITADO'
+                }">
+                    {{acompanhamnetoEstrategicoResponse.statusAcompanhamentoEnum}}
+                </td>
+
+
+                  <td class="col-acoes-content">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Editar ordem" tooltipPosition="top" [routerLink]="['/acompanhamento-estrategico', acompanhamnetoEstrategicoResponse.acompEstrategicoId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    pTooltip="Remover ordem" tooltipPosition="top" (click)="confirmaExclusao(acompanhamnetoEstrategicoResponse)"></button>
+                  </td>
+
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+  </p-card>
+</div>

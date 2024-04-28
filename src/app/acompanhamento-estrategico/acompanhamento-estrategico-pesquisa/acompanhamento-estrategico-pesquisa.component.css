@@ -1,0 +1,80 @@
+.body-content {
+  margin-top: 79px; /* Ajuste conforme a altura da sua barra de navegação */
+  /*padding: 2px; /* Adicione um espaçamento superior ao conteúdo para compensar a barra de navegação fixa */
+  background-color: white; /* Adicione isso para cobrir a barra de navegação fixa */
+  position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
+  z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
+}
+
+.status-em-analise {
+  background-color: #ffcc99; /* Laranja claro */
+}
+
+.status-aprovado-compra {
+  background-color: #ccffcc; /* Verde claro */
+}
+
+.status-comprado {
+  background-color: #619e61; /* Vesde escuro */
+  color: white;
+}
+
+.status-possivel-compra {
+  background-color: #99ccff; /* Azul claro */
+}
+
+.status-congelado-para-analise {
+  background-color: #ff9999; /* Vermelho claro */
+}
+
+.status-rejeitado {
+  background-color: #cccccc; /* Cinza claro */
+}
+
+.col-ticker-header {
+  width: 100px;
+}
+
+.col-ticker-content {
+  text-align: center;
+}
+
+.col-segmento-header {
+  width: 200px;
+}
+
+.col-segmento-content {
+  text-align: center;
+}
+
+.col-setor-header {
+  width: 200px;
+}
+
+.col-setor-content {
+  text-align: center;
+}
+
+.col-data-header {
+  width: 100px;
+}
+
+.col-data-content {
+  text-align: center;
+}
+
+.col-valor-header {
+  width: 100px;
+}
+
+.col-valor-content {
+  text-align: center;
+}
+
+.col-status-header {
+  width: 250px;
+}
+
+.col-status-content {
+  text-align: center;
+}

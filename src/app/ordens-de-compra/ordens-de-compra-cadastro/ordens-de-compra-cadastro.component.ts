@@ -58,7 +58,7 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
 
     this.title.setTitle('Ordem de compra e venda RV');
 
-    this.codigoUsuarioLogado = localStorage.getItem('IDS');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     this.carregarProdutosCombobox();
 
@@ -77,7 +77,7 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
 
   carregarProdutosCombobox() {
 
-    this.ordemDeCompraService.listarTodosProdutosRendaVariavel()
+    this.ordemDeCompraService.listarTodosProdutosRendaVariavel(this.codigoUsuarioLogado)
     .then(produtoResponse => {
       this.ticker = produtoResponse.map(p => {
         return {label: p.ticker, value: p.produtoId}
@@ -138,11 +138,10 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
     this.ordemDeCompra.quantidadeCotas = this.quantidadeCotas;
     this.ordemDeCompra.precoUnitarioCota = this.valorUnitario;
     this.ordemDeCompra.valorInvestido = this.valorInvestidoValue;
-    this.ordemDeCompra.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
-    this.ordemDeCompra.tipoProdutoEnum = this.tipoProdutoValue;
+    this.ordemDeCompra.tipoAtivoEnum = this.tipoProdutoValue;
     this.ordemDeCompra.tipoOrdemRendaVariavelEnum = this.value1;
 
-    this.ordemDeCompraService.adicionar(this.ordemDeCompra)
+    this.ordemDeCompraService.adicionar(this.ordemDeCompra, this.codigoUsuarioLogado)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Ordem de Compra/Venda cadastrado com sucesso!', closable: false});
       form.reset();
@@ -157,14 +156,14 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
 
   carregarPorId(codigo: number) {
 
-    this.ordemDeCompraService.buscarPorCodigo(codigo)
+    this.ordemDeCompraService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
     .then(response => {
       this.ordemDeCompra = response;
 
       this.quantidadeCotas = response.quantidadeCotas;
       this.valorUnitario = response.precoUnitarioCota;
       this.valorInvestidoValue = response.valorInvestido;
-      this.tipoProdutoValue = response.tipoProdutoEnum;
+      this.tipoProdutoValue = response.tipoAtivoEnum;
       this.value1 = response.tipoOrdemRendaVariavelEnum;
     })
     .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
@@ -175,11 +174,10 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
     this.ordemDeCompra.quantidadeCotas = this.quantidadeCotas;
     this.ordemDeCompra.precoUnitarioCota = this.valorUnitario;
     this.ordemDeCompra.valorInvestido = this.valorInvestidoValue;
-    this.ordemDeCompra.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
-    this.ordemDeCompra.tipoProdutoEnum = this.tipoProdutoValue;
+    this.ordemDeCompra.tipoAtivoEnum = this.tipoProdutoValue;
     this.ordemDeCompra.tipoOrdemRendaVariavelEnum = this.value1;
 
-    this.ordemDeCompraService.atualizarOrdemDeCompra(this.ordemDeCompra)
+    this.ordemDeCompraService.atualizarOrdemDeCompra(this.ordemDeCompra, this.codigoUsuarioLogado)
     .then(response => {
       this.ordemDeCompra = response;
       this.messageService.add({ severity: 'success', detail: 'Ordem de Compra/Venda atualizado com sucesso!', closable: false });

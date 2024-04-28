@@ -13,6 +13,8 @@ import { FormControl, NgForm } from '@angular/forms';
 })
 export class SetoresCadastroComponent implements OnInit {
 
+  codigoUsuarioLogado: string;
+
   setores = new Setores;
   status: boolean = true;
 
@@ -27,6 +29,7 @@ export class SetoresCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     const codigoSetor = this.route.snapshot.params['codigo'];
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     if(codigoSetor) {
       this.carregarSetorPorId(codigoSetor);
@@ -52,7 +55,7 @@ export class SetoresCadastroComponent implements OnInit {
 
   cadastrarSetor(form: FormControl) {
 
-    this.setorService.cadastrarSetor(this.setores)
+    this.setorService.cadastrarSetor(this.setores, this.codigoUsuarioLogado)
     .then(() => {
 
       this.messageService.add({ severity: 'success', detail: 'Setor cadastrado com sucesso!', closable: false });
@@ -64,7 +67,7 @@ export class SetoresCadastroComponent implements OnInit {
 
   carregarSetorPorId(codigo: number) {
 
-    this.setorService.buscaSetoresPorID(codigo)
+    this.setorService.buscaSetoresPorID(codigo, this.codigoUsuarioLogado)
     .then(setor => {
       this.setores = setor;
     })
@@ -72,7 +75,7 @@ export class SetoresCadastroComponent implements OnInit {
   }
 
   atualizarSetor(form: FormControl) {
-    this.setorService.editarSetor(this.setores)
+    this.setorService.editarSetor(this.setores, this.codigoUsuarioLogado)
     .then(response => {
       this.setores = response;
       this.messageService.add({ severity: 'success', detail: 'Setor atualizado com sucesso!', closable: false });

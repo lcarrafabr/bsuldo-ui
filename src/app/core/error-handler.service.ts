@@ -2,6 +2,8 @@ import { NotAuthenticatedError } from './../seguranca/money-http-interceptor';
 import { MessageService } from 'primeng/api';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +17,12 @@ export class ErrorHandlerService {
 
   handle(errorResponse: any) {
 
+    //console.log('errorResponse: ' + errorResponse);
+
     let msg: string;
 
     if(typeof errorResponse === 'string') {
 
-      msg = errorResponse;
-
-    } if (typeof errorResponse === 'string') {
       msg = errorResponse;
 
     } else if(errorResponse instanceof NotAuthenticatedError ) {
@@ -31,7 +32,7 @@ export class ErrorHandlerService {
       this.router.navigate(['/login']);
       return;
 
-    } else if (errorResponse instanceof Response
+    } else if (errorResponse instanceof HttpErrorResponse
         && errorResponse.status >= 400 && errorResponse.status <= 499) {
       let errors;
       msg = 'Ocorreu um erro ao processar a sua solicitação';
@@ -40,7 +41,7 @@ export class ErrorHandlerService {
         errors = errorResponse['error'];
 
         msg = errors[0].mensagemUsuario;
-        console.log(msg);
+        console.log('LOG de ERROS: ' + msg);
       } catch (e) { }
 
       console.error('Ocorreu um erro', errorResponse);

@@ -13,6 +13,8 @@ export class ProdutoRendaVariavelPesquisaComponent implements OnInit {
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
+  codigoUsuarioLogado: string;
+
   produtosRendaVariavel = [];
   ticker: string;
 
@@ -25,6 +27,7 @@ export class ProdutoRendaVariavelPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
     this.pesquisar();
   }
 
@@ -34,7 +37,7 @@ export class ProdutoRendaVariavelPesquisaComponent implements OnInit {
       ticker: this.ticker
     }
 
-    this.produtoRendaVariavelService.listarTodosFiltro(filtro)
+    this.produtoRendaVariavelService.listarTodosFiltro(filtro, this.codigoUsuarioLogado)
     .then(response => {
       this.produtosRendaVariavel = response;
     })

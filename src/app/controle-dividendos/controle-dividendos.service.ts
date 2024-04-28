@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ControleDividendos } from '../core/model';
 import * as moment from 'moment';
@@ -12,15 +12,19 @@ export class ControleDividendosService {
   //controleDividendosURL = 'http://localhost:8080/controle-dividendos';
   controleDividendosURL: string;
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     this.controleDividendosURL = `${environment.apiUrl}/controle-dividendos`;
    }
 
-  listarTodos(): Promise<any> {
+  listarTodos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.controleDividendosURL}`)
+    let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+    return this.http.get(`${this.controleDividendosURL}`, { params })
     .toPromise()
     .then(response => response);
   }
@@ -113,16 +117,28 @@ export class ControleDividendosService {
   }
 
 
-  totalDividendoRecebido(): Promise<any> {
+  totalDividendoRecebido(idToken: string): Promise<any> {
 
-    return this.http.get(`${this.controleDividendosURL}/valor-total-div-recebido`)
+    let params = new HttpParams();
+
+    if(idToken != null) {
+      params = params.set('idToken', idToken);
+    }
+
+    return this.http.get(`${this.controleDividendosURL}/valor-total-div-recebido`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  totalDividendoDisponivel(): Promise<any> {
+  totalDividendoDisponivel(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.controleDividendosURL}/valor-total-div-disponivel`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.controleDividendosURL}/valor-total-div-disponivel`, { params })
     .toPromise()
     .then(response => response);
   }

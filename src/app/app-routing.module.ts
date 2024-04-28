@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
+    path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },
   { path: '**', redirectTo: 'pagina-nao-encontrada' }

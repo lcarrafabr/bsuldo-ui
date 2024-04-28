@@ -13,6 +13,8 @@ export class EmissoresPesquisaComponent implements OnInit {
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
+  codigoUsuarioLogado: string;
+
   emissores = []
   nomeEmissor: string;
 
@@ -24,6 +26,8 @@ export class EmissoresPesquisaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+
     this.pesquisar();
   }
 
@@ -33,7 +37,7 @@ export class EmissoresPesquisaComponent implements OnInit {
       nomeEmissor: this.nomeEmissor
     }
 
-    this.emissoresService.listarTodos(filtro)
+    this.emissoresService.listarTodos(filtro, this.codigoUsuarioLogado)
     .then(response => {
       this.emissores = response;
     })

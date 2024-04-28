@@ -13,6 +13,7 @@ import { FormControl, NgForm } from '@angular/forms';
 })
 export class SegmentoCadastroComponent implements OnInit {
 
+  codigoUsuarioLogado: string;
   segmentos = new Segmentos;
   status: boolean = true;
 
@@ -27,6 +28,7 @@ export class SegmentoCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     const codigoSegmento = this.route.snapshot.params['codigo'];
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     if(codigoSegmento) {
       this.carregarSegmentoPorId(codigoSegmento);
@@ -52,7 +54,7 @@ export class SegmentoCadastroComponent implements OnInit {
 
   cadastrarSegmento(form: FormControl) {
 
-    this.segmentoService.cadastrarSegmento(this.segmentos)
+    this.segmentoService.cadastrarSegmento(this.segmentos, this.codigoUsuarioLogado)
     .then(() => {
 
       this.messageService.add({ severity: 'success', detail: 'Segmento cadastrado com sucesso!', closable: false });
@@ -64,7 +66,7 @@ export class SegmentoCadastroComponent implements OnInit {
 
   carregarSegmentoPorId(codigo: number) {
 
-    this.segmentoService.buscaSegmentoPorID(codigo)
+    this.segmentoService.buscaSegmentoPorID(codigo, this.codigoUsuarioLogado)
     .then(segmento => {
       this.segmentos = segmento;
     })
@@ -72,7 +74,7 @@ export class SegmentoCadastroComponent implements OnInit {
   }
 
   atualizarSegmento(form: FormControl) {
-    this.segmentoService.editarSegmento(this.segmentos)
+    this.segmentoService.editarSegmento(this.segmentos, this.codigoUsuarioLogado)
     .then(response => {
       this.segmentos = response;
       this.messageService.add({ severity: 'success', detail: 'Setor atualizado com sucesso!', closable: false });

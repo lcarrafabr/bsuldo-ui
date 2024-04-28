@@ -1,0 +1,63 @@
+<div class="container p-shadow-2 body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Configuração de cores pesquisa</h2>
+    </div>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-grid">
+      <div class="p-col-12 p-shadow-2">
+      <p-table
+        #tabela
+        [value] = coresConfig
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="10"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhuma cor encontrada
+        </ng-template>
+        <ng-template pTemplate="header">
+
+          <tr>
+              <th class="col-logo-header">Cor principal</th>
+              <th class="col-amostraprincipal-header">Amostra principal</th>
+              <th class="col-ticker-header">Cor secundária</th>
+              <th class="col-amostrasecundaria-header">Amostra secundária</th>
+              <th class="col-acoes-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-coresConfig>
+              <tr>
+                <td class="col-amostraprincipal-header">{{coresConfig.corPrincipal}}</td>
+                <td class="col-amostraprincipal-content" [style.background-color]="coresConfig.corPrincipal"></td>
+                <td class="col-amostrasecundaria-content">{{coresConfig.corSecundaria}}</td>
+                <td class="col-pessoa-content" [style.background-color]="coresConfig.corSecundaria"></td>
+
+                <td class="col-acoes-content">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
+                        pTooltip="Editar controle dividendo" tooltipPosition="top"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                        pTooltip="Remover controle dividendo" tooltipPosition="top"></button>
+                </td>
+            </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+
+    <div class="p-col-12">
+      <button pButton label="Cadastrar cores" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
+              pTooltip="Cadastrar cores" tooltipPosition="top" ></button>
+    </div>
+
+
+  </p-card>
+</div>

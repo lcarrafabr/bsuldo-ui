@@ -60,7 +60,7 @@ export class CategoriaPesquisaComponent implements OnInit {
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Categoria removida com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
   }
 
   alterarStatusAtivo(categorias: any): void {
@@ -73,7 +73,7 @@ export class CategoriaPesquisaComponent implements OnInit {
 
       categorias.status = novoStatus;
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
   }
 
 }

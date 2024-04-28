@@ -1,17 +1,26 @@
 <nav class="navbar">
-  <div >
+  <div>
     <div class="p-grid">
       <div class="p-col-12">
-      <!-- <a href="javascript:;" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="pi pi-bars"></i></a>-->
-       <!-- <p-tabMenu [model]="items"  [activeItem]="items[0]"></p-tabMenu> -->
+        <!-- <a href="javascript:;" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="pi pi-bars"></i></a>-->
+        <!-- <p-tabMenu [model]="items"  [activeItem]="items[0]"></p-tabMenu> -->
         <p-menubar [model]="items">
           <span class="p-overlay-badge">
-            <button pButton icon="pi pi-bell" class="p-button-secondary p-button-rounded p-button-outlined" (click)="alertas();"></button>
-            <span class="p-badge p-badge-danger">5</span>
+            <!-- Coloque o botão do menu aqui -->
+            <button type="button" pButton icon="pi pi-bell" class="p-button-secondary p-button-rounded p-button-outlined"
+            (click)="menu.toggle($event)"></button>
+
+			      <span class="p-overlay-badge" style="position: absolute; top: 0; right: 0;" *ngIf="qtdAlertasBadge !== 0">
+              <span class="p-badge p-badge-danger">{{qtdAlertasBadge}}</span>
+            </span>
+
           </span>
+
           <label style="color: white;">--------</label>
           <button pButton icon="pi pi-power-off" class="p-button-secondary" (click)="logout();"></button>
-      </p-menubar>
+        </p-menubar>
+
+
       </div>
     </div>
   </div>
@@ -51,3 +60,6 @@
     </ul>
 </p-sidebar>
 </nav>
+
+<!-- Este é o p-menu que você quer posicionar -->
+<p-menu #menu [popup]="true" [model]="items2"></p-menu>

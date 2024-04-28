@@ -13,6 +13,7 @@ import { Emissores } from 'src/app/core/model';
 })
 export class EmissoresCadastroComponent implements OnInit {
 
+  codigoUsuarioLogado: string;
   status: boolean = true;
   statusEdicao: string;
   dataCadastro: Date;
@@ -29,6 +30,7 @@ export class EmissoresCadastroComponent implements OnInit {
 
   ngOnInit(): void {
    //this.dataCadastro = new Date();
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
     const codigoEmissor = this.route.snapshot.params['codigo'];
 
     if(codigoEmissor) {
@@ -55,7 +57,7 @@ export class EmissoresCadastroComponent implements OnInit {
 
   cadastrarEmissor(form: FormControl) {
 
-    this.emissorService.cadastrarEmissores(this.emissores)
+    this.emissorService.cadastrarEmissores(this.emissores, this.codigoUsuarioLogado)
     .then(() => {
 
       this.messageService.add({ severity: 'success', detail: 'Emissor cadastrado com sucesso!', closable: false });
@@ -67,7 +69,7 @@ export class EmissoresCadastroComponent implements OnInit {
 
   carregarEmissorPorId(codigo: number) {
 
-    this.emissorService.buscaEmissoresPorID(codigo)
+    this.emissorService.buscaEmissoresPorID(codigo, this.codigoUsuarioLogado)
     .then(emissor => {
       this.emissores = emissor;
       this.dataCadastro = emissor.dataCadastro;
@@ -77,7 +79,7 @@ export class EmissoresCadastroComponent implements OnInit {
   }
 
   atualizarEmissor(form: FormControl) {
-    this.emissorService.editarEmissor(this.emissores)
+    this.emissorService.editarEmissor(this.emissores, this.codigoUsuarioLogado)
     .then(response => {
       this.emissores = response;
       this.messageService.add({ severity: 'success', detail: 'Emissor atualizado com sucesso!', closable: false });

@@ -13,6 +13,8 @@ export class SetoresPesquisaComponent implements OnInit {
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
+  codigoUsuarioLogado: string;
+
   setores = [];
   nomeSetor: string;
 
@@ -24,12 +26,13 @@ export class SetoresPesquisaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
     this.pesquisar();
   }
 
   pesquisar() {
 
-    this.setoresService.listarTodos()
+    this.setoresService.listarTodos(this.codigoUsuarioLogado)
     .then(response => {
       this.setores = response;
     })

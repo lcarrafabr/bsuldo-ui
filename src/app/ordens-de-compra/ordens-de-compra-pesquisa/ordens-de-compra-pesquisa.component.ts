@@ -13,6 +13,8 @@ export class OrdensDeCompraPesquisaComponent implements OnInit {
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
+  codigoUsuarioLogado: string;
+
   ordensDeCompra = [];
   ticker: string;
 
@@ -25,6 +27,8 @@ export class OrdensDeCompraPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+
     this.pesquisar();
   }
 
@@ -34,7 +38,7 @@ export class OrdensDeCompraPesquisaComponent implements OnInit {
       ticker: this.ticker
     }
 
-    this.ordemDeCompraService.listarTodosFiltro(filtro)
+    this.ordemDeCompraService.listarTodosFiltro(filtro, this.codigoUsuarioLogado)
     .then(response => {
       this.ordensDeCompra = response;
     })

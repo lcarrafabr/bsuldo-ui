@@ -35,14 +35,20 @@ export class OrdensDeCompraService {
     .then(response => response);
   }
 
-  listarTodosProdutosRendaVariavel(): Promise<any> {
+  listarTodosProdutosRendaVariavel(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.produtoRendaVariavelURL}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.produtoRendaVariavelURL}`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  listarTodosFiltro(filtro: OrdemCompraVendaTicker): Promise<any> {
+  listarTodosFiltro(filtro: OrdemCompraVendaTicker, tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     let urlExtensao = "";
@@ -51,6 +57,10 @@ export class OrdensDeCompraService {
 
       params = params.set('ticker', filtro.ticker);
       urlExtensao = '/busca-ordem-por-nome-ticker'
+    }
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
     }
 
     return this.http.get(`${this.ordemDeCompraURL}` + urlExtensao, { params })
@@ -73,15 +83,27 @@ export class OrdensDeCompraService {
     }
   }
 
-  adicionar(ordemDeCompra: OrdemDeCompra): Promise<OrdemDeCompra> {
+  adicionar(ordemDeCompra: OrdemDeCompra, tokenId: string): Promise<OrdemDeCompra> {
 
-    return this.http.post<OrdemDeCompra>(`${this.ordemDeCompraURL}`, ordemDeCompra)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<OrdemDeCompra>(`${this.ordemDeCompraURL}`, ordemDeCompra, { params })
       .toPromise();
   }
 
-  buscarPorCodigo(codigo: number): Promise<OrdemDeCompra> {
+  buscarPorCodigo(codigo: number, tokenId: string): Promise<OrdemDeCompra> {
 
-    return this.http.get(`${this.ordemDeCompraURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/${codigo}`, { params })
       .toPromise()
       .then(response => {
         const ordemDeCompra = response as OrdemDeCompra;
@@ -114,9 +136,15 @@ export class OrdensDeCompraService {
     }
   }
 
-  atualizarOrdemDeCompra(ordemDeCompra: OrdemDeCompra): Promise<OrdemDeCompra> {
+  atualizarOrdemDeCompra(ordemDeCompra: OrdemDeCompra, tokenId: string): Promise<OrdemDeCompra> {
 
-    return this.http.put(`${this.ordemDeCompraURL}/${ordemDeCompra.ordemDeCompraId}`, ordemDeCompra)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.ordemDeCompraURL}/${ordemDeCompra.ordemDeCompraId}`, ordemDeCompra, { params })
       .toPromise()
       .then(response => {
         const ordemDeCompraAlterado = response as OrdemDeCompra;

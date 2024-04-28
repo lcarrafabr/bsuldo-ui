@@ -1,0 +1,37 @@
+<div class="container p-shadow-2 body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}  bancos</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-12 p-fluid">
+            <label>Nome Banco</label>
+            <input type="text" name="nomeBanco" pInputText class="p-inputtext-sm" placeholder="Nome Banco" [(ngModel)]="bancos.nomeBanco">
+          </div>
+
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar banco" tooltipPosition="top"></button>
+
+              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
+              pTooltip="Novo lançamento" tooltipPosition="top" ></button>
+
+              <a routerLink="/bancos" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+    </form>
+
+  </p-card>
+
+</div>

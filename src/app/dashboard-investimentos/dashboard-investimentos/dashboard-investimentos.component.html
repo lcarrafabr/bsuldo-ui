@@ -18,7 +18,7 @@
               [showIcon]="true">
             </p-calendar>
 
-            <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2"></button>
+            <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded p-mr-2" (click)="atualizarDashboard();"></button>
           </div>
         </form>
 
@@ -281,6 +281,25 @@
           </div>
 
 
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-6">
+              <div>
+                <p-panel header="Dividendos recebidos em {{ mes }}/{{ ano }}">
+                  <p-chart type="bar" [data]="graficoBarrasDivMesEAno" [options]="basicOptions" responsive="true"></p-chart>
+                </p-panel>
+              </div>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <div>
+                <p-panel header="No Data">
+                  <p-chart type="doughnut" ></p-chart>
+                </p-panel>
+              </div>
+            </div>
+
+          </div>
+
+
 
 
       </p-card>
@@ -292,7 +311,7 @@
     <div><label style="color: white;">----------------------</label></div>
     <div><label style="color: white;">----------------------</label></div>
 
-    <p-panel header="Ações" [toggleable]="true" [collapsed]="false">
+    <p-panel header="Ações" *ngIf="relatorioCompletoAcoesGrid && relatorioCompletoAcoesGrid.length > 0" [toggleable]="true" [collapsed]="false">
 
       <div class="p=col=12">
         <p-table
@@ -313,7 +332,7 @@
 
             <th  colspan="5">
               Total projetivo:  {{totalProjetivoGridAcoes | currency: 'BRL'}}
-              <ng-container *ngIf="totalProjetivoGridAFiis < 0; else plusIcon">
+              <ng-container *ngIf="totalProjetivoGridAcoes < 0; else plusIcon">
                 <i class="pi pi-arrow-down" [ngStyle]="{'color': totalProjetivoGridAcoes < 0 ? '#a10e0e' : 'green'}"></i>
               </ng-container>
               <ng-template #plusIcon>
@@ -385,7 +404,7 @@
 
     <div><label style="color: white;">----------------------</label></div>
 
-    <p-panel header="FIIs" [toggleable]="true" [collapsed]="false">
+      <p-panel header="FIIs" *ngIf="relatorioCompletoFIISsGrid && relatorioCompletoFIISsGrid.length > 0" [toggleable]="true" [collapsed]="false">
 
       <div class="p=col=12">
         <p-table
@@ -517,14 +536,28 @@
 
 
     <div class="p-formgrid p-grid">
+
       <div class="p-field p-col-6 p-md-6">
         <div>
-          <p-panel header="Informações dos ativos">
+          <p-panel header="Percentual dos ativos na carteira" class="p-chart">
+            <p-chart type="doughnut" [data]="graficoPizzaTotalCarteira" [options]="basicOptions" responsive="true"></p-chart>
+          </p-panel>
+        </div>
+
+
+
+      </div>
+
+      </div>
+
+      <div class="p-field p-col-6 p-md-12">
+        <div>
+          <p-panel header="Informações dos ativos" [toggleable]="true" [collapsed]="false">
             <div class="p=col=12">
               <p-table
               #tabela
-              [value] = relatorioBasicoVisualizacao
-              styleClass="p-datatable-gridlines"
+              [value] = relatorioBasicoComDivRecebido
+              styleClass="p-datatable-gridlines p-datatable-sm"
               [paginator]="false"
               [rows]="5"
               selectionMode="single"
@@ -540,17 +573,19 @@
                     <th class="col-mes-header">Qtd Cotas</th>
                     <th class="col-mes-header">Valor investido</th>
                     <th class="col-mes-header">Preço médio</th>
+                    <th class="col-mes-header">Total Div. recebido</th>
                     <th class="col-mes-header">% na carteira</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-relatorioBasicoVisualizacao>
+            <ng-template pTemplate="body" let-relatorioBasicoComDivRecebido>
                 <tr>
-                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.tipoProdutoEnum}}</td>
-                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.ticker}}</td>
-                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.quantidadeCotas}}</td>
-                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.valorInvestido | currency: 'BRL'}}</td>
-                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.mediaInvestida | currency: 'BRL'}}</td>
-                    <td class="col-mes-content">{{relatorioBasicoVisualizacao.percentualValorInvestido.toFixed(2).replace('.', ',')}} %</td>
+                    <td class="col-mes-content">{{relatorioBasicoComDivRecebido.tipoProdutoEnum}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoComDivRecebido.ticker}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoComDivRecebido.quantidadeCotas}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoComDivRecebido.valorInvestido | currency: 'BRL'}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoComDivRecebido.mediaInvestida | currency: 'BRL'}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoComDivRecebido.totalDividendosRecebido | currency: 'BRL'}}</td>
+                    <td class="col-mes-content">{{relatorioBasicoComDivRecebido.percentualValorInvestido.toFixed(2).replace('.', ',')}} %</td>
 
 
                 </tr>
@@ -560,19 +595,6 @@
             </div>
           </p-panel>
         </div>
-      </div>
-
-      <div class="p-field p-col-6 p-md-6">
-        <div>
-          <p-panel header="Percentual dos ativos na carteira" class="p-chart">
-            <p-chart type="doughnut" [data]="graficoPizzaTotalCarteira" [options]="basicOptions" responsive="true"></p-chart>
-          </p-panel>
-        </div>
-
-
-
-      </div>
-
       </div>
 
 

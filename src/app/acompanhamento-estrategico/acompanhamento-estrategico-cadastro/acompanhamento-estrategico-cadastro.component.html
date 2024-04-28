@@ -1,0 +1,99 @@
+<div class="container p-shadow-2 body-content">
+  <p-card>
+
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} acompanhamento estratégico</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Ticker</label>
+            <input type="text" name="ticker" pInputText class="p-inputtext-sm" placeholder="Ticker" [(ngModel)]="acompanhamentoEstrategico.ticker"
+            required minlength="3">
+          </div>
+
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Segmento</label>
+            <p-dropdown
+            name="segmento"
+            [(ngModel)]="acompanhamentoEstrategico.segmento.segmentoId"
+            [options]="segmentos"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Setor</label>
+            <p-dropdown
+            name="setor"
+            [(ngModel)]="acompanhamentoEstrategico.setor.setorId"
+            [options]="setores"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+        </div>
+
+        <!---------------------------------------------------------------------------------------------------------------------->
+
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Status</label>
+            <p-dropdown
+            name="statusAcompanhamento"
+            [(ngModel)]="acompanhamentoEstrategico.statusAcompanhamentoEnum"
+            [options]="statusAcompanhamento"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Valor do ativo</label>
+            <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+            <p-inputNumber name="valorCota" mode="decimal" inputId="minmaxfraction" [(ngModel)]="acompanhamentoEstrategico.valorCota"
+            [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
+            <label>Valor dividendo</label>
+            <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
+            <p-inputNumber name="valorDividendo" mode="decimal" inputId="minmaxfraction" [(ngModel)]="acompanhamentoEstrategico.valorDividendo"
+            [minFractionDigits]="2" [maxFractionDigits]="5" placeholder="0,00"></p-inputNumber>
+          </div>
+
+        </div>
+
+        <!---------------------------------------------------------------------------------------------------------------------->
+
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-col-12 p-fluid">
+            <label>Descrição</label>
+            <textarea type="text" rows="4" pInputTextarea autoResize="true" name="descricao" [(ngModel)]="acompanhamentoEstrategico.descricao" ngModel ></textarea>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
+              pTooltip="Salvar setor" tooltipPosition="top"></button>
+
+              <a routerLink="/acompanhamento-estrategico" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+
+        </p-card>
+      </div>
+
+    </form>
+
+  </p-card>
+</div>

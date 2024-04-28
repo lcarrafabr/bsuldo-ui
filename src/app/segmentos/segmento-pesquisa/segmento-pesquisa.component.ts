@@ -13,6 +13,8 @@ export class SegmentoPesquisaComponent implements OnInit {
 
   @ViewChild('tabela', {static: true}) grid: Table;
 
+  codigoUsuarioLogado: string;
+
   segmentos = [];
 
   constructor(
@@ -24,12 +26,13 @@ export class SegmentoPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
     this.pesquisar();
   }
 
   pesquisar() {
 
-    this.segmentoService.listarTodos()
+    this.segmentoService.listarTodos(this.codigoUsuarioLogado)
     .then(response => {
       this.segmentos = response;
     })

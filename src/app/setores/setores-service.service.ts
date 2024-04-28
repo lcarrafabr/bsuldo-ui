@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Setores } from '../core/model';
 import { environment } from 'src/environments/environment';
@@ -18,22 +18,40 @@ export class SetoresServiceService {
    }
 
 
-  listarTodos(): Promise<any> {
+  listarTodos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.setorURL}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.setorURL}`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  cadastrarSetor(setor: Setores): Promise<Setores> {
+  cadastrarSetor(setor: Setores, tokenId: string): Promise<Setores> {
 
-    return this.http.post<Setores>(`${this.setorURL}`, setor)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<Setores>(`${this.setorURL}`, setor, { params })
     .toPromise();
   }
 
-  buscaSetoresPorID(codigo: number): Promise<Setores> {
+  buscaSetoresPorID(codigo: number, tokenId: string): Promise<Setores> {
 
-    return this.http.get(`${this.setorURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.setorURL}/${codigo}`, { params })
     .toPromise()
     .then(response => {
       const setor = response as Setores;
@@ -42,9 +60,15 @@ export class SetoresServiceService {
     });
   }
 
-  editarSetor(setor: Setores): Promise<Setores> {
+  editarSetor(setor: Setores, tokenId: string): Promise<Setores> {
 
-    return this.http.put(`${this.setorURL}/${setor.setorId}`, setor)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.setorURL}/${setor.setorId}`, setor, { params })
     .toPromise()
     .then(response => {
       const setorEditado = response as Setores;

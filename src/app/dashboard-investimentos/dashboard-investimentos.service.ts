@@ -29,9 +29,16 @@ export class DashboardInvestimentosService {
    }
 
 
-  totalDividendoRecebido(): Promise<any> {
+  totalDividendoRecebido(idToken: string): Promise<any> {
 
-    return this.http.get(`${this.controleDividendosURL}/valor-total-div-recebido`)
+    let params = new HttpParams();
+
+    if(idToken != null) {
+
+      params = params.set('idToken', idToken);
+    }
+
+    return this.http.get(`${this.controleDividendosURL}/valor-total-div-recebido`, { params })
     .toPromise()
     .then(response => response);
   }
@@ -57,71 +64,157 @@ export class DashboardInvestimentosService {
     .then(response => response);
   }
 
-  listarTotalInvestidoRV(): Promise<any> {
+  listarTotalInvestidoRV(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.ordemDeCompraURL}/valor-total-investido-rv`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/valor-total-investido-rv`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaDivsRecebidosPorMesEAno(): Promise<any> {
+  retornaDivsRecebidosPorMesEAno(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.dashboardInvestimentosURL}/listar-valor-div-recebido-mes-ano`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.dashboardInvestimentosURL}/listar-valor-div-recebido-mes-ano`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaDivsRecebidosPorAnoGRID(): Promise<any> {
+  retornaDivsRecebidosPorAnoGRID(idToken: string): Promise<any> {
 
-    return this.http.get(`${this.dashboardInvestimentosURL}/busca-valor-recebido-div-no-ano`)
+    let params = new HttpParams();
+
+    if(idToken != null) {
+
+      params = params.set('tokenId', idToken);
+    }
+
+    return this.http.get(`${this.dashboardInvestimentosURL}/busca-valor-recebido-div-no-ano`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaQuatidadeTotalCotasEAcoes(): Promise<any> {
+  retornaQuatidadeTotalCotasEAcoes(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.ordemDeCompraURL}/relatorio-basico`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/relatorio-basico`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaRelatorioBasicoVisualizacao(): Promise<any> {
+  retornaRelatorioBasicoVisualizacao(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.ordemDeCompraURL}/relatorio-basico-visualizacao`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/relatorio-basico-visualizacao`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaRelatorioCompletoAcoesGrid(): Promise<any> {
+  retornaRelatorioBasicComDivRecebido(tokenId: string): Promise<any> {
+
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/relatorio-basico-com-div-recebido`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+  retornaRelatorioCompletoAcoesGrid(tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     params = params.set('tipoProduto', "ACOES");
 
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
     return this.http.get(`${this.ordemDeCompraURL}/relatorio-completo`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaRelatorioCompletoFIISGrid(): Promise<any> {
+  retornaRelatorioCompletoFIISGrid(tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     params = params.set('tipoProduto', "FIIS");
 
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
     return this.http.get(`${this.ordemDeCompraURL}/relatorio-completo`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaRelatorioAcoesFiis(): Promise<any> {
+  retornaRelatorioAcoesFiis(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.ordemDeCompraURL}/relatorio-acoes-fiis`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/relatorio-acoes-fiis`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  retornaRelatorioAcoesFiisRendaFixa(): Promise<any> {
+  retornaRelatorioAcoesFiisRendaFixa(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.ordemDeCompraURL}/relatorio-acoes-fiis-renda-fixa`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/relatorio-acoes-fiis-renda-fixa`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  getDadosGraficoDivMesEAno(ano: string, mes: string, idToken: string): Promise<any> {
+
+    let params = new HttpParams();
+    params = params.set('ano', ano);
+    params = params.set('mes', mes);
+    params = params.set('idToken', idToken);
+
+    return this.http.get(`${this.controleDividendosURL}/dados-dividendos-por-mes-e-ano`, { params })
     .toPromise()
     .then(response => response);
   }

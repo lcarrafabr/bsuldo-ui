@@ -1,0 +1,72 @@
+<div class="container body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Pesquisa bancos</h2>
+    </div>
+
+    <form autocomplete="off" (ngSubmit)="pesquisar();">
+
+      <div class="p-col-12 p-fluid">
+        <label>Nome banco</label>
+        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por nome banco" name="nomeBanco"  [(ngModel)]="nomeBanco">
+      </div>
+      <div class="p-col-12">
+        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+      </div>
+    </form>
+
+    <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-grid">
+      <div class="p-col-12">
+      <p-table
+        #tabela
+        [value] = bancosResponse
+        styleClass="p-datatable-gridlines"
+        [paginator]="true"
+        [rows]="5"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhum banco encontrado
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th class="col-pessoa-header">Banco</th>
+              <th class="col-status-header">Status</th>
+              <th class="col-data-header">Ações</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-bancosResponse>
+              <tr>
+                  <td class="col-pessoa-content">{{ bancosResponse.nomeBanco }}</td>
+
+                  <td class="col-status-content"><a href="javascript:;" [pTooltip]="bancosResponse.status ? 'Desativar' : 'Ativar'"
+                    tooltipPosition="top"
+                    (click)="alterarStatusAtivo(bancosResponse)">
+                      {{bancosResponse.status ? 'ATIVO' : 'INATIVO'}}</a></td>
+
+                  <td class="col-acoes">
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined"
+                    pTooltip="Editar banco" tooltipPosition="top" [routerLink]="['/bancos', bancosResponse.bancoId]"></button>
+
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined"
+                    pTooltip="Remover Banco" tooltipPosition="top" (click)="confirmaExclusao(bancosResponse)"></button>
+                  </td>
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    </div>
+
+    <div class="p-col-12">
+      <button pButton label="Cadastrar banco" icon="pi pi-plus-circle" class="p-button-raised p-button-primary"
+              pTooltip="Cadastrar Banco" tooltipPosition="top" routerLink="/bancos/novo"></button>
+    </div>
+
+  </p-card>
+
+
+</div>

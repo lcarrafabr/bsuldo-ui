@@ -13,6 +13,8 @@ import * as moment from 'moment';
 })
 export class DashboardInvestimentosComponent implements OnInit {
 
+  codigoUsuarioLogado: string;
+
   dataSelecionada: Date;
   totalDivRecebido: any = 0;
   valorTotalAplicadoRF: any = 0;
@@ -21,6 +23,9 @@ export class DashboardInvestimentosComponent implements OnInit {
   valorInvestidoRV: any = 0;
 
   //==== TAB MENU 01  ===================
+
+  ano: string
+  mes: string
 
   graficoBarrasDividendoRecebido: any;
   basicOptions: any;
@@ -45,9 +50,14 @@ export class DashboardInvestimentosComponent implements OnInit {
   valorDivRecGridDEZ: any;
   valorTotalDivGrid: any;
 
+  graficoBarrasDivMesEAno: any;
+  labelsGraficoDivMesEAno = [];
+  valorRcebidoGraficoDivMesEAno = [];
+
 
   //==== TAB MENU 02  ===================
   relatorioBasicoVisualizacao = [];
+  relatorioBasicoComDivRecebido = [];
   graficoPizzaTotalCarteira: any;
   graficoPercentualAcoes: any;
   graficoPercentualFiis: any;
@@ -67,19 +77,32 @@ export class DashboardInvestimentosComponent implements OnInit {
   graficoPizzaAcoesFiisRendaFixa: any;
 
 
-  backgroundColorPadrao01 = ['rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)',
+  backgroundColorPadrao01 = ['#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66',
+  '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66'];
+
+  hoverBackgroundColorPadrao01 = ['#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99',
+  '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99'];
+
+borderColorPadrao01 = ['#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff',
+'#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff'];
+
+backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#dbf20566',
+'#44bd0866', '#bd08ae66', '#bd083866', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66'];
+
+
+  backgroundColorPadrao01_OLD = ['rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)',
   'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)',
   'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)'];
 
-  hoverBackgroundColorPadrao01 = ['rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)',
+  hoverBackgroundColorPadrao01_OLD = ['rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)',
   'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)',
   'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)'];
 
-  borderColorPadrao01 = ['rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)',
+  borderColorPadrao01_OLD = ['rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)',
   'rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)',
   'rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)']
 
-  backgroundColorido01 = ['rgba(59, 45, 121, 0.4)', 'rgba(97, 31, 48, 0.4)', 'rgba(45, 107, 121, 0.4)', 'rgba(179, 83, 32, 0.4)',
+  backgroundColorido01_OLD = ['rgba(59, 45, 121, 0.4)', 'rgba(97, 31, 48, 0.4)', 'rgba(45, 107, 121, 0.4)', 'rgba(179, 83, 32, 0.4)',
   'rgba(219, 242, 5, 0.4)', 'rgba(68, 189, 8, 0.4)', 'rgba(189, 8, 174, 0.4)', 'rgba(189, 8, 56, 0.4)',
   'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)'];
 
@@ -101,27 +124,13 @@ export class DashboardInvestimentosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
     this.title.setTitle('Dashboard de Investimentos');
-    this.totalDividendoRecebido();
-    this.pesquisarTotalInvestido();
-    this.pesquisarTotalResgatado();
-    this.pesquisarTotalDisponivel();
-    this.pesquisarTotalDInvestidoRendaVariavel();
-    this.graficoBarrasDividendosRecebidosMesEAno();
 
-    this.configuraGraficoBarrasDividendosRecebidos();
-    this.configuraGraficoBarrasQtdTotalCotasEAcoes();
+    this.dataSelecionada = new Date();
 
-    this.buscaTotalDivsRecebidosNoAnoGRID();
-    this.retornaQuatidadeTotalCotasEAcoes();
-    this.buscaTotalDivsRecebidosNoAnoGRID();
-    this.retornaQuatidadeTotalCotasEAcoes();
+    this.atualizarDashboard();
 
-    this.configuraGraficoPizzaAcoesFiis();
-
-    //====TAB menu 02 ======
-
-    this.retornaRelatorioCompletoACOESGrid();
     //this.retornaRelatorioCompletoFIISGrid();
 
     const delay = 1000;
@@ -141,17 +150,66 @@ export class DashboardInvestimentosComponent implements OnInit {
       });
     }, 30 * 60 * 1000);
 
-
-    this.retornaRelatorioBasicoVisualizacao();
-    this.configuraGraficoPizzaCarteiraCompleta();
-    this.configuraGraficoPizzaAcoesFiisRendaFixa();
-
   }
 
   ngOnDestroy(): void {
     // Limpe o intervalo ao destruir o componente
     clearInterval(this.intervalId);
     clearInterval(this.interval02Id);
+  }
+
+
+  atualizarDashboard() {
+
+     //====TAB menu 01 ======
+
+     this.preencherAnoEMesComDataSelecionada();
+    this.totalDividendoRecebido();
+    this.pesquisarTotalInvestido();
+    this.pesquisarTotalResgatado();
+    this.pesquisarTotalDisponivel();
+    this.pesquisarTotalDInvestidoRendaVariavel();
+    this.graficoBarrasDividendosRecebidosMesEAno();
+
+    this.configuraGraficoBarrasDividendosRecebidos();
+    this.configuraGraficoBarrasQtdTotalCotasEAcoes();
+
+    this.buscaTotalDivsRecebidosNoAnoGRID();
+    this.retornaQuatidadeTotalCotasEAcoes();
+    this.buscaTotalDivsRecebidosNoAnoGRID();
+    this.retornaQuatidadeTotalCotasEAcoes();
+
+    this.configuraGraficoPizzaAcoesFiis();
+    this.graficoBarrasGetDadosGraficoDivMesEAno();
+    this.configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAno();
+
+    //====TAB menu 02 ======
+
+    this.retornaRelatorioCompletoACOESGrid();
+
+
+    this.retornaRelatorioBasicoVisualizacao();
+    this.configuraGraficoPizzaCarteiraCompleta();
+    this.configuraGraficoPizzaAcoesFiisRendaFixa();
+    this.retornaRelatorioBasicoComDivRecebido();
+
+  }
+
+
+  preencherAnoEMesComDataSelecionada(): void {
+    // Verifica se a data selecionada é válida
+    if (!this.dataSelecionada) {
+      console.error('Data selecionada inválida.');
+      return;
+    }
+
+    // Extrai o ano e o mês da data selecionada
+    const ano = this.dataSelecionada.getFullYear().toString();
+    const mes = (this.dataSelecionada.getMonth() + 1).toString().padStart(2, '0'); // Adiciona um zero à esquerda se for necessário
+
+    // Atribui os valores ao ano e ao mês
+    this.ano = ano;
+    this.mes = mes;
   }
 
   atualizaGridACoes() {
@@ -166,7 +224,7 @@ export class DashboardInvestimentosComponent implements OnInit {
 
   totalDividendoRecebido() {
 
-    this.dashboardInvestimentoService.totalDividendoRecebido()
+    this.dashboardInvestimentoService.totalDividendoRecebido(this.codigoUsuarioLogado)
     .then(response => {
       this.totalDivRecebido = response;
     })
@@ -202,7 +260,7 @@ export class DashboardInvestimentosComponent implements OnInit {
 
   pesquisarTotalDInvestidoRendaVariavel() {
 
-    this.dashboardInvestimentoService.listarTotalInvestidoRV()
+    this.dashboardInvestimentoService.listarTotalInvestidoRV(this.codigoUsuarioLogado)
     .then(response => {
       this.valorInvestidoRV = response;
     })
@@ -211,7 +269,7 @@ export class DashboardInvestimentosComponent implements OnInit {
 
   graficoBarrasDividendosRecebidosMesEAno() {
 
-    this.dashboardInvestimentoService.retornaDivsRecebidosPorMesEAno()
+    this.dashboardInvestimentoService.retornaDivsRecebidosPorMesEAno(this.codigoUsuarioLogado)
     .then(response => {
      this.labels = response.dataReferencia
      this.valorrecebido = response.valorRecebido
@@ -222,7 +280,7 @@ export class DashboardInvestimentosComponent implements OnInit {
 
 
   configuraGraficoBarrasDividendosRecebidos() {
-    this.dashboardInvestimentoService.retornaDivsRecebidosPorMesEAno()
+    this.dashboardInvestimentoService.retornaDivsRecebidosPorMesEAno(this.codigoUsuarioLogado)
       .then(dados => {
         const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
 
@@ -286,7 +344,7 @@ adicionarValoresAosRotulos() {
 
 buscaTotalDivsRecebidosNoAnoGRID() {
 
-  this.dashboardInvestimentoService.retornaDivsRecebidosPorAnoGRID()
+  this.dashboardInvestimentoService.retornaDivsRecebidosPorAnoGRID(this.codigoUsuarioLogado)
   .then(response => {
     this.valorDivRecGridJAN = response[0].jan;
     this.valorDivRecGridFEV = response[0].fev;
@@ -308,7 +366,7 @@ buscaTotalDivsRecebidosNoAnoGRID() {
 
 retornaQuatidadeTotalCotasEAcoes() {
 
-  this.dashboardInvestimentoService.retornaQuatidadeTotalCotasEAcoes()
+  this.dashboardInvestimentoService.retornaQuatidadeTotalCotasEAcoes(this.codigoUsuarioLogado)
   .then(response => {
     //console.log(response);
     //this.valorInvestidoRV = response;
@@ -317,7 +375,7 @@ retornaQuatidadeTotalCotasEAcoes() {
 }
 
 configuraGraficoBarrasQtdTotalCotasEAcoes() {
-  this.dashboardInvestimentoService.retornaQuatidadeTotalCotasEAcoes()
+  this.dashboardInvestimentoService.retornaQuatidadeTotalCotasEAcoes(this.codigoUsuarioLogado)
     .then(dados => {
       //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
 
@@ -368,12 +426,97 @@ adicionarValoresAosRotulos_configuraGraficoBarrasQtdTotalCotasEAcoes() {
 
 
 
+configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAn() {
+
+  this.ano = '2024';
+  this.mes = '4';
+
+  this.dashboardInvestimentoService.getDadosGraficoDivMesEAno(this.ano, this.mes, this.codigoUsuarioLogado)
+    .then(dados => {
+
+      this.graficoBarrasQtdTotalCotasEAcoes = {
+        labels: dados.map(dado => dado.ticker),
+        datasets: [
+          {
+            label: 'Ticker',
+            type: 'bar',
+            data: dados.map(dado => dado.valorRecebido),
+            backgroundColor: this.backgroundColorPadrao01,
+            hoverBackgroundColor: this.hoverBackgroundColorPadrao01,
+            borderColor: this.borderColorPadrao01,
+            borderWidth: 1,
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+            }
+          }
+        ]
+      };
+
+     // this.adicionarValoresAosRotulos_configuraGraficoBarrasQtdTotalCotasEAcoes();
+    });
+}
+
+
+graficoBarrasGetDadosGraficoDivMesEAno() {
+
+  this.ano = '2024';
+  this.mes = '4';
+
+  this.dashboardInvestimentoService.getDadosGraficoDivMesEAno(this.ano, this.mes, this.codigoUsuarioLogado)
+  .then(response => {
+   this.labelsGraficoDivMesEAno = response.ticker
+   this.valorRcebidoGraficoDivMesEAno = response.valorRecebido
+
+  })
+  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+}
+
+configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAno() {
+
+  this.preencherAnoEMesComDataSelecionada();
+
+  this.dashboardInvestimentoService.getDadosGraficoDivMesEAno(this.ano, this.mes, this.codigoUsuarioLogado)
+    .then(dados => {
+
+      this.graficoBarrasDivMesEAno = {
+        labels: dados.map(dado => dado.ticker),
+        datasets: [
+          {
+            label: 'Ticker',
+            type: 'bar',
+            data: dados.map(dado => dado.valorRecebido),
+            backgroundColor: this.backgroundColorPadrao01,
+            hoverBackgroundColor: this.hoverBackgroundColorPadrao01,
+            borderColor: this.borderColorPadrao01,
+            borderWidth: 1,
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+            }
+          }
+        ]
+      };
+
+      this.adicionarValoresAosRotulos_configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAno();
+    });
+}
+
+adicionarValoresAosRotulos_configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAno() {
+  // Adicione os valores ao array de labels
+  this.graficoBarrasDivMesEAno.labels = this.graficoBarrasDivMesEAno.labels.map(
+    (label, index) => `${label} - R$${this.graficoBarrasDivMesEAno.datasets[0].data[index].toFixed(2)}`
+  );
+}
+
+
+
 //=================== TAB MENU 02 ========================================================================
 
 
 retornaRelatorioCompletoACOESGrid() {
 
-  this.dashboardInvestimentoService.retornaRelatorioCompletoAcoesGrid()
+  this.dashboardInvestimentoService.retornaRelatorioCompletoAcoesGrid(this.codigoUsuarioLogado)
   .then(response => {
     this.relatorioCompletoAcoesGrid = response;
     this.calculaTotaisAcoesGrid(response);
@@ -384,7 +527,7 @@ retornaRelatorioCompletoACOESGrid() {
 
 retornaRelatorioCompletoFIISGrid() {
 
-  this.dashboardInvestimentoService.retornaRelatorioCompletoFIISGrid()
+  this.dashboardInvestimentoService.retornaRelatorioCompletoFIISGrid(this.codigoUsuarioLogado)
   .then(response => {
     this.relatorioCompletoFIISsGrid = response;
     this.calculaTotaisFiissGrid(response);
@@ -395,16 +538,24 @@ retornaRelatorioCompletoFIISGrid() {
 
 retornaRelatorioBasicoVisualizacao() {
 
-  this.dashboardInvestimentoService.retornaRelatorioBasicoVisualizacao()
+  this.dashboardInvestimentoService.retornaRelatorioBasicoVisualizacao(this.codigoUsuarioLogado)
   .then(response => {
-    //console.log(response);
     this.relatorioBasicoVisualizacao = response;
   })
   .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
 }
 
+retornaRelatorioBasicoComDivRecebido() {
+
+  this.dashboardInvestimentoService.retornaRelatorioBasicComDivRecebido(this.codigoUsuarioLogado)
+  .then(response => {
+    this.relatorioBasicoComDivRecebido = response;
+  })
+  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+}
+
 configuraGraficoPizzaCarteiraCompleta() {
-  this.dashboardInvestimentoService.retornaRelatorioBasicoVisualizacao()
+  this.dashboardInvestimentoService.retornaRelatorioBasicoVisualizacao(this.codigoUsuarioLogado)
     .then(dados => {
       //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
 
@@ -433,7 +584,7 @@ configuraGraficoPizzaCarteiraCompleta() {
 
 
 configuraGraficoPizzaAcoesFiis() {
-  this.dashboardInvestimentoService.retornaRelatorioAcoesFiis()
+  this.dashboardInvestimentoService.retornaRelatorioAcoesFiis(this.codigoUsuarioLogado)
     .then(dados => {
       //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
 
@@ -470,7 +621,7 @@ configuraGraficoPizzaAcoesFiis() {
 //-------------------------------------------------------------------------------------------------------------------------
 
 configuraGraficoPizzaAcoesFiisRendaFixa() {
-  this.dashboardInvestimentoService.retornaRelatorioAcoesFiisRendaFixa()
+  this.dashboardInvestimentoService.retornaRelatorioAcoesFiisRendaFixa(this.codigoUsuarioLogado)
     .then(dados => {
       //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
 
@@ -508,7 +659,6 @@ configuraGraficoPizzaAcoesFiisRendaFixa() {
 
 graficoPercentualAcoesPizza(dadosAcoes: any) { //ESSE GRAFICO USA A CHAMADA DE OUTRO METODO E JA RECEBE O RESPONSE COMO PARAMETRO
 
-      console.log(dadosAcoes)
       this.graficoPercentualAcoes = {
         labels: dadosAcoes.map(dado => dado.ticker),
         datasets: [
@@ -578,7 +728,7 @@ private calculaTotaisAcoesGrid(relatorioCompletoAcoesGrid: any[]) {
   let qtdTotalAcoes = 0;
 
   for (const acao of relatorioCompletoAcoesGrid) {
-    if (acao.ganhoPerdaProjetiva) {
+    if (acao.ganhoPerdaProjetiva || acao.ganhoPerdaProjetiva == 0) {
 
       valortotalProjetivo = valortotalProjetivo + acao.ganhoPerdaProjetiva;
       valorTotalInvestido = valorTotalInvestido + acao.valorInvestido
@@ -589,6 +739,7 @@ private calculaTotaisAcoesGrid(relatorioCompletoAcoesGrid: any[]) {
   this.totalProjetivoGridAcoes = valortotalProjetivo;
   this.totalInvestidoAcoesGrid = valorTotalInvestido;
   this.quantidadeTotalAcoes = qtdTotalAcoes;
+  console.log("projetivo Ações: " + this.totalProjetivoGridAcoes);
 }
 
 private calculaTotaisFiissGrid(relatorioCompletoFiisGrid: any[]) {
@@ -598,7 +749,7 @@ private calculaTotaisFiissGrid(relatorioCompletoFiisGrid: any[]) {
   let qtdTotalFiis = 0;
 
   for (const fiis of relatorioCompletoFiisGrid) {
-    if (fiis.ganhoPerdaProjetiva) {
+    if (fiis.ganhoPerdaProjetiva || fiis.ganhoPerdaProjetiva == 0) {
 
       valortotalProjetivo = valortotalProjetivo + fiis.ganhoPerdaProjetiva;
       valorTotalInvestido = valorTotalInvestido + fiis.valorInvestido
@@ -609,6 +760,8 @@ private calculaTotaisFiissGrid(relatorioCompletoFiisGrid: any[]) {
   this.totalProjetivoGridAFiis = valortotalProjetivo;
   this.totalInvestidoFiisGrid = valorTotalInvestido;
   this.quantidadeTotalFiis = qtdTotalFiis;
+  console.log("projetivo fiis: " + this.totalProjetivoGridAFiis);
 }
+
 
 }

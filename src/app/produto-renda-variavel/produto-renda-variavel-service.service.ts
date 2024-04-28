@@ -38,7 +38,7 @@ export class ProdutoRendaVariavelServiceService {
     .then(response => response);
   }
 
-  listarTodosFiltro(filtro: ProdutoRVFiltro): Promise<any> {
+  listarTodosFiltro(filtro: ProdutoRVFiltro, tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     let urlExtensao = "";
@@ -49,6 +49,10 @@ export class ProdutoRendaVariavelServiceService {
       urlExtensao = '/busca-por-nome-produto-rv'
     }
 
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
     return this.http.get(`${this.produtoRendaVariavelURL}` + urlExtensao, { params })
     .toPromise()
     .then(response => response);
@@ -56,46 +60,80 @@ export class ProdutoRendaVariavelServiceService {
 
 
 // ********** busca dados para os combobox ***********
-  listarEmissoresAtivos(): Promise<any> {
+  listarEmissoresAtivos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.emissoresURL}/emissores-ativos`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.emissoresURL}/emissores-ativos`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  listarSegmentosAtivos(): Promise<any> {
+  listarSegmentosAtivos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.segmentosURL}/segmentos-ativos`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.segmentosURL}/segmentos-ativos`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  listarSetoresAtivos(): Promise<any> {
+  listarSetoresAtivos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.setoresURL}/setores-ativos`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.setoresURL}/setores-ativos`, { params })
     .toPromise()
     .then(response => response);
   }
   // ********** ************************************ ***********
 
-  adicionarAutomatico(ticker: string): Promise<ProdutoRendaVariavel> {
+  adicionarAutomatico(ticker: string, tokenId: string): Promise<ProdutoRendaVariavel> {
 
     let params = new HttpParams();
     params = params.set('ticker', ticker);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.post<ProdutoRendaVariavel>(`${this.produtoRendaVariavelURL}/automatico`, ticker, { params })
       .toPromise();
   }
 
-  adicionarManual(produtoRendaVariavel: ProdutoRendaVariavel): Promise<ProdutoRendaVariavel> {
+  adicionarManual(produtoRendaVariavel: ProdutoRendaVariavel, tokenId: string): Promise<ProdutoRendaVariavel> {
 
-    return this.http.post<ProdutoRendaVariavel>(`${this.produtoRendaVariavelURL}`, produtoRendaVariavel)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<ProdutoRendaVariavel>(`${this.produtoRendaVariavelURL}`, produtoRendaVariavel, { params })
       .toPromise();
   }
 
-  buscarPorCodigo(codigo: number): Promise<ProdutoRendaVariavel> {
+  buscarPorCodigo(codigo: number, tokenId: string): Promise<ProdutoRendaVariavel> {
 
-    return this.http.get(`${this.produtoRendaVariavelURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.produtoRendaVariavelURL}/${codigo}`, { params })
       .toPromise()
       .then(response => {
         const produtoRV = response as ProdutoRendaVariavel;
@@ -104,9 +142,15 @@ export class ProdutoRendaVariavelServiceService {
       });
   }
 
-  editarProdutoRendaVariavel(produtoRV: ProdutoRendaVariavel): Promise<ProdutoRendaVariavel> {
+  editarProdutoRendaVariavel(produtoRV: ProdutoRendaVariavel, tokenId: string): Promise<ProdutoRendaVariavel> {
 
-    return this.http.put(`${this.produtoRendaVariavelURL}/${produtoRV.produtoId}`, produtoRV)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.produtoRendaVariavelURL}/${produtoRV.produtoId}`, produtoRV, { params })
     .toPromise()
     .then(response => {
       const produtoRVEditado = response as ProdutoRendaVariavel;

@@ -1,0 +1,39 @@
+.body-content {
+  margin-top: 79px; /* Ajuste conforme a altura da sua barra de navegação */
+  /*padding: 2px; /* Adicione um espaçamento superior ao conteúdo para compensar a barra de navegação fixa */
+  background-color: white; /* Adicione isso para cobrir a barra de navegação fixa */
+  position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
+  z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
+}
+
+.col-titulo-header {
+  width: 200px;
+}
+
+.col-titulo-content {
+  text-align: center;
+}
+
+.col-mensagem-header {
+  width: 500px;
+}
+
+.col-mensagem-content {
+  text-align: center;
+}
+
+.col-data-header {
+  width: 100px;
+}
+
+.col-data-content {
+  text-align: center;
+}
+
+.col-status-header {
+  width: 100px;
+}
+
+.col-status-content {
+  text-align: center;
+}

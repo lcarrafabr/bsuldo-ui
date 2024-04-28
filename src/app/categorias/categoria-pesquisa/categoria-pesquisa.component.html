@@ -22,14 +22,14 @@
       <p-table
         #tabela
         [value] = categorias
-        styleClass="p-datatable-gridlines"
+        styleClass="p-datatable-sm"
         [paginator]="true"
         [rows]="5"
         selectionMode="single"
         [responsive]="true"
         selectionMode="single">
         <ng-template pTemplate="emptymessage">
-          Nenhum lançamento encontrado
+          Nenhuma categoria encontrada
         </ng-template>
         <ng-template pTemplate="header">
           <tr>

@@ -119,13 +119,15 @@ export class ProdutoRendaVariavel {
 
 export class OrdemDeCompra {
   ordemDeCompraId: number;
-  tipoProdutoEnum: string;
+  tipoAtivoEnum: string;
   tipoOrdemRendaVariavelEnum: string;
   dataTransacao: Date;
   dataExecucao: Date;
   quantidadeCotas: number;
   precoUnitarioCota: number;
   valorInvestido: number;
+  desdobroAgrupado: string;
+  dataDesdobroAgrupamento: Date;
   pessoa = new Pessoa();
   produtoRendaVariavel = new ProdutoRendaVariavel();
 }
@@ -148,5 +150,35 @@ export class HistoricoRendimentoRF {
   histRentabilidadeRFId: number;
   dataRentabilidade: Date;
   valorResgateApp: number;
+  pessoa = new Pessoa();
+}
+
+export class Bancos {
+  bancoId: number;
+  nomeBanco: string;
+  status: boolean;
+  pessoa = new Pessoa();
+}
+
+export class AcompanhamentoEstrategico {
+  acompEstrategicoId: number;
+  ticker: string;
+  dataCadastro: Date;
+  valorCota: number;
+  valorDividendo: number;
+  statusAcompanhamentoEnum: string;
+  acompanharVariacao: boolean;
+  descricao: string;
+  pessoa = new Pessoa();
+  segmento = new Segmentos();
+  setor = new Setores();
+}
+
+export class AvisosAutomaticos {
+  avisoAutomaticoId: number;
+  titulo: string;
+  mensagem: string;
+  dataCadastro: Date;
+  visualizado: boolean;
   pessoa = new Pessoa();
 }

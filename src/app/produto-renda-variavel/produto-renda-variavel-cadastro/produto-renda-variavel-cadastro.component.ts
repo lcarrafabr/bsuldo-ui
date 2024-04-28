@@ -13,6 +13,8 @@ import { FormControl, NgForm } from '@angular/forms';
 })
 export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
+  codigoUsuarioLogado: string;
+
   emissores = [];
   segmentos = [];
   setores = [];
@@ -34,6 +36,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
     const codigoProdutoRV = this.route.snapshot.params['codigo'];
 
     if(codigoProdutoRV) {
@@ -60,7 +63,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
   carregarEmissores() {
 
-    this.produtoRendaVariavelService.listarEmissoresAtivos()
+    this.produtoRendaVariavelService.listarEmissoresAtivos(this.codigoUsuarioLogado)
     .then(emissoresResponse => {
       this.emissores = emissoresResponse.map(p => {
         return {label: p.nomeEmissor, value: p.emissorId}
@@ -71,7 +74,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
   carregarSegmentos() {
 
-    this.produtoRendaVariavelService.listarSegmentosAtivos()
+    this.produtoRendaVariavelService.listarSegmentosAtivos(this.codigoUsuarioLogado)
     .then(segmentosResponse => {
       this.segmentos = segmentosResponse.map(p => {
         return {label: p.nomeSegmento, value: p.segmentoId}
@@ -82,7 +85,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
   carregarSetores() {
 
-    this.produtoRendaVariavelService.listarSetoresAtivos()
+    this.produtoRendaVariavelService.listarSetoresAtivos(this.codigoUsuarioLogado)
     .then(setoresResponse => {
       this.setores = setoresResponse.map(p => {
         return {label: p.nomeSetor, value: p.setorId}
@@ -97,7 +100,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
     if(this.tickerValor != '') {
 
-      this.produtoRendaVariavelService.adicionarAutomatico(this.tickerValor)
+      this.produtoRendaVariavelService.adicionarAutomatico(this.tickerValor, this.codigoUsuarioLogado)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Produto Renda variável cadastrado com sucesso!', closable: false});
 
@@ -135,7 +138,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
       this.produtoRendaVariavel.geraDividendos = false;
     }
 
-    this.produtoRendaVariavelService.adicionarManual(this.produtoRendaVariavel)
+    this.produtoRendaVariavelService.adicionarManual(this.produtoRendaVariavel, this.codigoUsuarioLogado)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Produto Renda variável cadastrado com sucesso!', closable: false});
       form.reset();
@@ -153,7 +156,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
   carregarProdutoRVPorId(codigo: number) {
 
-    this.produtoRendaVariavelService.buscarPorCodigo(codigo)
+    this.produtoRendaVariavelService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
     .then(produtoRV => {
       this.produtoRendaVariavel = produtoRV;
       this.tickerValor = produtoRV.ticker;
@@ -176,7 +179,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
       this.produtoRendaVariavel.geraDividendos = false;
     }
 
-    this.produtoRendaVariavelService.editarProdutoRendaVariavel(this.produtoRendaVariavel)
+    this.produtoRendaVariavelService.editarProdutoRendaVariavel(this.produtoRendaVariavel, this.codigoUsuarioLogado)
     .then(response => {
       this.produtoRendaVariavel = response;
       this.messageService.add({ severity: 'success', detail: 'Produto atualizado com sucesso!', closable: false });

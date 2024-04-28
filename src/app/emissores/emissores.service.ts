@@ -22,7 +22,7 @@ export class EmissoresService {
     this.emissoresURL = `${environment.apiUrl}/emissores`;
    }
 
-  listarTodos(filtro: EmissorFiltro): Promise<any> {
+  listarTodos(filtro: EmissorFiltro, tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     let urlExtensao = "";
@@ -33,20 +33,36 @@ export class EmissoresService {
       urlExtensao = '/busca-por-nome-emisor'
     }
 
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
     return this.http.get(`${this.emissoresURL}`  + urlExtensao, { params })
     .toPromise()
     .then(response => response);
   }
 
-  cadastrarEmissores(emissor: Emissores): Promise<Emissores> {
+  cadastrarEmissores(emissor: Emissores, tokenId: string): Promise<Emissores> {
 
-    return this.http.post<Emissores>(`${this.emissoresURL}`, emissor)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<Emissores>(`${this.emissoresURL}`, emissor, { params })
     .toPromise();
   }
 
-  buscaEmissoresPorID(codigo: number): Promise<Emissores> {
+  buscaEmissoresPorID(codigo: number, tokenId: string): Promise<Emissores> {
 
-    return this.http.get(`${this.emissoresURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.emissoresURL}/${codigo}`, { params })
     .toPromise()
     .then(response => {
       const emissor = response as Emissores;
@@ -56,9 +72,15 @@ export class EmissoresService {
     });
   }
 
-  editarEmissor(emissor: Emissores): Promise<Emissores> {
+  editarEmissor(emissor: Emissores, tokenId: string): Promise<Emissores> {
 
-    return this.http.put(`${this.emissoresURL}/${emissor.emissorId}`, emissor)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.emissoresURL}/${emissor.emissorId}`, emissor, { params })
     .toPromise()
     .then(response => {
       const emissorEditado = response as Emissores;

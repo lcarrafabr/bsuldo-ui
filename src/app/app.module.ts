@@ -1,3 +1,7 @@
+import { ConfiguracoesModule } from './configuracoes/configuracoes.module';
+import { AvisosAutomaticosModule } from './avisos-automaticos/avisos-automaticos.module';
+import { AcompanhamentoEstrategicoModule } from './acompanhamento-estrategico/acompanhamento-estrategico.module';
+import { BancosModule } from './bancos/bancos.module';
 import { HistoricoRfModule } from './historico-rf/historico-rf.module';
 import { DashboardInvestimentosModule } from './dashboard-investimentos/dashboard-investimentos.module';
 import { ControleDividendosModule } from './controle-dividendos/controle-dividendos.module';
@@ -57,6 +61,10 @@ registerLocaleData(localePt);
     ControleDividendosModule,
     DashboardInvestimentosModule,
     HistoricoRfModule,
+    BancosModule,
+    AcompanhamentoEstrategicoModule,
+    AvisosAutomaticosModule,
+    ConfiguracoesModule,
 
     AppRoutingModule
   ],

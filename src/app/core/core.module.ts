@@ -1,3 +1,4 @@
+import { NavbarService } from './navbar/navbar.service';
 import { AuthService } from './../seguranca/auth.service';
 import { RouterModule } from '@angular/router';
 import { MessageService, ConfirmationService, MenuItem } from 'primeng/api';
@@ -14,6 +15,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component';
 import {MenubarModule} from 'primeng/menubar';
 import {TabMenuModule} from 'primeng/tabmenu';
+import {MenuModule} from 'primeng/menu';
 
 
 
@@ -32,7 +34,10 @@ import {TabMenuModule} from 'primeng/tabmenu';
     RouterModule,
 
     MenubarModule,
-    TabMenuModule
+    TabMenuModule,
+
+    MenubarModule,
+    MenuModule,
 
   ],
   exports: [
@@ -46,6 +51,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
     ConfirmationService,
     AuthService,
     JwtHelperService,
+    NavbarService,
     { provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Segmentos } from '../core/model';
 import { environment } from 'src/environments/environment';
@@ -17,22 +17,40 @@ export class SegmentoServiceService {
     this.segmentoURL = `${environment.apiUrl}/segmentos`;
   }
 
-  listarTodos(): Promise<any> {
+  listarTodos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.segmentoURL}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.segmentoURL}`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  cadastrarSegmento(segmento: Segmentos): Promise<Segmentos> {
+  cadastrarSegmento(segmento: Segmentos, tokenId: string): Promise<Segmentos> {
 
-    return this.http.post<Segmentos>(`${this.segmentoURL}`, segmento)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<Segmentos>(`${this.segmentoURL}`, segmento, { params })
     .toPromise();
   }
 
-  buscaSegmentoPorID(codigo: number): Promise<Segmentos> {
+  buscaSegmentoPorID(codigo: number, tokenId: string): Promise<Segmentos> {
 
-    return this.http.get(`${this.segmentoURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.segmentoURL}/${codigo}`, { params })
     .toPromise()
     .then(response => {
       const segmento = response as Segmentos;
@@ -41,9 +59,15 @@ export class SegmentoServiceService {
     });
   }
 
-  editarSegmento(segmento: Segmentos): Promise<Segmentos> {
+  editarSegmento(segmento: Segmentos, tokenId: string): Promise<Segmentos> {
 
-    return this.http.put(`${this.segmentoURL}/${segmento.segmentoId}`, segmento)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.segmentoURL}/${segmento.segmentoId}`, segmento, { params })
     .toPromise()
     .then(response => {
       const segmentoEditado = response as Segmentos;
