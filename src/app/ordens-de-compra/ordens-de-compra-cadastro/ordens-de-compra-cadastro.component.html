@@ -6,8 +6,23 @@
 
     <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
 
-      <div class="p-col-3 p-fluid">
+      <!--<div class="p-col-3 p-fluid">
         <p-selectButton [options]="options" [(ngModel)]="value1" name="tipoCompraVenda"></p-selectButton>
+      </div>-->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Tipo lançamento</label>
+            <p-dropdown
+            name="tipoOrdemRendaVariavelEnum"
+            [(ngModel)]="ordemDeCompra.tipoOrdemRendaVariavelEnum"
+            [options]="tipoProdutoLancamentoOrdem"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+        </div>
       </div>
 
       <!---------------------------------------------------------------------------------------------------------------------->

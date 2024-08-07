@@ -1,12 +1,12 @@
 /* Mantenha o estilo existente para a barra de navegação */
-.navbar {
+/*.navbar {
   padding: 20px 0 10px;
   background-color: #7a078c;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
-}
+}*/
 
 .navbar-menu {
   background-color: #3A3633;

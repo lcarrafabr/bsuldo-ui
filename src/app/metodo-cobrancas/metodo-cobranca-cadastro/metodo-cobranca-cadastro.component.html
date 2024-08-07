@@ -1,4 +1,4 @@
-<div class="container body-content">
+<div class="container3 body-content">
   <p-card>
     <div class="p-col-12">
       <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}método de cobrança</h2>
@@ -7,19 +7,10 @@
     <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
 
       <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-8">
+        <div class="p-field p-col-12 p-md-12">
             <label>Nome método de cobrança</label>
             <input type="text" name="nomeMetodoCobranca" pInputText class="p-inputtext-sm" placeholder="Nome método de cobrança"
             ngModel #nomeMetodoCobranca="ngModel" required required minlength="3" [(ngModel)]="metodoCobranca.nomeMetodoCob ">
-        </div>
-        <div class="p-field p-col-12 p-md-4">
-            <label>Status</label>
-            <p-dropdown
-            name="status"
-            ngModel
-            [(ngModel)]="metodoCobranca.status"
-            [options]="status"
-            placeholder="Selecione" required></p-dropdown>
         </div>
 
         <div class="p-col-12">

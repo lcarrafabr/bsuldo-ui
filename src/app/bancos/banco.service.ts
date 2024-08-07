@@ -114,4 +114,17 @@ export class BancoService {
       .then(() => null);
     }
 
+    listaBancosAtivos(tokenId: string): Promise<any> {
+
+      let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+      return this.http.get(`${this.bancoURL}/busca-bancos-ativos`, { params })
+      .toPromise()
+      .then(response => response);
+    }
+
 }

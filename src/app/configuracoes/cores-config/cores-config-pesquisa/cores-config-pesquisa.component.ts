@@ -16,6 +16,7 @@ export class CoresConfigPesquisaComponent implements OnInit {
 
   codigoUsuarioLogado: string;
   coresConfig = [];
+  configuracaoPadrao: boolean = true;
 
   constructor(
     private configuracoesService: ConfiguracoesService,
@@ -29,9 +30,11 @@ export class CoresConfigPesquisaComponent implements OnInit {
 
     this.title.setTitle('Configuração de cores');
 
-    this.codigoUsuarioLogado = localStorage.getItem('IDS');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     this.pesquisar();
+
+
   }
 
 
@@ -39,11 +42,18 @@ export class CoresConfigPesquisaComponent implements OnInit {
 
     this.configuracoesService.listarTodos(this.codigoUsuarioLogado)
     .then(response => {
-      console.log(response);
       this.coresConfig = response;
 
     })
     .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+  }
+
+  verificaConfiguracaoPadrao() {
+
+    if(this.coresConfig.length === 0) {
+
+    }
+
   }
 
 }

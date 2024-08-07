@@ -5,6 +5,7 @@ import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Title } from '@angular/platform-browser';
 import * as moment from 'moment';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-dashboard-investimentos',
@@ -12,6 +13,18 @@ import * as moment from 'moment';
   styleUrls: ['./dashboard-investimentos.component.css']
 })
 export class DashboardInvestimentosComponent implements OnInit {
+
+  temaColor: string = '#172230';
+  currentTheme: string;
+
+
+  filtroGriProventosRecebidosEFuturos = [
+    {label: 'AMBOS', value: 'AMBOS'},
+    {label: 'RECEBIDOS', value: 'RECEBIDO'},
+    {label: 'A RECEBER', value: 'A_RECEBER'}
+  ]
+
+  panelHeaderTemplate = 'Histórico mensal';
 
   codigoUsuarioLogado: string;
 
@@ -29,11 +42,13 @@ export class DashboardInvestimentosComponent implements OnInit {
 
   graficoBarrasDividendoRecebido: any;
   basicOptions: any;
+  basicOptionsVelaBlue: any;
   labels = [];
   valorrecebido = [];
   options: any;
 
   totalDivRecebidoNoAno = [];
+  historicoProvendosFuturosGrid = [];
   totalDivRecebidogrid: any;
 
   valorDivRecGridJAN: any;
@@ -54,6 +69,9 @@ export class DashboardInvestimentosComponent implements OnInit {
   labelsGraficoDivMesEAno = [];
   valorRcebidoGraficoDivMesEAno = [];
 
+  filtroSelecionado: string;
+  gridProventosRecebidosEFuturos = [];
+
 
   //==== TAB MENU 02  ===================
   relatorioBasicoVisualizacao = [];
@@ -62,7 +80,20 @@ export class DashboardInvestimentosComponent implements OnInit {
   graficoPercentualAcoes: any;
   graficoPercentualFiis: any;
   relatorioCompletoAcoesGrid = [];
-  relatorioCompletoFIISsGrid = []
+  relatorioCompletoFIISsGrid = [];
+  relatorioCompletoBRDsGrid = [];
+
+  relatorioSegmentoAcoes = [];
+  relatorioSetoresAcoes = [];
+
+  relatorioSegmentoFIIS = [];
+  relatorioSetoresFIIS = [];
+
+  graficoPorSegmentoAcoes: any;
+  graficoPorSetoresAcoes: any;
+
+  graficoPorSegmentoFIIS: any;
+  graficoPorSetoresFIIS: any;
 
   totalProjetivoGridAcoes: number = 0;
   totalInvestidoAcoesGrid: number = 0;
@@ -70,41 +101,72 @@ export class DashboardInvestimentosComponent implements OnInit {
   totalProjetivoGridAFiis: number = 0;
   totalInvestidoFiisGrid: number = 0;
 
+  totalProjetivoGridBDR: number = 0;
+  totalInvestidoBDRGrid: number = 0;
+
   quantidadeTotalAcoes: number = 0;
   quantidadeTotalFiis: number = 0;
+  quantidadeTotalBDR: number = 0;
 
   graficoPizzaAcoesFiis: any;
   graficoPizzaAcoesFiisRendaFixa: any;
 
+  progresbarAcoes: any;
 
-  backgroundColorPadrao01 = ['#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66',
-  '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66'];
 
-  hoverBackgroundColorPadrao01 = ['#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99',
-  '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99'];
-
-borderColorPadrao01 = ['#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff',
-'#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff'];
+  backgroundColorPadrao01 = [];
+  hoverBackgroundColorPadrao01 = [];
+  borderColorPadrao01 = [];
 
 backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#dbf20566',
 '#44bd0866', '#bd08ae66', '#bd083866', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66'];
 
 
-  backgroundColorPadrao01_OLD = ['rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)',
-  'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)',
-  'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)'];
+  backgroundColorVelaBlue = ['#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99',
+    '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99',
+    '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99',
+    '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99',
+    '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99',
+    '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99'];
 
-  hoverBackgroundColorPadrao01_OLD = ['rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)',
-  'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)',
-  'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)', 'rgba(36, 18, 110, 0.6)'];
+    backgroundColorSagaPurple = ['#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66',
+  '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66','#3b2dff66', '#3b2dff66',
+  '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66',
+  '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66',
+  '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66',
+  '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66'];
 
-  borderColorPadrao01_OLD = ['rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)',
-  'rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)',
-  'rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)','rgb(153, 102, 255)']
+  borderColorPadraoVelaBlue = ['#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f',
+    '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f',
+    '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f',
+    '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f',
+    '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f',
+    '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f', '#0d8f8f'];
 
-  backgroundColorido01_OLD = ['rgba(59, 45, 121, 0.4)', 'rgba(97, 31, 48, 0.4)', 'rgba(45, 107, 121, 0.4)', 'rgba(179, 83, 32, 0.4)',
-  'rgba(219, 242, 5, 0.4)', 'rgba(68, 189, 8, 0.4)', 'rgba(189, 8, 174, 0.4)', 'rgba(189, 8, 56, 0.4)',
-  'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)', 'rgba(59, 45, 121, 0.4)'];
+  borderColorPadraoSagaPurple = ['#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff',
+    '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff',
+    '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff',
+    '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff',
+    '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff',
+    '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff', '#9966ff'
+  ];
+
+  hoverBackgroundColorPadraoSagaPurple = ['#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99',
+    '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99',
+  '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99',
+  '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99',
+  '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99',
+  '#24126e99', '#24126e99', '#24126e99', '#24126e99', '#24126e99'];
+
+  hoverBackgroundColorPadraoVelaBlue = ['#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363',
+    '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363',
+    '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363',
+    '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363',
+    '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363',
+    '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363', '#0b6363'
+  ];
+
+
 
 
   graficoBarrasQtdTotalCotasEAcoes: any;
@@ -120,12 +182,29 @@ backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#db
     private errorHandler: ErrorHandlerService,
     private router: Router,
     private route: ActivatedRoute,
-    private zone: NgZone
+    private zone: NgZone,
+    private themeService: ThemeService
   ) { }
 
   ngOnInit(): void {
     this.codigoUsuarioLogado = localStorage.getItem('idToken');
     this.title.setTitle('Dashboard de Investimentos');
+
+    this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
+      if (theme === 'vela-blue') {
+        this.temaColor = '#1f2d40';
+        this.backgroundColorPadrao01 = this.backgroundColorVelaBlue;
+        this.borderColorPadrao01 = this.borderColorPadraoVelaBlue;
+        this.hoverBackgroundColorPadrao01 = this.hoverBackgroundColorPadraoVelaBlue;
+      }
+      if (theme === 'saga-purple') {
+        this.temaColor = 'white';
+        this.backgroundColorPadrao01 = this.backgroundColorSagaPurple;
+        this.borderColorPadrao01 = this.borderColorPadraoSagaPurple;
+        this.hoverBackgroundColorPadrao01 = this.hoverBackgroundColorPadraoSagaPurple;
+      }
+    });
 
     this.dataSelecionada = new Date();
 
@@ -147,8 +226,29 @@ backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#db
         (window as any).setTimeout(() => {
           this.retornaRelatorioCompletoFIISGrid();
         }, delay)
+        (window as any).setTimeout(() => {
+          this.retornaRelatorioCompletoBDRsGrid();
+        }, delay)
+      });
+
+    }, 30 * 60 * 1000);
+
+    // Chame o terceiro método após o delay
+   // (window as any).setTimeout(() => {
+     // this.retornaRelatorioCompletoBDRsGrid();
+    //}, delay)
+
+    // Inicie o intervalo após um atraso inicial de 10 segundos
+    this.intervalId = setInterval(() => {
+      this.zone.run(() => {
+        this.atualizaGridACoes();
+        (window as any).setTimeout(() => {
+          this.retornaRelatorioCompletoBDRsGrid();
+        }, delay)
       });
     }, 30 * 60 * 1000);
+
+    this.retornaRelatorioCompletoBDRsGrid();
 
   }
 
@@ -182,6 +282,8 @@ backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#db
     this.configuraGraficoPizzaAcoesFiis();
     this.graficoBarrasGetDadosGraficoDivMesEAno();
     this.configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAno();
+    this.buscaProventosFuturos();
+    this.buscaTotalProventosRecebidosEFuturos();
 
     //====TAB menu 02 ======
 
@@ -192,7 +294,31 @@ backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#db
     this.configuraGraficoPizzaCarteiraCompleta();
     this.configuraGraficoPizzaAcoesFiisRendaFixa();
     this.retornaRelatorioBasicoComDivRecebido();
+    this.graficorelatorioPorSegmentoAcoes();
+    this.graficorelatorioPorSetoresAcoes();
+    this.graficorelatorioPorSegmentoFIIS();
+    this.graficorelatorioPorSetoresFIIS();
 
+  }
+
+
+  getStyles() {
+    if (this.currentTheme === 'saga-purple') {
+      return {
+        color: '#FFFFFF',
+        backgroundColor: '#b31535',
+        defaultColor: '#1c4f2a',
+        defaultBackgroundColor: '#FFFFFF'
+      };
+    } else if (this.currentTheme === 'vela-blue') {
+      return {
+        color: '#FFFFFF', // Estilo para erro no tema vela-blue
+        backgroundColor: '#b31535', // Fundo para erro no tema vela-blue
+        defaultColor: '#FFFFFF', // Estilo padrão no tema vela-blue
+        defaultBackgroundColor: '#1f2d40' // Fundo padrão no tema vela-blue
+      };
+
+    }
   }
 
 
@@ -302,8 +428,44 @@ backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#db
           ]
         };
 
+        this.verificaOption();
+
         this.adicionarValoresAosRotulos();
       });
+  }
+
+
+  verificaOption() {
+    if(this.currentTheme === 'vela-blue') {
+      this.basicOptionsVelaBlue = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [{
+            ticks: {
+              fontColor: '#FFFFFF' // Cor do texto dos rótulos do eixo X
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              fontColor: '#FFFFFF' // Cor do texto dos rótulos do eixo Y
+            }
+          }]
+        },
+        legend: {
+          labels: {
+            fontColor: '#FFFFFF' // Cor do texto da legenda
+          }
+        },
+        title: {
+          display: true,
+          text: 'Dividendos recebidos',
+          fontColor: '#FFFFFF' // Cor do texto do título
+        }
+      };
+    } else {
+      this.basicOptionsVelaBlue = this.basicOptions;
+    }
   }
 
   basicOptionsConfig() {
@@ -510,6 +672,32 @@ adicionarValoresAosRotulos_configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAno
 }
 
 
+buscaProventosFuturos() {
+
+  this.dashboardInvestimentoService.retornaHistoricoProventosFuturos(this.codigoUsuarioLogado)
+  .then(response => {
+   this.historicoProvendosFuturosGrid = response;
+  })
+  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+
+}
+
+buscaTotalProventosRecebidosEFuturos() {
+
+  if(this.filtroSelecionado == null) {
+    this.filtroSelecionado = 'AMBOS';
+  }
+
+  this.dashboardInvestimentoService.retornaProventosRecebidosEFuturos(this.codigoUsuarioLogado, this.filtroSelecionado)
+  .then(response => {
+   this.gridProventosRecebidosEFuturos = response;
+  })
+  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+}
+
+
+
+
 
 //=================== TAB MENU 02 ========================================================================
 
@@ -532,6 +720,18 @@ retornaRelatorioCompletoFIISGrid() {
     this.relatorioCompletoFIISsGrid = response;
     this.calculaTotaisFiissGrid(response);
     this.graficoPercentualFiisPizza(response);
+  })
+  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+}
+
+retornaRelatorioCompletoBDRsGrid() {
+
+  this.dashboardInvestimentoService.retornaRelatorioCompletoBRDsGrid(this.codigoUsuarioLogado)
+  .then(response => {
+    console.log(response);
+    this.relatorioCompletoBRDsGrid = response;
+    this.calculaTotaisBDRGrid(response);
+    //this.graficoPercentualFiisPizza(response);
   })
   .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
 }
@@ -721,6 +921,154 @@ adicionarValoresAosRotulosgraficoPercentualFiisPizza() {
   );
 }
 
+
+graficorelatorioPorSegmentoAcoes() {
+  this.dashboardInvestimentoService.relatorioPorSegmento(this.codigoUsuarioLogado, "ACOES")
+    .then(dados => {
+      //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
+
+      this.relatorioSegmentoAcoes = dados;
+      this.graficoPorSegmentoAcoes = {
+        labels: dados.map(dado => dado.nomeSegmento),
+        datasets: [
+          {
+            //label: 'Dividendos por mês',
+            type: 'pie',
+            data: dados.map(dado => dado.percentual),
+            backgroundColor: this.backgroundColorido01,
+            hoverBackgroundColor: this.hoverBackgroundColorPadrao01,
+            borderColor: this.borderColorPadrao01,
+            borderWidth: 1,
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+            }
+          }
+        ]
+      };
+
+      this.adicionarRotuloGraficoPorSegmentoAcoes();
+    });
+}
+
+ private adicionarRotuloGraficoPorSegmentoAcoes() {
+  // Adicione os valores ao array de labels
+  this.graficoPorSegmentoAcoes.labels = this.graficoPorSegmentoAcoes.labels.map(
+    (label, index) => `${label}: ${this.graficoPorSegmentoAcoes.datasets[0].data[index].toString().replace('.', ',')}%`
+  );
+}
+
+
+graficorelatorioPorSetoresAcoes() {
+  this.dashboardInvestimentoService.relatorioPorSetores(this.codigoUsuarioLogado, "ACOES")
+    .then(dados => {
+      //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
+
+      this.relatorioSetoresAcoes = dados;
+      this.graficoPorSetoresAcoes = {
+        labels: dados.map(dado => dado.nomeSetor),
+        datasets: [
+          {
+            //label: 'Dividendos por mês',
+            type: 'pie',
+            data: dados.map(dado => dado.percentual),
+            backgroundColor: this.backgroundColorido01,
+            hoverBackgroundColor: this.hoverBackgroundColorPadrao01,
+            borderColor: this.borderColorPadrao01,
+            borderWidth: 1,
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+            }
+          }
+        ]
+      };
+
+      this.adicionarRotuloGraficoPorSetoress();
+    });
+}
+
+ private adicionarRotuloGraficoPorSetoress() {
+  // Adicione os valores ao array de labels
+  this.graficoPorSetoresAcoes.labels = this.graficoPorSetoresAcoes.labels.map(
+    (label, index) => `${label}: ${this.graficoPorSetoresAcoes.datasets[0].data[index].toString().replace('.', ',')}%`
+  );
+}
+
+
+graficorelatorioPorSegmentoFIIS() {
+  this.dashboardInvestimentoService.relatorioPorSegmento(this.codigoUsuarioLogado, "FIIS")
+    .then(dados => {
+      //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
+
+      this.relatorioSegmentoFIIS = dados;
+      this.graficoPorSegmentoFIIS = {
+        labels: dados.map(dado => dado.nomeSegmento),
+        datasets: [
+          {
+            //label: 'Dividendos por mês',
+            type: 'pie',
+            data: dados.map(dado => dado.percentual),
+            backgroundColor: this.backgroundColorido01,
+            hoverBackgroundColor: this.hoverBackgroundColorPadrao01,
+            borderColor: this.borderColorPadrao01,
+            borderWidth: 1,
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+            }
+          }
+        ]
+      };
+
+      this.adicionarRotuloGraficoPorSegmentoFIIS();
+    });
+}
+
+ private adicionarRotuloGraficoPorSegmentoFIIS() {
+  // Adicione os valores ao array de labels
+  this.graficoPorSegmentoFIIS.labels = this.graficoPorSegmentoFIIS.labels.map(
+    (label, index) => `${label}: ${this.graficoPorSegmentoFIIS.datasets[0].data[index].toString().replace('.', ',')}%`
+  );
+}
+
+
+graficorelatorioPorSetoresFIIS() {
+  this.dashboardInvestimentoService.relatorioPorSetores(this.codigoUsuarioLogado, "FIIS")
+    .then(dados => {
+      //const formattedDates = dados.map(dado => moment(dado.dataReferencia).format('MMM/YYYY'));
+
+      this.relatorioSetoresFIIS = dados;
+      this.graficoPorSetoresFIIS = {
+        labels: dados.map(dado => dado.nomeSetor),
+        datasets: [
+          {
+            //label: 'Dividendos por mês',
+            type: 'pie',
+            data: dados.map(dado => dado.percentual),
+            backgroundColor: this.backgroundColorido01,
+            hoverBackgroundColor: this.hoverBackgroundColorPadrao01,
+            borderColor: this.borderColorPadrao01,
+            borderWidth: 1,
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+            }
+          }
+        ]
+      };
+
+      this.adicionarRotuloGraficoPorSetoresFIIS();
+    });
+}
+
+ private adicionarRotuloGraficoPorSetoresFIIS() {
+  // Adicione os valores ao array de labels
+  this.graficoPorSetoresFIIS.labels = this.graficoPorSetoresFIIS.labels.map(
+    (label, index) => `${label}: ${this.graficoPorSetoresFIIS.datasets[0].data[index].toString().replace('.', ',')}%`
+  );
+}
+
 private calculaTotaisAcoesGrid(relatorioCompletoAcoesGrid: any[]) {
 
   let valortotalProjetivo = 0;
@@ -739,7 +1087,6 @@ private calculaTotaisAcoesGrid(relatorioCompletoAcoesGrid: any[]) {
   this.totalProjetivoGridAcoes = valortotalProjetivo;
   this.totalInvestidoAcoesGrid = valorTotalInvestido;
   this.quantidadeTotalAcoes = qtdTotalAcoes;
-  console.log("projetivo Ações: " + this.totalProjetivoGridAcoes);
 }
 
 private calculaTotaisFiissGrid(relatorioCompletoFiisGrid: any[]) {
@@ -760,8 +1107,28 @@ private calculaTotaisFiissGrid(relatorioCompletoFiisGrid: any[]) {
   this.totalProjetivoGridAFiis = valortotalProjetivo;
   this.totalInvestidoFiisGrid = valorTotalInvestido;
   this.quantidadeTotalFiis = qtdTotalFiis;
-  console.log("projetivo fiis: " + this.totalProjetivoGridAFiis);
 }
+
+private calculaTotaisBDRGrid(relatorioCompletoBRDsGridGrid: any[]) {
+
+  let valortotalProjetivo = 0;
+  let valorTotalInvestido = 0;
+  let qtdTotalFiis = 0;
+
+  for (const bdrs of relatorioCompletoBRDsGridGrid) {
+    if (bdrs.ganhoPerdaProjetiva || bdrs.ganhoPerdaProjetiva == 0) {
+
+      valortotalProjetivo = valortotalProjetivo + bdrs.ganhoPerdaProjetiva;
+      valorTotalInvestido = valorTotalInvestido + bdrs.valorInvestido
+      qtdTotalFiis = qtdTotalFiis + bdrs.quantidadeCotas;
+    }
+  }
+
+  this.totalProjetivoGridBDR = valortotalProjetivo;
+  this.totalInvestidoBDRGrid = valorTotalInvestido;
+  this.quantidadeTotalBDR = qtdTotalFiis;
+}
+
 
 
 }

@@ -14,12 +14,12 @@ export class ConfiguracoesService {
     this.coresConfigURL = `${environment.apiUrl}/cores`;
   }
 
-  listarTodos(pessoaId: string): Promise<any> {
+  listarTodos(tokenId: string): Promise<any> {
 
     let params = new HttpParams();
 
-      if(pessoaId != null) {
-        params = params.set('pessoaId', pessoaId);
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
       }
 
     return this.http.get(`${this.coresConfigURL}`, { params })

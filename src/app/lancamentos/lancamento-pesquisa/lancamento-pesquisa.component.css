@@ -6,3 +6,72 @@
   position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
   z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
 }
+
+.status-pago {
+  background-color: #619e61; /* Vesde escuro */
+  color: white;
+}
+
+.status-vencido {
+  background-color: #ff9999; /* Vermelho claro */
+}
+
+.status-atrasado {
+  background-color: #ff9999; /* Vermelho claro */
+}
+
+.status-pendente {
+  background-color: #99ccff; /* Azul claro */
+}
+
+.status-recebido {
+  background-color: #526294; /* Azul claro */
+  color: white;
+}
+
+.status-receita {
+  background-color: #2c3196; /* Azul claro */
+  color: white;
+}
+
+.status-despesa {
+  background-color: #821f1f; /* Azul claro */
+  color: white;
+}
+
+.config-valor {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.col-descricao-header {
+  width: 450px;
+}
+
+.col-descricao-content {
+  text-align: right;
+}
+
+.col-data-header {
+  width: 90px;
+}
+
+.col-data-content {
+  text-align: right;
+}
+
+.col-acoes-header {
+  width: 120px;
+}
+
+.col-acoes-content {
+  text-align: right;
+}
+
+.col-valor-header {
+  width: 150px;
+}
+
+.col-valor-content {
+  text-align: left;
+}

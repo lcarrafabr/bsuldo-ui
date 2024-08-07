@@ -21,6 +21,8 @@ export class Lancamento {
   categoria = new Categoria();
   metodoDeCobranca = new MetodoDeCobranca();
   lancRecorrente: boolean;
+  banco = new Bancos();
+  tipoLancamento: string
 }
 
 export class Categoria {

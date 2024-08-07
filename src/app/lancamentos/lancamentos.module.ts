@@ -20,6 +20,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { HttpClientModule } from '@angular/common/http';
+import { PanelModule } from 'primeng/panel';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 
 
@@ -44,6 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     MessagesModule,
     MessageModule,
     SidebarModule,
+    PanelModule,
+    SelectButtonModule,
 
     SharedModule,
     HttpClientModule,

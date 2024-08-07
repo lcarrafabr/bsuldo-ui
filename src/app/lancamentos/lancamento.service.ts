@@ -10,7 +10,9 @@ export interface LancamentoFiltro {
   dataVencimentoInicio: Date;
   dataVencimentoFim: Date;
   situacao: string;
-  chavePesquisa: string
+  metodoDeCobrancaId: string
+  chavePesquisa: string;
+  tipoLancamentoFiltro: string;
 }
 
 @Injectable({
@@ -29,40 +31,43 @@ export class LancamentoService {
     this.lancamentosUrl = `${environment.apiUrl}/lancamentos`;
   }
 
-  pesquisar(filtro: LancamentoFiltro): Promise<any> {
+  pesquisar(filtro: LancamentoFiltro, tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     let urlExtensao = "";
 
-    if(filtro.descricao) {
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    if(filtro.descricao !== undefined) {
       params = params.set('descricao', filtro.descricao);
-      urlExtensao = "/pesquisa"
     }
 
-    if(filtro.dataVencimentoInicio && filtro.dataVencimentoFim) {
-      params = params.set('vencimentoInicio', moment(filtro.dataVencimentoInicio).format("YYYY-MM-DD"));
-      params = params.set('vencimentoFim', moment(filtro.dataVencimentoFim).format("YYYY-MM-DD"));
-      urlExtensao = "/pesquisa-por-data_ini_fim-vencimento"
-
-      this.dataIni = filtro.dataVencimentoInicio;
-      this.dataFinal = filtro.dataVencimentoFim;
-      this.buscaValorNoMes();
-    }
-
-    if(filtro.dataVencimentoInicio && filtro.dataVencimentoFim == null) {
+    if(filtro.dataVencimentoInicio !== undefined) {
       params = params.set('dataVencimento', moment(filtro.dataVencimentoInicio).format("YYYY-MM-DD"));
-      urlExtensao = "/pesquisa-vencimento-ate"
     }
 
-    if(filtro.situacao) {
-      //console.log(filtro.situacao)
+    if(filtro.dataVencimentoFim !== undefined) {
+       params= params.set('dataVencimentoFim', moment(filtro.dataVencimentoFim).format("YYYY-MM-DD"));
+    }
+
+    if(filtro.metodoDeCobrancaId !== undefined) {
+      params = params.set('metodoDeCobrancaId', filtro.metodoDeCobrancaId);
+    }
+
+    if(filtro.situacao !== undefined) {
       params = params.set('situacao', filtro.situacao);
-      urlExtensao = "/busca-por-situacao"
     }
 
-    if(filtro.chavePesquisa) {
+    if(filtro.tipoLancamentoFiltro !== undefined) {
+      params = params.set('tipoLancamento', filtro.tipoLancamentoFiltro);
+    }
+
+    if(filtro.chavePesquisa !== undefined) {
       params = params.set('chavePesquisa', filtro.chavePesquisa);
-      urlExtensao = "/busca-by-chave-pesquisa"
     }
 
     return this.http.get(`${this.lancamentosUrl}` + urlExtensao, { params })
@@ -78,24 +83,38 @@ export class LancamentoService {
       .then(() => null);
   }
 
-  adicionar(lancamento: Lancamento): Promise<Lancamento> {
+  adicionar(lancamento: Lancamento, tokenId: string): Promise<Lancamento> {
 
-    return this.http.post<Lancamento>(this.lancamentosUrl, lancamento)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { params })
       .toPromise();
   }
 
-  adicionarLancamentoRecorrente(lancamento: Lancamento, qtdDias: string): Promise<Lancamento> {
+  adicionarLancamentoRecorrente(lancamento: Lancamento, qtdDias: string, tokenId: string): Promise<Lancamento> {
 
     let params = new HttpParams();
     params = params.set('qtd_dias', qtdDias);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.post<Lancamento>(`${this.lancamentosUrl}/lancamento-recorrente`, lancamento, { params })
       .toPromise();
   }
 
-  buscaValorNoMes(): Promise<any> {
+  buscaValorNoMes(tokenId: string): Promise<any> {
 
     let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     let today = new Date();
     let lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0);
@@ -123,9 +142,15 @@ export class LancamentoService {
 
   }
 
-  atualizar(lancamento: Lancamento): Promise<Lancamento> {
+  atualizar(lancamento: Lancamento, tokenId: string): Promise<Lancamento> {
 
-    return this.http.put(`${this.lancamentosUrl}/${lancamento.lancamentoId}`, lancamento)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.lancamentosUrl}/${lancamento.lancamentoId}`, lancamento, { params })
       .toPromise()
       .then(response => {
         const lancamentoAlterado = response as Lancamento;

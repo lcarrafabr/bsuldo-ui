@@ -22,17 +22,27 @@ export class CategoriaService {
    }
 
 
-    listarTodos(): Promise<any> {
+    listarTodos(tokenId: string): Promise<any> {
 
-      return this.http.get(`${this.categoriaURL}/busca-categorias-ativas`)
+      let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+      return this.http.get(`${this.categoriaURL}/busca-categorias-ativas`, { params })
       .toPromise()
       .then(response => response);
     }
 
-    listarTodosFiltro(filtro: CategoriaFiltro): Promise<any> {
+    listarTodosFiltro(filtro: CategoriaFiltro, tokenId: string): Promise<any> {
 
       let params = new HttpParams();
       let urlExtensao = "";
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
 
       if(filtro.nomeCategoria != null) {
 
@@ -46,9 +56,15 @@ export class CategoriaService {
     }
 
 
-    cadastrarCategoria(categoria: Categoria): Promise<Categoria> {
+    cadastrarCategoria(categoria: Categoria, tokenId: string): Promise<Categoria> {
 
-      return this.http.post<Categoria>(`${this.categoriaURL}`, categoria)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+      return this.http.post<Categoria>(`${this.categoriaURL}`, categoria, { params })
       .toPromise();
     }
 
@@ -60,9 +76,15 @@ export class CategoriaService {
     }
 
 
-    atualizarCategoria(categoria: Categoria): Promise<Categoria> {
+    atualizarCategoria(categoria: Categoria, tokenId: string): Promise<Categoria> {
 
-      return this.http.put(`${this.categoriaURL}/${categoria.categoriaId}`, categoria)
+      let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+      return this.http.put(`${this.categoriaURL}/${categoria.categoriaId}`, categoria, { params })
       .toPromise()
       .then(response => {
         const categoriaAlterada = response as Categoria;
@@ -71,9 +93,15 @@ export class CategoriaService {
       });
     }
 
-    buscaCategoriaPorID(codigo: number): Promise<Categoria> {
+    buscaCategoriaPorID(codigo: number, tokenId: string): Promise<Categoria> {
 
-      return this.http.get(`${this.categoriaURL}/${codigo}`)
+      let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+      return this.http.get(`${this.categoriaURL}/${codigo}`, { params })
       .toPromise()
       .then(response => {
         const categoria = response as Categoria;

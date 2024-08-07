@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { CategoriaService } from './../categoria.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-categoria-cadastro',
@@ -21,21 +22,28 @@ export class CategoriaCadastroComponent implements OnInit {
   statusEdicao: string;
 
   categorias = new Categoria;
+  codigoUsuarioLogado: string;
 
   constructor(
     private categoriaService: CategoriaService,
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     const codigoCategoria = this.route.snapshot.params['codigo'];
 
     if(codigoCategoria) {
       this.carregarCategoriaPorId(codigoCategoria);
+      this.title.setTitle('Edição de categorias');
+    } else {
+      this.title.setTitle('Cadastro de categorias');
     }
   }
 
@@ -58,7 +66,7 @@ export class CategoriaCadastroComponent implements OnInit {
 
   cadastrarCategoria(form: FormControl) {
 
-    this.categoriaService.cadastrarCategoria(this.categorias)
+    this.categoriaService.cadastrarCategoria(this.categorias, this.codigoUsuarioLogado)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Categoria cadastrada com sucesso!', closable: false });
       form.reset();
@@ -69,7 +77,7 @@ export class CategoriaCadastroComponent implements OnInit {
 
   carregarCategoriaPorId(codigo: number) {
 
-    this.categoriaService.buscaCategoriaPorID(codigo)
+    this.categoriaService.buscaCategoriaPorID(codigo, this.codigoUsuarioLogado)
     .then(categoria => {
       this.categorias = categoria;
       this.statusEdicao = categoria.status;
@@ -79,7 +87,7 @@ export class CategoriaCadastroComponent implements OnInit {
 
   atualizarCategoria(form: FormControl) {
 
-    this.categoriaService.atualizarCategoria(this.categorias)
+    this.categoriaService.atualizarCategoria(this.categorias, this.codigoUsuarioLogado)
     .then(response => {
       this.categorias = response;
       this.messageService.add({ severity: 'success', detail: 'Categoria atualizada com sucesso!', closable: false });

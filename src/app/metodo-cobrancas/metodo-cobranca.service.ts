@@ -19,17 +19,29 @@ export class MetodoCobrancaService {
     this.metodoCobrancaURL = `${environment.apiUrl}/metodo-de-cobranca`;
   }
 
-  listarTodos(): Promise<any> {
+  listarTodos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.metodoCobrancaURL}/busca-por-nome-metodo-cobranca-ativo`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.metodoCobrancaURL}/busca-por-nome-metodo-cobranca-ativo`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  listarTodosPorFiltro(filtro: MetodoCobrancaFiltro): Promise<any> {
+  listarTodosPorFiltro(filtro: MetodoCobrancaFiltro, tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     let urlExtensao = "";
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
 
     if(filtro.nomeMetodoConranca != null) {
       params = params.set('nomeMetodoCobranca', filtro.nomeMetodoConranca);
@@ -42,9 +54,16 @@ export class MetodoCobrancaService {
     .then(response => response);
   }
 
-  cadastrarMetodoCobranca(metodoCobranca: MetodoDeCobranca): Promise<MetodoDeCobranca> {
+  cadastrarMetodoCobranca(metodoCobranca: MetodoDeCobranca, tokenId: string): Promise<MetodoDeCobranca> {
 
-    return this.http.post<MetodoDeCobranca>(this.metodoCobrancaURL, metodoCobranca)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<MetodoDeCobranca>(this.metodoCobrancaURL, metodoCobranca, { params })
     .toPromise();
   }
 
@@ -56,9 +75,16 @@ export class MetodoCobrancaService {
 
   }
 
-  buscaPorId(codigo: number): Promise<MetodoDeCobranca> {
+  buscaPorId(codigo: number, tokenId: string): Promise<MetodoDeCobranca> {
 
-    return this.http.get(`${this.metodoCobrancaURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.metodoCobrancaURL}/${codigo}`, { params })
     .toPromise()
     .then(response => {
       const metodoCobranca = response as MetodoDeCobranca;
@@ -67,9 +93,16 @@ export class MetodoCobrancaService {
     })
   }
 
-  atualizarMetodoCobranca(metodoCobranca: MetodoDeCobranca): Promise<MetodoDeCobranca> {
+  atualizarMetodoCobranca(metodoCobranca: MetodoDeCobranca, tokenId: string): Promise<MetodoDeCobranca> {
 
-    return this.http.put(`${this.metodoCobrancaURL}/${metodoCobranca.metodoCobrancaId}`, metodoCobranca)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.metodoCobrancaURL}/${metodoCobranca.metodoCobrancaId}`, metodoCobranca, { params })
     .toPromise()
     .then(response => {
       const metodoCobrancaAlterado = response as MetodoDeCobranca;

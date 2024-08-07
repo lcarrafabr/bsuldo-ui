@@ -5,6 +5,16 @@
     </div>
 
     <div class="p-col-12" style="color: white;">----------------------</div>
+
+    <div class="p-col-12">
+      <p-card>
+        <div class="p-mb-1 p-mr-1">
+          <label> Usar cores padrão do sistema: </label>
+          <p-inputSwitch (click)="verificaConfiguracaoPadrao();" [disabled]="!coresConfig || coresConfig.length === 0"></p-inputSwitch>
+        </div>
+      </p-card>
+    </div>
+
     <div class="p-col-12" style="color: white;">----------------------</div>
 
     <div class="p-grid">

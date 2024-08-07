@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { ErrorHandlerService } from '../error-handler.service';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,8 @@ import { ErrorHandlerService } from '../error-handler.service';
 export class NavbarComponent implements OnInit {
 
   @ViewChild('subMenu') subMenu: any;
+
+  temaColor: string = '#172230';
 
   alertasAutomaticos = [];
 
@@ -59,11 +62,20 @@ export class NavbarComponent implements OnInit {
     private navBarService: NavbarService,
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
+    private themeService: ThemeService
   ) { }
 
   ngOnInit(): void {
 
     this.codigoUsuarioLogado = localStorage.getItem('idToken');
+
+    this.themeService.currentTheme$.subscribe(theme => {
+      if (theme === 'vela-blue') {
+        this.temaColor = '#1f2d40';
+      } else {
+        this.temaColor = 'white';
+      }
+    });
 
     this.carregaMenuDetalhe();
 

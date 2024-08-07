@@ -41,7 +41,7 @@ export class AcompanhamentoEstrategicoCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.codigoUsuarioLogado = localStorage.getItem('IDS');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     this.title.setTitle('Cadastro Acomp. estratégico');
 
@@ -62,7 +62,7 @@ export class AcompanhamentoEstrategicoCadastroComponent implements OnInit {
 
   carregarSegmentos() {
 
-    this.acompanhamentoEstrategicoService.listarSegmentosAtivos()
+    this.acompanhamentoEstrategicoService.listarSegmentosAtivos(this.codigoUsuarioLogado)
     .then(segmentosResponse => {
       this.segmentos = segmentosResponse.map(p => {
         return {label: p.nomeSegmento, value: p.segmentoId}
@@ -73,7 +73,7 @@ export class AcompanhamentoEstrategicoCadastroComponent implements OnInit {
 
   carregarSetores() {
 
-    this.acompanhamentoEstrategicoService.listarSetoresAtivos()
+    this.acompanhamentoEstrategicoService.listarSetoresAtivos(this.codigoUsuarioLogado)
     .then(setoresResponse => {
       this.setores = setoresResponse.map(p => {
         return {label: p.nomeSetor, value: p.setorId}
@@ -100,10 +100,10 @@ export class AcompanhamentoEstrategicoCadastroComponent implements OnInit {
 
     const ticker = this.acompanhamentoEstrategico.ticker;
 
-    this.acompanhamentoEstrategico.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
+    //this.acompanhamentoEstrategico.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
     this.acompanhamentoEstrategico.acompanharVariacao = false;
 
-    this.acompanhamentoEstrategicoService.adicionar(this.acompanhamentoEstrategico)
+    this.acompanhamentoEstrategicoService.adicionar(this.acompanhamentoEstrategico, this.codigoUsuarioLogado)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Acompamento do ' + ticker + ' cadastrado com sucesso!', closable: false});
       form.reset();
@@ -115,7 +115,7 @@ export class AcompanhamentoEstrategicoCadastroComponent implements OnInit {
 
   carregarPorId(codigo: number) {
 
-    this.acompanhamentoEstrategicoService.buscarPorCodigo(codigo)
+    this.acompanhamentoEstrategicoService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
     .then(response => {
       this.acompanhamentoEstrategico = response;
     })
@@ -127,7 +127,7 @@ export class AcompanhamentoEstrategicoCadastroComponent implements OnInit {
     this.acompanhamentoEstrategico.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
     this.acompanhamentoEstrategico.acompanharVariacao = false;
 
-    this.acompanhamentoEstrategicoService.editarAcompEstrategico(this.acompanhamentoEstrategico)
+    this.acompanhamentoEstrategicoService.editarAcompEstrategico(this.acompanhamentoEstrategico, this.codigoUsuarioLogado)
     .then(response => {
       this.acompanhamentoEstrategico = response;
       this.messageService.add({ severity: 'success', detail: 'Acompanhamento estratégico atualizado com sucesso!', closable: false });

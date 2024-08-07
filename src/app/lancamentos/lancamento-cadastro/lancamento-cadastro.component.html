@@ -7,6 +7,10 @@
 
     <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
 
+      <div class="p-col-3 p-fluid">
+        <p-selectButton [options]="tipoLancamento" [(ngModel)]="tipoLancamentoValue" name="tipoLancamento" #tipoLacBind></p-selectButton>
+      </div>
+
       <div class="p-col-12 p-fluid">
         <label>Descrição</label>
         <input type="text" name="descricao" pInputText class="p-inputtext-sm" placeholder="Informe a descrição"
@@ -32,7 +36,7 @@
           </div>
 
           <div class="p-mb-1 p-mr-1 p-fluid">
-            <label>Data Pagamento</label>
+            <label>{{ tipoLacBind.value === 'RECEITA' ? 'Data Recebimento' : 'Data pagamento' }}</label>
             <p-calendar
             name="dataPagamento"
             [(ngModel)]="lancamento.dataPagamento"
@@ -97,12 +101,12 @@
             name="chavePesquisa" [(ngModel)]="lancamento.chavePesquisa" disabled=true>
           </div>
 
-          <div class="p-mb-1 p-mr-1 p-col-1">
+          <div class="p-mb-1 p-mr-1 p-col-1" [(hidden)]="recorrente">
             <label>Parcelado</label>
             <p-inputSwitch name="parcelado" [(ngModel)]="parcelado"></p-inputSwitch>
           </div>
 
-          <div class="p-mb-1 p-mr-1 p-col-1">
+          <div class="p-mb-1 p-mr-1 p-col-1" [(hidden)]="parcelado">
             <label>Recorrente</label>
             <p-inputSwitch name="recorente" [(ngModel)]="recorrente"></p-inputSwitch>
           </div>
@@ -140,6 +144,17 @@
 
           </div>
         </div>
+
+        <div class="p-mb-1 p-mr-1 p-col-3 p-fluid" *ngIf="(tipoLancamentoValue === 'RECEITA' || tipoLancamentoValue === 'DESPESA') && lancamento.dataPagamento">
+          <label>Informe um banco</label>
+          <p-dropdown
+          name="bancosAtivos"
+          [(ngModel)]="lancamento.banco.bancoId"
+          [options]="bancosAtivos"
+          filter="true"
+          placeholder="Selecione"></p-dropdown>
+        </div>
+
 
       </div>
 

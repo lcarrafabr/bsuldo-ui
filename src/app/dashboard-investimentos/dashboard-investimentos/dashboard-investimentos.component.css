@@ -36,3 +36,19 @@
   position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
   z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
 }
+
+:host ::ng-deep .p-progressbar.progress-bar-blue .p-progressbar-value {
+  background-color: rgb(86, 86, 255) !important;
+}
+
+:host ::ng-deep .p-progressbar.progress-bar-green .p-progressbar-value {
+  background-color: rgb(45, 155, 91) !important;
+}
+
+:host ::ng-deep .p-progressbar.progress-bar-purple .p-progressbar-value {
+  background-color: rgb(167, 111, 199) !important;
+}
+
+.custom-panel {
+  background-color: blue;
+}

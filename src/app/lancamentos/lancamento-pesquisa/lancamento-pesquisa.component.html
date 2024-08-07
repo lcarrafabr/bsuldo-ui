@@ -1,75 +1,115 @@
-<div class="container body-content">
+<div class="container2 body-content">
   <p-card>
-    <form autocomplete="off" (ngSubmit)="pesquisar();">
+    <form autocomplete="off" (ngSubmit)="pesquisarByFiltro();">
       <div class="p-col-12">
         <h2>Lançamentos</h2>
       </div>
 
-      <div class="p-col-12 p-fluid">
-        <label>Descrição</label>
-        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por descrição" name="descricao" [(ngModel)]="descricao">
-      </div>
+      <div class="p-shadow-1">
+        <p-panel [toggleable]="true" [collapsed]="true">
+          <ng-template pTemplate="header">
+            <div style="display: flex; align-items: center;">
+              <i [class]="iconePanel" style="margin-right: 5px;"></i>
+              <span>Filtro de pesquisa {{mensagemDeFiltro}} </span>
+            </div>
+          </ng-template>
 
+          <div class="p-col-12 p-fluid">
+            <label>Descrição</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por descrição" name="descricao" [(ngModel)]="descricao">
+          </div>
 
-      <div class="p-col-12">
-        <div class="p-d-flex p-flex-column p-flex-md-row">
+          <div class="">
+            <div class="p-d-flex p-flex-column p-flex-md-row">
 
-          <div class="p-mb-2 p-mr-2 p-fluid">
-            <label style="display: block;">Vencimento</label>
-            <p-calendar
-                    name="vencimentoInicio"
-                    [(ngModel)]="dataVencimentoInicio"
+              <div class="p-mb-2 p-mr-2 p-col-2 p-fluid">
+                <label style="display: block;">Vencimento</label>
+                <p-calendar
+                        name="vencimentoInicio"
+                        [(ngModel)]="dataVencimentoInicio"
+                        dateFormat="dd/mm/yy"
+                        [readonlyInput]="false"
+                        [showIcon]="true"></p-calendar>
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-fluid" style="margin-top: 30px;">
+                <label>Até: </label>
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-col-2 p-fluid">
+                <label style="color: white;" class="p-fluid">Data Fim</label>
+                <p-calendar
+                    name="vencimentoFim"
+                    [(ngModel)]="dataVencimentoFim"
                     dateFormat="dd/mm/yy"
-                    [readonlyInput]="true"
+                    [readonlyInput]="false"
                     [showIcon]="true"></p-calendar>
+              </div>
+
+
+
+              <div class="p-mb-2 p-mr-2 p-col-2 p-fluid">
+                <label class="p-fluid">Método cobrança</label>
+                <p-dropdown
+                name="metodoCobranca"
+                [(ngModel)]="metodoDeCobrancaId"
+                [options]="metodoCobranca"
+                filter="true"
+                placeholder="Selecione"></p-dropdown>
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-col-2 p-fluid">
+                <label class="p-fluid">Status</label>
+                <p-dropdown
+                name="situacao"
+                [(ngModel)]="situacao"
+                [options]="status"
+                placeholder="Selecione"></p-dropdown>
+              </div>
+
+              <div class="p-mb-2 p-mr-2 p-col-2 p-fluid">
+                <label class="p-fluid">Tipo lançamento</label>
+                <p-dropdown
+                name="statusTipoLanc"
+                [(ngModel)]="tipoLancCombobox"
+                [options]="statusTipoLanc"
+                filter="true"
+                placeholder="Selecione"></p-dropdown>
+              </div>
+
+            </div>
           </div>
 
-          <div class="p-mb-2 p-mr-2 p-fluid" style="margin-top: 30px;">
-            <label>Até: </label>
+          <div class="p-col-12">
+            <div class="p-d-flex p-flex-column p-flex-md-row">
+
+              <div class="p-mb-2 p-mr-2 p-fluid">
+                <label class="p-fluid">chave de pesquisa</label>
+                <input type="text" pInputText class="p-inputtext-sm"
+                placeholder="Chave de pesquisa" name="chavePesquisa" [(ngModel)]="chavePesquisa" #chavePesquisas>
+              </div>
+
+            </div>
           </div>
 
-          <div class="p-mb-2 p-mr-2 p-fluid">
-            <label style="color: white;" class="p-fluid">Data Fim</label>
-            <p-calendar
-                name="vencimentoFim"
-                [(ngModel)]="dataVencimentoFim"
-                dateFormat="dd/mm/yy"
-                [readonlyInput]="true"
-                [showIcon]="true"></p-calendar>
+
+          <div class="p-col-12">
+            <div class="p-d-flex p-flex-row p-flex-md-row">
+              <div style="margin-right: 10px;">
+                <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+              </div>
+
+              <div>
+                <button pButton type="button" label="Limpar filtros" icon="pi pi-filter-slash" class="p-button-raised p-button-rounded p-button-info"
+                (click)="resetarCamposFiltro()"></button>
+              </div>
           </div>
-
-
-
-          <div class="p-mb-2 p-mr-2 p-fluid">
-            <label class="p-fluid">Método cobrança</label>
-            <p-dropdown
-            [options]="metodoCobranca"
-            filter="true"
-            placeholder="Selecione"></p-dropdown>
-          </div>
-
-          <div class="p-mb-2 p-mr-2 p-fluid">
-            <label class="p-fluid">Status</label>
-            <p-dropdown
-            name="situacao"
-            [(ngModel)]="situacao"
-            [options]="status"
-            placeholder="Selecione"></p-dropdown>
-          </div>
-
-          <div class="p-mb-2 p-mr-2 p-fluid">
-            <label class="p-fluid">chave de pesquisa</label>
-            <input type="text" pInputText class="p-inputtext-sm"
-            placeholder="Chave de pesquisa" name="chavePesquisa" [(ngModel)]="chavePesquisa" #chavePesquisas>
-          </div>
-
         </div>
+
+        </p-panel>
       </div>
 
 
-      <div class="p-col-12">
-        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
-      </div>
 
     </form>
 
@@ -80,9 +120,9 @@
       <p-table
       #tabela
       [value] = lancamentos
-      styleClass="p-datatable-gridlines"
+      styleClass="p-datatable-gridlines p-datatable-sm"
       [paginator]="true"
-      [rows]="5"
+      [rows]="10"
       selectionMode="single"
       [responsive]="true"
       selectionMode="single">
@@ -91,7 +131,8 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-            <th>Descricao</th>
+            <th class="col-descricao-header">Descricao</th>
+            <th class="col-situacao-header">Tipo Lanc.</th>
             <th class="col-situacao-header">Status</th>
             <th class="col-parcela-header">Parcela</th>
             <th class="col-data-header">Vencimento</th>
@@ -102,12 +143,27 @@
     </ng-template>
     <ng-template pTemplate="body" let-lancamentos>
         <tr>
-            <td>{{lancamentos.descricao}}</td>
-            <td class="col-situacao-content">{{lancamentos.situacao}}</td>
+            <td class="col-descricao-content">{{lancamentos.descricao}}</td>
+
+            <td [ngClass]="'config-valor'">
+              <span [style.color]="lancamentos.tipoLancamento === 'DESPESA' ? '#a61c1c' : '#2c3296'"
+              >{{lancamentos.tipoLancamento}}</span>
+              </td>
+
+            <td class="col-situacao-content" [ngClass]="{
+              'status-pendente': lancamentos.situacao === 'PENDENTE',
+              'status-pago': lancamentos.situacao === 'PAGO',
+              'status-vencido': lancamentos.situacao === 'VENCIDO',
+              'status-atrasado': lancamentos.situacao === 'ATRASADO',
+              'status-recebido': lancamentos.situacao === 'RECEBIDO'
+          }">{{lancamentos.situacao}}</td>
+
             <td class="col-parcela-content">{{lancamentos.numeroParcela}}/{{lancamentos.quantidadeParcelas}}</td>
             <td class="col-data-content">{{lancamentos.datavencimento | date: 'dd/MM/y'}}</td>
             <td class="col-data-content">{{lancamentos.dataPagamento | date: 'dd/MM/y'}}</td>
-            <td class="col-valor-content">{{lancamentos.valor | currency: 'BRL'}}</td>
+            <td class="col-valor-content" [ngClass]="'config-valor'">
+              <span [style.color]="lancamentos.tipoLancamento === 'DESPESA' ? '#a61c1c' : '#2c3296'">
+              {{lancamentos.valor | currency: 'BRL'}}</span></td>
 
             <td class="col-acoes">
               <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined"

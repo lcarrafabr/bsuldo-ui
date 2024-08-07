@@ -29,16 +29,28 @@ export class ControleDividendosService {
     .then(response => response);
   }
 
-  listarProdutosCombobox(): Promise<any> {
+  listarProdutosCombobox(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.controleDividendosURL}/busca-ticker-combobox`)
+      let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+    return this.http.get(`${this.controleDividendosURL}/busca-ticker-combobox`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  adicionar(controleDividendos: ControleDividendos): Promise<ControleDividendos> {
+  adicionar(controleDividendos: ControleDividendos, tokenId: string): Promise<ControleDividendos> {
 
-    return this.http.post<ControleDividendos>(`${this.controleDividendosURL}`, controleDividendos)
+    let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+    return this.http.post<ControleDividendos>(`${this.controleDividendosURL}`, controleDividendos, { params })
       .toPromise();
   }
 
@@ -87,9 +99,15 @@ export class ControleDividendosService {
     }
   }
 
-  atualizarControleDividendos(controleDiv: ControleDividendos): Promise<ControleDividendos> {
+  atualizarControleDividendos(controleDiv: ControleDividendos, tokenId: string): Promise<ControleDividendos> {
 
-    return this.http.put(`${this.controleDividendosURL}/${controleDiv.controleDividendoId}`, controleDiv)
+    let params = new HttpParams();
+
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+    return this.http.put(`${this.controleDividendosURL}/${controleDiv.controleDividendoId}`, controleDiv, { params })
       .toPromise()
       .then(response => {
         const controleDivAtualizado = response as ControleDividendos;

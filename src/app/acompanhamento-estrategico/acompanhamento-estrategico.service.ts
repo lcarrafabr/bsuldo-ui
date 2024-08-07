@@ -28,12 +28,12 @@ export class AcompanhamentoEstrategicoService {
    }
 
 
-   listarTodos(pessoaId: string): Promise<any> {
+   listarTodos(tokenId: string): Promise<any> {
 
     let params = new HttpParams();
 
-    if(pessoaId != null) {
-      params = params.set('pessoaId', pessoaId);
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
     }
 
     return this.http.get(`${this.acompanhamentoEstrategicoURL}`, { params })
@@ -42,13 +42,13 @@ export class AcompanhamentoEstrategicoService {
   }
 
 
-  listarTodosComFiltro(pessoaId: string, filtro: AcompanhamentoEstrategicoFiltro): Promise<any> {
+  listarTodosComFiltro(tokenId: string, filtro: AcompanhamentoEstrategicoFiltro): Promise<any> {
 
     let params = new HttpParams();
     let urlExtensao = "";
 
-    if(pessoaId != null) {
-      params = params.set('pessoaId', pessoaId);
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
     }
 
     if(filtro.ticker) {
@@ -86,31 +86,59 @@ export class AcompanhamentoEstrategicoService {
 
   // ********** busca dados para os combobox ***********
 
-  listarSegmentosAtivos(): Promise<any> {
+  listarSegmentosAtivos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.segmentosURL}/segmentos-ativos`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.segmentosURL}/segmentos-ativos`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  listarSetoresAtivos(): Promise<any> {
+  listarSetoresAtivos(tokenId: string): Promise<any> {
 
-    return this.http.get(`${this.setoresURL}/setores-ativos`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.setoresURL}/setores-ativos`, { params })
     .toPromise()
     .then(response => response);
   }
   // ********** ************************************ ***********
 
 
-  adicionar(acompEstrategico: AcompanhamentoEstrategico): Promise<AcompanhamentoEstrategico> {
+  adicionar(acompEstrategico: AcompanhamentoEstrategico, tokenId: string): Promise<AcompanhamentoEstrategico> {
 
-    return this.http.post<AcompanhamentoEstrategico>(`${this.acompanhamentoEstrategicoURL}`, acompEstrategico)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.post<AcompanhamentoEstrategico>(`${this.acompanhamentoEstrategicoURL}`, acompEstrategico, { params })
       .toPromise();
   }
 
-  buscarPorCodigo(codigo: number): Promise<AcompanhamentoEstrategico> {
+  buscarPorCodigo(codigo: number, tokenId: string): Promise<AcompanhamentoEstrategico> {
 
-    return this.http.get(`${this.acompanhamentoEstrategicoURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.acompanhamentoEstrategicoURL}/${codigo}`, { params })
       .toPromise()
       .then(response => {
         const acompEstrategico = response as AcompanhamentoEstrategico;
@@ -119,9 +147,16 @@ export class AcompanhamentoEstrategicoService {
       });
   }
 
-  editarAcompEstrategico(acompEstrategico: AcompanhamentoEstrategico): Promise<AcompanhamentoEstrategico> {
+  editarAcompEstrategico(acompEstrategico: AcompanhamentoEstrategico, tokenId: string): Promise<AcompanhamentoEstrategico> {
 
-    return this.http.put(`${this.acompanhamentoEstrategicoURL}/${acompEstrategico.acompEstrategicoId}`, acompEstrategico)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.put(`${this.acompanhamentoEstrategicoURL}/${acompEstrategico.acompEstrategicoId}`, acompEstrategico, { params })
     .toPromise()
     .then(response => {
       const acompEstrategicoEditado = response as AcompanhamentoEstrategico;

@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MetodoCobrancaService } from '../metodo-cobranca.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-metodo-cobranca-cadastro',
@@ -14,6 +15,7 @@ import { MetodoCobrancaService } from '../metodo-cobranca.service';
 export class MetodoCobrancaCadastroComponent implements OnInit {
 
   metodoCobranca = new MetodoDeCobranca;
+  codigoUsuarioLogado: string;
 
   status = [
     {label: 'ATIVO', value: 'true'},
@@ -25,16 +27,21 @@ export class MetodoCobrancaCadastroComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title,
   ) { }
 
   ngOnInit(): void {
 
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+
     const codigoMetodoCobranca = this.route.snapshot.params['codigo'];
 
     if(codigoMetodoCobranca) {
-
+      this.title.setTitle('Editar Método de cobrança');
       this.carregaMetodoDeCobrancaPorId(codigoMetodoCobranca);
+    } else {
+      this.title.setTitle('Cadastrar Método de cobrança');
     }
   }
 
@@ -55,7 +62,7 @@ export class MetodoCobrancaCadastroComponent implements OnInit {
 
   cadastrarMetodoCobranca(form: FormControl) {
 
-    this.metodoCobrancaService.cadastrarMetodoCobranca(this.metodoCobranca)
+    this.metodoCobrancaService.cadastrarMetodoCobranca(this.metodoCobranca, this.codigoUsuarioLogado)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Método decobrança cadastrada com sucesso!', closable: false });
       form.reset();
@@ -66,7 +73,7 @@ export class MetodoCobrancaCadastroComponent implements OnInit {
 
   carregaMetodoDeCobrancaPorId(codigo: number) {
 
-    this.metodoCobrancaService.buscaPorId(codigo)
+    this.metodoCobrancaService.buscaPorId(codigo, this.codigoUsuarioLogado)
     .then(metodoCobranca => {
       this.metodoCobranca = metodoCobranca;
     })
@@ -75,7 +82,7 @@ export class MetodoCobrancaCadastroComponent implements OnInit {
 
   atualizarMetodoCobranca(form: FormControl) {
 
-    this.metodoCobrancaService.atualizarMetodoCobranca(this.metodoCobranca)
+    this.metodoCobrancaService.atualizarMetodoCobranca(this.metodoCobranca, this.codigoUsuarioLogado)
     .then(response => {
       this.metodoCobranca = response;
       this.messageService.add({ severity: 'success', detail: 'Método de cobrança atualizado com sucesso!', closable: false });

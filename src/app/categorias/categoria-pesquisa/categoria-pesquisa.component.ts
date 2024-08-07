@@ -4,6 +4,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaService } from '../categoria.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-categoria-pesquisa',
@@ -16,15 +17,20 @@ export class CategoriaPesquisaComponent implements OnInit {
 
   categorias = [];
   nomeCategoria: string;
+  codigoUsuarioLogado: string;
 
   constructor(
     private categoriaService: CategoriaService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.title.setTitle('Categorias');
 
     this.pesquisar()
   }
@@ -35,7 +41,7 @@ export class CategoriaPesquisaComponent implements OnInit {
       nomeCategoria: this.nomeCategoria
     }
 
-    this.categoriaService.listarTodosFiltro(filtro)
+    this.categoriaService.listarTodosFiltro(filtro, this.codigoUsuarioLogado)
     .then(response => {
       this.categorias = response;
     })

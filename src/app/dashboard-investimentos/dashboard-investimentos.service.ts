@@ -106,6 +106,25 @@ export class DashboardInvestimentosService {
     .then(response => response);
   }
 
+  retornaProventosRecebidosEFuturos(idToken: string, tipoPesquisa: string): Promise<any> {
+
+    let params = new HttpParams();
+
+    if(idToken != null) {
+
+      params = params.set('tokenId', idToken);
+    }
+
+    if(tipoPesquisa != null) {
+
+      params = params.set('tipoPesquisa', tipoPesquisa)
+    }
+
+    return this.http.get(`${this.dashboardInvestimentosURL}/grid-proventos-recebidos-e-futuros`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
   retornaQuatidadeTotalCotasEAcoes(tokenId: string): Promise<any> {
 
     let params = new HttpParams();
@@ -178,6 +197,21 @@ export class DashboardInvestimentosService {
     .then(response => response);
   }
 
+  retornaRelatorioCompletoBRDsGrid(tokenId: string): Promise<any> {
+
+    let params = new HttpParams();
+    params = params.set('tipoProduto', "BDRS");
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.ordemDeCompraURL}/relatorio-completo`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
   retornaRelatorioAcoesFiis(tokenId: string): Promise<any> {
 
     let params = new HttpParams();
@@ -215,6 +249,51 @@ export class DashboardInvestimentosService {
     params = params.set('idToken', idToken);
 
     return this.http.get(`${this.controleDividendosURL}/dados-dividendos-por-mes-e-ano`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  retornaHistoricoProventosFuturos(tokenId: string): Promise<any> {
+
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.dashboardInvestimentosURL}/historico-proventos-futuros`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+  relatorioPorSegmento(tokenId: string, tipoProduto: string): Promise<any> {
+
+    let params = new HttpParams();
+    params = params.set('tipoProduto', tipoProduto);
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.dashboardInvestimentosURL}/relatorio-por-segmento`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+  relatorioPorSetores(tokenId: string, tipoProduto: string): Promise<any> {
+
+    let params = new HttpParams();
+    params = params.set('tipoProduto', tipoProduto);
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.dashboardInvestimentosURL}/relatorio-por-setores`, { params })
     .toPromise()
     .then(response => response);
   }

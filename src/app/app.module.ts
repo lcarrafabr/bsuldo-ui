@@ -30,6 +30,7 @@ import {SidebarModule} from 'primeng/sidebar';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { ThemeService } from './services/theme.service';
 
 registerLocaleData(localePt);
 
@@ -69,7 +70,7 @@ registerLocaleData(localePt);
     AppRoutingModule
   ],
   providers: [
-
+    ThemeService
   ],
   bootstrap: [AppComponent]
 })

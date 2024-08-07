@@ -51,7 +51,7 @@ export class AcompanhamentoEstrategicoPesquisaComponent implements OnInit {
 
     this.title.setTitle('Acompanhamento estratégico');
 
-    this.codigoUsuarioLogado = localStorage.getItem('IDS');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     this.pesquisar();
     this.carregarSegmentos();
@@ -125,7 +125,7 @@ export class AcompanhamentoEstrategicoPesquisaComponent implements OnInit {
 
   carregarSegmentos() {
 
-    this.acompanhamentoEstrategicoService.listarSegmentosAtivos()
+    this.acompanhamentoEstrategicoService.listarSegmentosAtivos(this.codigoUsuarioLogado)
     .then(segmentosResponse => {
       this.segmentos = segmentosResponse.map(p => {
         return {label: p.nomeSegmento, value: p.segmentoId}
@@ -136,7 +136,7 @@ export class AcompanhamentoEstrategicoPesquisaComponent implements OnInit {
 
   carregarSetores() {
 
-    this.acompanhamentoEstrategicoService.listarSetoresAtivos()
+    this.acompanhamentoEstrategicoService.listarSetoresAtivos(this.codigoUsuarioLogado)
     .then(setoresResponse => {
       this.setores = setoresResponse.map(p => {
         return {label: p.nomeSetor, value: p.setorId}

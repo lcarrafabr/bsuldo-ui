@@ -3,6 +3,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { MetodoCobrancaService, MetodoCobrancaFiltro } from './../metodo-cobranca.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-metodo-cobranca-pesquisa',
@@ -15,15 +16,22 @@ export class MetodoCobrancaPesquisaComponent implements OnInit {
 
   metodoCobrancas = [];
   nomeMetodoCobranca: string;
+  codigoUsuarioLogado: string;
 
   constructor(
     private metodoCobrancaService: MetodoCobrancaService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title,
   ) { }
 
   ngOnInit(): void {
+
+    this.title.setTitle('Método de cobrança');
+
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+
     this.pesquisar();
   }
 
@@ -34,7 +42,7 @@ export class MetodoCobrancaPesquisaComponent implements OnInit {
       nomeMetodoConranca: this.nomeMetodoCobranca
     }
 
-    this.metodoCobrancaService.listarTodosPorFiltro(filtro)
+    this.metodoCobrancaService.listarTodosPorFiltro(filtro, this.codigoUsuarioLogado)
     .then(response => {
       this.metodoCobrancas = response;
     })

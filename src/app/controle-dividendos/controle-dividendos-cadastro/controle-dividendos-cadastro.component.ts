@@ -27,7 +27,8 @@ export class ControleDividendosCadastroComponent implements OnInit {
 
   tipoDividendo = [
     {label: 'DIVIDENDO', value: 'DIVIDENDO'},
-    {label: 'JCP', value: 'JCP'}
+    {label: 'JCP', value: 'JCP'},
+    {label: 'REND. TRIBUTADO', value: 'REND_TRIBUTADO'}
   ]
 
   constructor(
@@ -41,7 +42,7 @@ export class ControleDividendosCadastroComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('IDS');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
     const codigoControleDividendo = this.route.snapshot.params['codigo'];
 
@@ -61,7 +62,7 @@ export class ControleDividendosCadastroComponent implements OnInit {
 
   carregarProdutosCombobox() {
 
-    this.controleDividendosService.listarProdutosCombobox()
+    this.controleDividendosService.listarProdutosCombobox(this.codigoUsuarioLogado)
     .then(response => {
 
       this.tipoprodutoList = response.map(p => {
@@ -105,9 +106,9 @@ export class ControleDividendosCadastroComponent implements OnInit {
     }
 
     this.controleDividendos.tipoAtivoEnum = this.tipoAtivo;
-    this.controleDividendos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
+    //this.controleDividendos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
 
-    this.controleDividendosService.adicionar(this.controleDividendos)
+    this.controleDividendosService.adicionar(this.controleDividendos, this.codigoUsuarioLogado)
     .then(() => {
       this.messageService.add({ severity: 'success', detail: 'Dividendo cadastrado com sucesso!', closable: false});
       form.reset();
@@ -137,9 +138,9 @@ export class ControleDividendosCadastroComponent implements OnInit {
     }
 
     this.controleDividendos.tipoAtivoEnum = this.tipoAtivo;
-    this.controleDividendos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
+    //this.controleDividendos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
 
-    this.controleDividendosService.atualizarControleDividendos(this.controleDividendos)
+    this.controleDividendosService.atualizarControleDividendos(this.controleDividendos, this.codigoUsuarioLogado)
     .then(response => {
       this.controleDividendos = response;
       this.messageService.add({ severity: 'success', detail: 'Controle dividendo atualizado com sucesso!', closable: false });

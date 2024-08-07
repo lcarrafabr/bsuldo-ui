@@ -1,9 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --font-family: Arial, Helvetica, sans-serif;
+  --text-color: #404C51;
+  --background-color-theme: #f0edff;
+}
+
+.theme-vela-blue {
+  background-color: #1b0d61;
+  color: #ffffff;
+  /* Outros estilos específicos do tema */
+}
+
+/* Classe de tema para Saga Purple */
+.theme-saga-purple {
+  background-color: #f0edff;
+  /* Outros estilos específicos do tema */
+}
+
+
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: #404C51;
-  background-color: #fcedff;
+  /*background-color: #f0edff;*/
+  background-color: var(--background-color);
+}
+
+.navbar {
+  padding: 20px 0 10px;
+  /*background-color: #7a078c;*/
+  background-color: var(--nav-bar-color);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.barra-container{
+  background-color: #e01919;
 }
 
 label {
@@ -27,6 +63,13 @@ label {
 @media (min-width: 900px){
   .container3 {
     width: 900px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1200px){
+  .container4 {
+    width: 1900px;
     margin: 0 auto;
   }
 }

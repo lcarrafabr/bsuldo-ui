@@ -23,16 +23,26 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
   valorUnitario: number;
   codigoUsuarioLogado: string;
   tipoProdutoValue: string;
+  tipoOrdemRendaVariavelvalue: string;
 
  // tipoProduto = [];
   ticker = [];
   tickerFiltro: string;
 
+  tipoProdutoLancamentoOrdem = [
+    {label: 'COMPRA', value: 'COMPRA'},
+    {label: 'VENDA', value: 'VENDA'},
+    {label: 'BONIFICAÇÃO', value: 'BONIFICACAO'},
+    {label: 'DESDOBRAMENTO', value: 'DESDOBRAMENTO'},
+    {label: 'AGRUPAMENTO', value: 'AGRUPAMENTO'},
+    {label: 'AMORTIZAÇÃO', value: 'AMORTIZACAO'}
+  ]
+
   tipoProduto = [
     {label: 'AÇÕES', value: 'ACOES'},
     {label: 'FUNDO DE INVESTIMENTOS', value: 'FUNDO_DE_INVESTIMENTOS'},
     {label: 'FIIS', value: 'FIIS'},
-    {label: 'BDRS', value: 'BRDS'},
+    {label: 'BDRS', value: 'BDRS'},
     {label: 'CRIPTOMOEDAS', value: 'CRIPTOMOEDAS'},
     {label: 'ETFS', value: 'ETFS'},
     {label: 'ETFs INTERNACIONAIS', value: 'ETFS_INTERNACIONAIS'},
@@ -139,7 +149,7 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
     this.ordemDeCompra.precoUnitarioCota = this.valorUnitario;
     this.ordemDeCompra.valorInvestido = this.valorInvestidoValue;
     this.ordemDeCompra.tipoAtivoEnum = this.tipoProdutoValue;
-    this.ordemDeCompra.tipoOrdemRendaVariavelEnum = this.value1;
+    //this.ordemDeCompra.tipoOrdemRendaVariavelEnum = this.tipoOrdemRendaVariavelvalue;
 
     this.ordemDeCompraService.adicionar(this.ordemDeCompra, this.codigoUsuarioLogado)
     .then(() => {
@@ -165,6 +175,7 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
       this.valorInvestidoValue = response.valorInvestido;
       this.tipoProdutoValue = response.tipoAtivoEnum;
       this.value1 = response.tipoOrdemRendaVariavelEnum;
+      this.tipoOrdemRendaVariavelvalue = response.tipoOrdemRendaVariavelEnum;
     })
     .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
   }
@@ -175,7 +186,7 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
     this.ordemDeCompra.precoUnitarioCota = this.valorUnitario;
     this.ordemDeCompra.valorInvestido = this.valorInvestidoValue;
     this.ordemDeCompra.tipoAtivoEnum = this.tipoProdutoValue;
-    this.ordemDeCompra.tipoOrdemRendaVariavelEnum = this.value1;
+    //this.ordemDeCompra.tipoOrdemRendaVariavelEnum = this.tipoOrdemRendaVariavelvalue;
 
     this.ordemDeCompraService.atualizarOrdemDeCompra(this.ordemDeCompra, this.codigoUsuarioLogado)
     .then(response => {
