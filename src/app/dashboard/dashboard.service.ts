@@ -16,11 +16,15 @@ export class DashboardService {
   }
 
 
-  valorApagarNoMes(dataReferencia: Date) {
+  valorApagarNoMes(dataReferencia: Date, tokenId: string) {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
     const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
@@ -31,11 +35,15 @@ export class DashboardService {
   }
 
 
-  valorPagoNoMes(dataReferencia: Date) {
+  valorPagoNoMes(dataReferencia: Date, tokenId: string) {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
     const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
@@ -45,7 +53,7 @@ export class DashboardService {
     .then(response => response);
   }
 
-  valorVencidoNoMes(dataReferencia: Date) {
+  valorVencidoNoMes(dataReferencia: Date, tokenId: string) {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
@@ -53,37 +61,49 @@ export class DashboardService {
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.get(`${this.lancamentosDashboardUrl}/valor-vencido-no-mes`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  valorDevedorPorAno(dataReferencia: Date) {
+  valorDevedorPorAno(dataReferencia: Date, tokenId: string) {
 
     let params = new HttpParams();
     const ano = this.pegaDataIniEFim(dataReferencia).ano;
 
     params = params.set('ano', ano);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.get(`${this.lancamentosDashboardUrl}/total-devedor-por-ano`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  valorpagoPorAno(dataReferencia: Date) {
+  valorpagoPorAno(dataReferencia: Date, tokenId) {
 
     let params = new HttpParams();
     const ano = this.pegaDataIniEFim(dataReferencia).ano;
 
     params = params.set('ano', ano);
 
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
     return this.http.get(`${this.lancamentosDashboardUrl}/total-pago-por-ano`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  percentualPagoNoMes(dataReferencia: Date) {
+  percentualPagoNoMes(dataReferencia: Date, tokenId: string) {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
@@ -91,13 +111,56 @@ export class DashboardService {
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.get(`${this.lancamentosDashboardUrl}/perc-pago-no-mes`, { params })
     .toPromise()
     .then(response => response);
   }
 
-  lancamentosPorCategoria(dataReferencia): Promise<Array<any>> {
+
+  //********************************************************************************************** */
+
+  valorAReceberNoMes(dataReferencia: Date, tokenId: string) {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/valor-a-receber-no-mes`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+  valorRecebidoNoMes(dataReferencia: Date, tokenId: string) {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/valor-recebido-no-mes`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+  valorAtrasadoNoMes(dataReferencia: Date, tokenId: string) {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
@@ -105,13 +168,91 @@ export class DashboardService {
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/valor-atrasado-no-mes`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  valorAReceberNoAno(dataReferencia: Date, tokenId: string) {
+
+    let params = new HttpParams();
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/total-a-receber-no-ano`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  receitaTotalPorAno(dataReferencia: Date, tokenId) {
+
+    let params = new HttpParams();
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/receita-total-por-ano`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  percentualRecebidoNoMes(dataReferencia: Date, tokenId: string) {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/perc-recebido-no-mes`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  //*********************************************************************************************** */
+
+  lancamentosPorCategoria(dataReferencia, tokenId: string): Promise<Array<any>> {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.get(`${this.lancamentosDashboardUrl}/total-categoria-mes`, { params })
     .toPromise()
     .then(response => response as Array<any>);
   }
 
-  lancamentosPorMetodoCobrancaMes(dataReferencia): Promise<Array<any>> {
+  lancamentosPorMetodoCobrancaMes(dataReferencia, tokenId: string): Promise<Array<any>> {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
@@ -119,6 +260,10 @@ export class DashboardService {
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.get(`${this.lancamentosDashboardUrl}/total-metodo-cob-mes`, { params })
     .toPromise()
@@ -140,6 +285,24 @@ export class DashboardService {
     .then(response => response as Array<any>);
   }
 
+  lancamentosPordiaReceitasDespesas(dataReferencia, tokenId: string): Promise<Array<any>> {
+
+    let params = new HttpParams();
+    const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
+    const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
+
+    params = params.set('dataIni', datainicio);
+    params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/lancamentos-dia-mes-receitas-despesas`, { params })
+    .toPromise()
+    .then(response => response as Array<any>);
+  }
+
  gradeTotaisPorAno(dataReferencia): Promise<any> {
 
     let params = new HttpParams();
@@ -152,8 +315,24 @@ export class DashboardService {
     .then(response => response);
   }
 
+  gradeTotaisDespesaMesPorAno(dataReferencia, tokenId: string): Promise<any> {
 
-  gradeTotalMetodoCobrancaPorMes(dataReferencia): Promise<any> {
+    let params = new HttpParams();
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/lista-total-despesa-por-mes-ano`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  gradeTotalMetodoCobrancaPorMes(dataReferencia, tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
@@ -161,6 +340,10 @@ export class DashboardService {
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.get(`${this.lancamentosDashboardUrl}/total-metodo-cob-mes`, { params })
     .toPromise()
@@ -181,6 +364,39 @@ gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia): Promise<any> {
     .toPromise()
     .then(response => response);
 
+  }
+
+  graficoReceitasDespesasPorMesEAno(dataReferencia, tokenId: string): Promise<Array<any>> {
+
+    let params = new HttpParams();
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/grafico-total-receita-despesa-by-mes-ano`, { params })
+    .toPromise()
+    .then(response => response as Array<any>);
+  }
+
+
+  graficoReceitasDespesasPorAno(dataReferencia, tokenId: string): Promise<Array<any>> {
+
+    let params = new HttpParams();
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.lancamentosDashboardUrl}/grafico-total-receita-despesa-por-ano`, { params })
+    .toPromise()
+    .then(response => response as Array<any>);
   }
 
 

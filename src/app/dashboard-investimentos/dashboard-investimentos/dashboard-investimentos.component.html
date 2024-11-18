@@ -458,6 +458,7 @@
         [rows]="15"
         selectionMode="single"
         [responsive]="true"
+        [lazy]="true"
         selectionMode="single">
         <ng-template pTemplate="emptymessage">
           Nenhum valor encontrado
@@ -554,6 +555,7 @@
         [rows]="15"
         selectionMode="single"
         [responsive]="true"
+        [lazy]="true"
         selectionMode="single">
         <ng-template pTemplate="emptymessage">
           Nenhum valor encontrado
@@ -657,11 +659,11 @@
           <tr>
             <th  colspan="5">
               Total projetivo:  {{totalProjetivoGridBDR | currency: 'BRL'}}
-              <ng-container *ngIf="totalProjetivoGridAFiis < 0; else plusIcon">
-                <i class="pi pi-arrow-down" [ngStyle]="{'color': totalProjetivoGridAFiis < 0 ? '#a10e0e' : 'green'}"></i>
+              <ng-container *ngIf="totalProjetivoGridBDR < 0; else plusIcon">
+                <i class="pi pi-arrow-down" [ngStyle]="{'color': totalProjetivoGridBDR < 0 ? '#a10e0e' : 'green'}"></i>
               </ng-container>
               <ng-template #plusIcon>
-                <i class="pi pi-arrow-up" [ngStyle]="{'color': totalProjetivoGridAFiis < 0 ? '#a10e0e' : 'green'}"></i>
+                <i class="pi pi-arrow-up" [ngStyle]="{'color': totalProjetivoGridBDR < 0 ? '#a10e0e' : 'green'}"></i>
               </ng-template>
             </th>
 

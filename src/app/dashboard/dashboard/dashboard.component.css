@@ -5,6 +5,83 @@
   }
 }
 
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.content-dashboard {
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+}
+.titulo-secao {
+  background-color: white;
+  padding: 10px;
+}
+
+.titulo-secao h2{
+  font-size: 25px;
+}
+
+.box-info {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box-info-single {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  color: white;
+  width: 100%;
+  margin: 0 5px;
+  padding: 30px;
+}
+
+.box-info-single i {
+  font-size: 25px;
+}
+
+.color-blue-novo {
+  background: linear-gradient(45deg, #4099ff, #73b4ff);
+}
+
+.color-green-novo {
+  background: linear-gradient(45deg, #27ba9d, #59e0c5);
+}
+
+.color-red-novo {
+  background: linear-gradient(45deg, #FF5370, #ff869a);
+}
+
+.color-grey-novo {
+  background: linear-gradient(45deg, #999496, #b5b1b3);
+}
+
+.color-black-novo {
+  background: linear-gradient(45deg, #363435, #706d6f);
+}
+
+:host ::ng-deep .p-progressbar.progress-bar-green .p-progressbar-value {
+  background-color: rgb(116, 211, 155) !important;
+}
+
+:host ::ng-deep .p-progressbar.progress-bar-blue .p-progressbar-value {
+  background-color: rgb(134, 174, 248) !important;
+}
+
+
+
+
+
+
+
+
+
 .card_topo_red {
   background-color: rgb(141, 8, 8) !important;
   color: white;

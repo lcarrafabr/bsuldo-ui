@@ -1,17 +1,74 @@
 <div class=" p-shadow-2 body-content">
   <p-card>
+    <form  autocomplete="off" (ngSubmit)="pesquisarByFiltro();">
     <div class="p-col-12">
       <h2>Pesquisa controle de dividendos</h2>
     </div>
 
-    <form>
-      <div class="p-col-12 p-fluid">
-        <label>Ticker</label>
-        <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por ticker" name="ticker">
-      </div>
-      <div class="p-col-12">
-        <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
-      </div>
+    <div class="p-shadow-1">
+      <p-panel [toggleable]="true" [collapsed]="true">
+        <ng-template pTemplate="header">
+          <div style="display: flex; align-items: center;">
+            <i [class]="iconePanel" style="margin-right: 5px;"></i>
+            <span>Filtro de pesquisa {{mensagemDeFiltro}} </span>
+          </div>
+        </ng-template>
+
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-2 p-mr-2 p-col-1 p-fluid">
+            <label>Ticker</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por ticker" [(ngModel)]="tickerFiltro" name="tickerFiltro">
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-col-1 p-fluid">
+            <label class="p-fluid">Tipo recebimento</label>
+            <p-dropdown
+            name="tipoRecebimento"
+            [options]="tipoRecebimento"
+            [(ngModel)]="tipoRecebimentoFiltro"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-col-2 p-fluid">
+            <label style="display: block;">Data referencia</label>
+            <p-calendar
+                    name="dataReferencia"
+                    [(ngModel)]="dataReferencia"
+                    view="month"
+                    dateFormat="mm/yy"
+                    [readonlyInput]="true"
+                    [showIcon]="true"></p-calendar>
+          </div>
+
+          <div class="p-mb-2 p-mr-2 p-col-2 p-fluid">
+            <label style="display: block;">Data pagamento</label>
+            <p-calendar
+                    name="dataPagamento"
+                    [(ngModel)]="dataPagamento"
+                    dateFormat="dd/mm/yy"
+                    [readonlyInput]="false"
+                    [showIcon]="true"></p-calendar>
+          </div>
+
+        </div>
+
+        <div class="p-col-12">
+          <div class="p-d-flex p-flex-row p-flex-md-row">
+
+          <div style="margin-right: 10px;">
+            <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+          </div>
+
+          <div>
+            <button pButton type="button" label="Limpar filtros" icon="pi pi-filter-slash" class="p-button-raised p-button-rounded p-button-info"
+            (click)="resetarCamposFiltro()"></button>
+          </div>
+          </div>
+        </div>
+      </p-panel>
+    </div>
     </form>
 
     <div class="p-col-12" style="color: white;">----------------------</div>
@@ -21,7 +78,7 @@
       <p-table
         #tabela
         [value] = controleDividendos
-        styleClass="p-datatable-sm"
+        styleClass="p-datatable-gridlines p-datatable-sm"
         [paginator]="true"
         [rows]="6"
         selectionMode="single"

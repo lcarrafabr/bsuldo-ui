@@ -10,6 +10,17 @@ import * as moment from 'moment';
 })
 export class DashboardComponent implements OnInit {
 
+  codigoUsuarioLogado: string;
+
+  nomeMes: string = '';
+
+  valorAReceberNoMes: any = 0;
+  valorRecebidoNoMes: any = 0;
+  valorAtrasadoNoMes: any = 0;
+  valorAReceberNoAno: any = 0;
+  receitaTotalPorAnovalue: any = 0;
+  valueRecebidoNoMes: any = 100;
+
   value: any = 100;
   dataSelecionada: Date;
   valorApagarNoMes: any = 0;
@@ -31,6 +42,8 @@ export class DashboardComponent implements OnInit {
 
 
   lancamentosPorDia: any;
+  graficoReceitaDespesaPorMesAno: any;
+  graficoReceitaDespesaPorAno: any;
 
   constructor(
     private dashboardService: DashboardService,
@@ -41,12 +54,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+
     this.dataSelecionada = new Date();
     this.atualizarDashboard();
   }
 
 
   atualizarDashboard() {
+
+    this.nomeMes = this.getNomeMes();
 
     this.pegarvalorApagarNoMes();
     this.pegarvalorPagoNoMes();
@@ -55,23 +72,48 @@ export class DashboardComponent implements OnInit {
     this.percentualPagoNoMes();
     this.configurarGraficoPizzaCategoriaMes();
     this.configurarGraficoPizzaMetodoCobranca();
-    this.graficoLancamentosPorDia();
+    //this.graficoLancamentosPorDia();
     this.graficoSituacaoMes();
     this.basicOptionsConfig();
+    //this.carregaGradeTotaisPorAno();
+
     this.carregaGradeTotaisPorAno();
+
     this.carregaGradeTotalMetodoCobrancaMes();
     this.carregaGradeLancMetodoCobrancaMesExpansivo();
     this.pegarvalorPagoPorAno();
 
+    this.pegarvalorAReceberNoMes();
+    this.pegarvalorRecebidoNoMes();
+    this.percentualrecebidoNoMes();
+    this.pegarvalorAtrasadoNoMes();
+    this.pegarvalorAReceberNoAno();
+    this.receitaTotalPorAno();
+
+    this.graficoLancamentosPorDiaReceitasDespesas();
+    this.graficoReceitasDespesasPorMesEAno();
+    this.graficoReceitasDespesasPorAno();
+
   }
 
 
+  getNomeMes(): string {
+    const meses = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
 
+    const mesIndex = this.dataSelecionada.getMonth(); // Retorna o índice do mês (0-11)
+    return meses[mesIndex]; // Retorna o nome do mês correspondente
+  }
+
+
+//******************************************************************************************* */
   pegarvalorApagarNoMes() {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.valorApagarNoMes(dataReferencia)
+    this.dashboardService.valorApagarNoMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
       if(response != null) {
         this.valorApagarNoMes = response;
@@ -86,7 +128,7 @@ export class DashboardComponent implements OnInit {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.valorPagoNoMes(dataReferencia)
+    this.dashboardService.valorPagoNoMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
       if(response != null) {
         this.valorPagoNoMes = response;
@@ -101,7 +143,7 @@ export class DashboardComponent implements OnInit {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.valorVencidoNoMes(dataReferencia)
+    this.dashboardService.valorVencidoNoMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
       if(response != null){
         this.valorVencidoNoMes = response;
@@ -117,7 +159,7 @@ export class DashboardComponent implements OnInit {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.valorDevedorPorAno(dataReferencia)
+    this.dashboardService.valorDevedorPorAno(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
       if(response != null){
         this.valorDevedorPorAno = response;
@@ -133,7 +175,7 @@ export class DashboardComponent implements OnInit {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.valorpagoPorAno(dataReferencia)
+    this.dashboardService.valorpagoPorAno(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
       if(response != null){
         this.valorPagoPorAno = response;
@@ -149,7 +191,7 @@ export class DashboardComponent implements OnInit {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.percentualPagoNoMes(dataReferencia)
+    this.dashboardService.percentualPagoNoMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
       if(response != null){
         const valor = new Number(response);
@@ -163,11 +205,115 @@ export class DashboardComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
+  //******************************************************************************************************** */
+
+  pegarvalorAReceberNoMes() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.valorAReceberNoMes(dataReferencia, this.codigoUsuarioLogado)
+    .then(response => {
+      if(response != null) {
+        this.valorAReceberNoMes = response;
+      } else {
+        this.valorAReceberNoMes = 0;
+      }
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  pegarvalorRecebidoNoMes() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.valorRecebidoNoMes(dataReferencia, this.codigoUsuarioLogado)
+    .then(response => {
+      if(response != null) {
+        this.valorRecebidoNoMes = response;
+      } else {
+        this.valorRecebidoNoMes = 0;
+      }
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
+  pegarvalorAtrasadoNoMes() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.valorAtrasadoNoMes(dataReferencia, this.codigoUsuarioLogado)
+    .then(response => {
+      if(response != null){
+        this.valorAtrasadoNoMes = response;
+      } else {
+        this.valorAtrasadoNoMes = 0;
+      }
+
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
+  pegarvalorAReceberNoAno() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.valorAReceberNoAno(dataReferencia, this.codigoUsuarioLogado)
+    .then(response => {
+      if(response != null){
+        this.valorAReceberNoAno = response;
+      } else {
+        this.valorAReceberNoAno = 0;
+      }
+
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  receitaTotalPorAno() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.receitaTotalPorAno(dataReferencia, this.codigoUsuarioLogado)
+    .then(response => {
+      if(response != null){
+        this.receitaTotalPorAnovalue = response;
+      } else {
+        this.receitaTotalPorAnovalue = 0;
+      }
+
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
+  percentualrecebidoNoMes() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.percentualRecebidoNoMes(dataReferencia, this.codigoUsuarioLogado)
+    .then(response => {
+      if(response != null){
+        const valor = new Number(response);
+        this.valueRecebidoNoMes = valor.toFixed(2);
+        //this.graficoSituacaoMes();
+      } else {
+        this.valueRecebidoNoMes = 0;
+      }
+
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
+  //********************************************************************************************************* */
+
   configurarGraficoPizzaCategoriaMes() {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.lancamentosPorCategoria(dataReferencia)
+    this.dashboardService.lancamentosPorCategoria(dataReferencia, this.codigoUsuarioLogado)
     .then(dados => {
 
       this.graficoCategoriaMes = {
@@ -190,7 +336,7 @@ export class DashboardComponent implements OnInit {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.lancamentosPorMetodoCobrancaMes(dataReferencia)
+    this.dashboardService.lancamentosPorMetodoCobrancaMes(dataReferencia, this.codigoUsuarioLogado)
     .then(dados => {
 
       this.graficoMetodoCobrancaMes = {
@@ -208,7 +354,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  graficoLancamentosPorDia() {
+  graficoLancamentosPorDia() { //****************  DESATIVADO ********************* */
 
     const dataReferencia = this.dataSelecionada;
 
@@ -231,14 +377,54 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  graficoLancamentosPorDiaReceitasDespesas() {
+
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.lancamentosPordiaReceitasDespesas(dataReferencia, this.codigoUsuarioLogado)
+    .then(dados => {
+
+      console.log(dados);
+      this.lancamentosPorDia = {
+        labels: dados.map(dado => dado.dia),
+        datasets: [
+            {
+                label: 'Despesa',
+                data: dados.map(dado => dado.lancDespesa),
+                fill: true,
+                backgroundColor: 'rgba(247, 176, 240,0.2)',
+                borderColor: '#892d91',
+                borderWidth: 1.5,
+                tension: 0.4,
+            },
+            {
+              label: 'Receita',
+              data: dados.map(dado => dado.lancReceita),
+              fill: true,
+              backgroundColor: 'rgba(98, 181, 245,0.2)',
+              borderColor: '#2c6b9c',
+              borderWidth: 1.5,
+              tension: 0.4,
+          }
+        ]
+    }
+
+    });
+  }
+
   graficoSituacaoMes() {
+
+    let backgroundColorGraficoSituacaoMes = ['#4e92c788', '#40ad5a88', '#a3313188'];
+    let borderColorGraficoSituacaoMes = ['#2c6b9c', '#2c8241', '#a33131'];
 
     this.basicData = {
       labels: ['Pagar no mês', 'Total pago', 'Total vencido'],
       datasets: [
           {
               label: 'Situação no mês',
-              backgroundColor: '#731469',
+              backgroundColor: backgroundColorGraficoSituacaoMes,
+              borderColor: borderColorGraficoSituacaoMes,
+              borderWidth: 1,
               data: [this.valorApagarNoMes, this.valorPagoNoMes, this.valorVencidoNoMes,0]
           }
       ]
@@ -269,7 +455,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  carregaGradeTotaisPorAno() {
+  carregaGradeTotaisPorAno_OLD() {
 
     const dataReferencia = this.dataSelecionada;
 
@@ -280,11 +466,111 @@ export class DashboardComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
+  carregaGradeTotaisPorAno() {
+    const dataReferencia = this.dataSelecionada;
+
+    this.dashboardService.gradeTotaisDespesaMesPorAno(dataReferencia, this.codigoUsuarioLogado)
+        .then(response => {
+            // Transformando a resposta para o formato necessário pela tabela
+            const totaisPorAno = {
+                jan: response.find(item => item.mes === 1)?.totalDespesas || 0,
+                fev: response.find(item => item.mes === 2)?.totalDespesas || 0,
+                mar: response.find(item => item.mes === 3)?.totalDespesas || 0,
+                abr: response.find(item => item.mes === 4)?.totalDespesas || 0,
+                mai: response.find(item => item.mes === 5)?.totalDespesas || 0,
+                jun: response.find(item => item.mes === 6)?.totalDespesas || 0,
+                jul: response.find(item => item.mes === 7)?.totalDespesas || 0,
+                ago: response.find(item => item.mes === 8)?.totalDespesas || 0,
+                set: response.find(item => item.mes === 9)?.totalDespesas || 0,
+                out: response.find(item => item.mes === 10)?.totalDespesas || 0,
+                nov: response.find(item => item.mes === 11)?.totalDespesas || 0,
+                dez: response.find(item => item.mes === 12)?.totalDespesas || 0,
+                total: response.reduce((sum, item) => sum + item.totalDespesas, 0)
+            };
+
+            // Definindo o valor transformado no array esperado pela tabela
+            this.totaisPorAno = [totaisPorAno];
+        })
+        .catch(erro => this.errorHandler.handle(erro));
+}
+
+
+graficoReceitasDespesasPorMesEAno() {
+
+  const dataReferencia = this.dataSelecionada;
+
+  this.dashboardService.graficoReceitasDespesasPorMesEAno(dataReferencia, this.codigoUsuarioLogado)
+  .then(dados => {
+
+    this.graficoReceitaDespesaPorMesAno = {
+      labels: dados.map(dado => dado.mesName),
+      datasets: [
+          {
+              label: 'Despesa',
+              data: dados.map(dado => dado.totalDespesas),
+              fill: true,
+              backgroundColor: 'rgba(247, 176, 240,0.2)',
+              borderColor: '#892d91',
+              borderWidth: 1.5,
+              tension: 0.3,
+          },
+          {
+            label: 'Receita',
+            data: dados.map(dado => dado.totalReceitas),
+            fill: true,
+            backgroundColor: 'rgba(98, 181, 245,0.2)',
+            borderColor: '#2c6b9c',
+            borderWidth: 1.5,
+            tension: 0.3,
+        }
+      ]
+  }
+
+  });
+}
+
+graficoReceitasDespesasPorAno() {
+
+  const dataReferencia = this.dataSelecionada;
+
+  this.dashboardService.graficoReceitasDespesasPorAno(dataReferencia, this.codigoUsuarioLogado)
+  .then(dados => {
+
+    this.graficoReceitaDespesaPorAno = {
+      labels: dados.map(dado => dado.ano),
+      datasets: [
+          {
+              label: 'Despesa',
+              data: dados.map(dado => dado.despesa),
+              fill: true,
+              backgroundColor: 'rgba(247, 176, 240,0.2)',
+              borderColor: '#892d91',
+              borderWidth: 1.5,
+              tension: 0.3,
+          },
+          {
+            label: 'Receita',
+            data: dados.map(dado => dado.receita),
+            fill: true,
+            backgroundColor: 'rgba(98, 181, 245,0.2)',
+            borderColor: '#2c6b9c',
+            borderWidth: 1.5,
+            tension: 0.3,
+        }
+      ]
+  }
+
+  });
+}
+
+
+
+
   carregaGradeTotalMetodoCobrancaMes() {
 
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.gradeTotalMetodoCobrancaPorMes(dataReferencia)
+    this.dashboardService.gradeTotalMetodoCobrancaPorMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
       this.totalMetodoCobrancaMes = response;
     })

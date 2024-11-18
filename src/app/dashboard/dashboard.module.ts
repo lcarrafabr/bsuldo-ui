@@ -18,6 +18,7 @@ import { MessageModule } from 'primeng/message';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {ChartModule} from 'primeng/chart';
 import {PanelModule} from 'primeng/panel';
+import {ToolbarModule} from 'primeng/toolbar';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {PanelModule} from 'primeng/panel';
     ProgressBarModule,
     ChartModule,
     PanelModule,
+    ToolbarModule,
 
     SharedModule,
     DashboardRoutingModule

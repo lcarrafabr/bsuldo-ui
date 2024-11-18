@@ -4,6 +4,13 @@ import { ControleDividendos } from '../core/model';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 
+export class ControleDividendosFiltro {
+  ticker: string;
+  tipoRecebimento: string;
+  dataReferencia: Date;
+  dataPagamento: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,12 +23,28 @@ export class ControleDividendosService {
     this.controleDividendosURL = `${environment.apiUrl}/controle-dividendos`;
    }
 
-  listarTodos(tokenId: string): Promise<any> {
+  listarTodos(tokenId: string, filtro: ControleDividendosFiltro): Promise<any> {
 
     let params = new HttpParams();
 
       if(tokenId != null) {
         params = params.set('tokenId', tokenId);
+      }
+
+      if(filtro.ticker !== undefined) {
+        params = params.set('ticker', filtro.ticker)
+      }
+
+      if(filtro.tipoRecebimento !== undefined) {
+        params = params.set('tipoRecebimento', filtro.tipoRecebimento)
+      }
+
+      if(filtro.dataReferencia !== undefined) {
+        params = params.set('dataReferencia', moment(filtro.dataReferencia).format("YYYY-MM-DD"));
+      }
+
+      if(filtro.dataPagamento !== undefined) {
+        params = params.set('dataPagamento', moment(filtro.dataPagamento).format("YYYY-MM-DD"));
       }
 
     return this.http.get(`${this.controleDividendosURL}`, { params })

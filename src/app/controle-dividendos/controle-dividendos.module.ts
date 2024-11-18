@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { ControleDividendosPesquisaComponent } from './controle-dividendos-pesquisa/controle-dividendos-pesquisa.component';
 import { ControleDividendosCadastroComponent } from './controle-dividendos-cadastro/controle-dividendos-cadastro.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { PanelModule } from 'primeng/panel';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CheckboxModule,
     InputNumberModule,
     CheckboxModule,
+    PanelModule,
 
     SharedModule,
     HttpClientModule,

@@ -10,7 +10,7 @@ export interface LancamentoFiltro {
   dataVencimentoInicio: Date;
   dataVencimentoFim: Date;
   situacao: string;
-  metodoDeCobrancaId: string
+  metodoDeCobrancaId: string;
   chavePesquisa: string;
   tipoLancamentoFiltro: string;
 }

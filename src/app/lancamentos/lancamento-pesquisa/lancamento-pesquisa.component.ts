@@ -248,7 +248,6 @@ export class LancamentoPesquisaComponent implements OnInit{
     this.descricao = sessionStorage.getItem('descricao') || '';
     let dataInicio = sessionStorage.getItem('dataVencimentoInicio');
     if(dataInicio !== undefined) {
-      console.log(dataInicio);
       this.dataVencimentoInicio = sessionStorage.getItem('dataVencimentoInicio') ? new Date(sessionStorage.getItem('dataVencimentoInicio')) : undefined;
     }
 

@@ -1,6 +1,124 @@
 <div class="container_02 body-content">
   <p-card>
-    <h2>Dashboard</h2>
+
+
+
+    <!-- ---------------------------------------------------------------  NOVO PAINEL ---------------------------------------------------->
+
+      <section>
+
+        <div class="content-dashboard">
+          <div class="titulo-secao">
+            <h2>Dashboard financeiro</h2>
+          <br/>
+          <hr>
+          <br/>
+          </div>
+        </div>
+
+        <h3>Receitas</h3>
+
+
+        <div class="box-info">
+
+          <div class="box-info-single color-blue-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Receber no mês</h3>
+              <p>R$ {{ valorAReceberNoMes | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-dollar"></i>
+          </div>
+
+          <div class="box-info-single color-green-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Total recebido</h3>
+              <p>R$ {{ valorRecebidoNoMes | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-thumbs-up"></i>
+          </div>
+
+          <div class="box-info-single color-red-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Total atrasado</h3>
+              <p>R$ {{ valorAtrasadoNoMes | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-thumbs-down"></i>
+          </div>
+
+          <div class="box-info-single color-grey-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Total a receber </h3>
+              <p>R$ {{valorAReceberNoAno | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-file"></i>
+          </div>
+
+          <div class="box-info-single color-black-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Receita total do ano</h3>
+              <p>R$ {{receitaTotalPorAnovalue | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-chart-line"></i>
+          </div>
+
+        </div>
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+        <br/>
+        <h3>Despesas</h3>
+
+        <div class="box-info">
+
+          <div class="box-info-single color-blue-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Pagar no mês</h3>
+              <p>R$ {{ valorApagarNoMes | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-money-bill"></i>
+          </div>
+
+          <div class="box-info-single color-green-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Total Pago</h3>
+              <p>R$ {{ valorPagoNoMes | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-thumbs-up"></i>
+          </div>
+
+          <div class="box-info-single color-red-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Total vencido</h3>
+              <p>R$ {{ valorVencidoNoMes | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-thumbs-down"></i>
+          </div>
+
+          <div class="box-info-single color-grey-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Total devedor</h3>
+              <p>R$ {{valorDevedorPorAno | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-globe"></i>
+          </div>
+
+          <div class="box-info-single color-black-novo p-shadow-2">
+            <div class="info-text">
+              <h3>Despesa total do ano</h3>
+              <p>R$ {{valorPagoPorAno | currency: 'BRL' :'' }}</p>
+            </div>
+            <i class="pi pi-star"></i>
+          </div>
+
+
+
+        </div>
+
+      </section>
+
+      <br/>
+      <hr>
+      <br/>
+
+    <!-- --------------------------------------------------------------- FIM NOVO PAINEL ---------------------------------------------------->
 
     <form autocomplete="off">
       <div class="p-col-12">
@@ -19,121 +137,110 @@
       </div>
     </form>
 
-    <div><label style="color: white;">----------------------</label></div>
-    <div><label style="color: white;">----------------------</label></div>
+    <BR/>
+    <BR/>
+
+
 
     <div class="p-fluid p-formgrid p-grid">
-      <div class="p-field p-col-12 p-md-2">
-          <p-card>
-            <ng-template pTemplate="header">
-              <div class="card_topo_blue">Valor a pagar no mês</div>
-          </ng-template>
-          <div class="card_centro_blue">
-            {{ valorApagarNoMes | currency: 'BRL' :'' }}
+      <div class="p-field p-col-12 p-md-6">
+
+        <div class="p-col-12">
+          <label>Percentual pago no mês</label>
+          <p-progressBar [value]="value" styleClass="progress-bar-green p-shadow-2"></p-progressBar>
+        </div>
+
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+
+        <div class="p-col-12">
+          <label>Percentual recebido no mês</label>
+          <p-progressBar [value]="valueRecebidoNoMes" styleClass="progress-bar-blue p-shadow-2"></p-progressBar>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+  <BR/>
+  <BR/>
+
+
+  <div class="p-shadow-1">
+    <p-panel>
+
+      <div class="p-fluid p-formgrid p-grid">
+
+        <div class="p-field p-col-12 p-md-6">
+          <div class="p-shadow-1">
+            <p-panel header="Lançamento por categoria - DESPESA">
+              <p-chart type="pie" [data]="graficoCategoriaMes"></p-chart>
+            </p-panel>
           </div>
-          </p-card>
-      </div>
-
-
-      <div class="p-field p-col-12 p-md-2">
-        <p-card>
-          <ng-template pTemplate="header">
-            <div class="card_topo_green">Total Pago</div>
-        </ng-template>
-        <div class="card_centro_green">
-          {{ valorPagoNoMes | currency: 'BRL' :'' }}
         </div>
-        </p-card>
-      </div>
 
-
-      <div class="p-field p-col-12 p-md-2">
-        <p-card>
-          <ng-template pTemplate="header">
-            <div class="card_topo_red">Total vencido</div>
-        </ng-template>
-        <div class="card_centro_red">
-          {{ valorVencidoNoMes | currency: 'BRL' :'' }}
+        <div class="p-field p-col-12 p-md-6">
+          <div class="p-shadow-1">
+            <p-panel header="Lançamento por método de cobrança - DESPESA">
+              <p-chart type="pie" [data]="graficoMetodoCobrancaMes"></p-chart>
+            </p-panel>
+          </div>
         </div>
-        </p-card>
+
       </div>
 
 
-      <div class="p-field p-col-12 p-md-2">
-        <p-card>
-          <ng-template pTemplate="header">
-            <div class="card_topo_gray">Total devedor</div>
-        </ng-template>
-        <div class="card_centro_gray">
-          {{valorPagoPorAno | currency: 'BRL' :'' }}
-        </div>
-        </p-card>
-      </div>
 
-      <div class="p-field p-col-12 p-md-2">
-        <p-card>
-          <ng-template pTemplate="header">
-            <div class="card_topo_black">Total do ano</div>
-        </ng-template>
-        <div class="card_centro_black">
-          {{valorDevedorPorAno | currency: 'BRL' :'' }}
-        </div>
-        </p-card>
-      </div>
-
-    </div>
-
-  <div class="p-col-12">
-    <label>Percentual pago no mês</label>
-    <p-progressBar [value]="value"></p-progressBar>
-  </div>
-
-
-  <div><label style="color: white;">-----------------------</label></div>
-  <div><label style="color: white;">-----------------------</label></div>
-
-  <div class="p-col-12">
-    <h2>Dashboard</h2>
-  </div>
-
+  <BR/>
 
   <div class="p-fluid p-formgrid p-grid">
     <div class="p-field p-col-12 p-md-6">
-      <div>
-        <p-panel header="Lançamento por categoria">
-          <p-chart type="pie" [data]="graficoCategoriaMes"></p-chart>
-        </p-panel>
-      </div>
-    </div>
-    <div class="p-field p-col-12 p-md-6">
-      <div>
-        <p-panel header="Lançamento por método de cobrança">
-          <p-chart type="pie" [data]="graficoMetodoCobrancaMes"></p-chart>
-        </p-panel>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="p-fluid p-formgrid p-grid">
-    <div class="p-field p-col-12 p-md-6">
-      <div>
-        <p-panel header="Lançamentos por dia">
+      <div class="p-shadow-1">
+        <p-panel header="Lançamentos por dia. (Mês: {{nomeMes}})">
           <p-chart type="line" [data]="lancamentosPorDia"></p-chart>
         </p-panel>
       </div>
     </div>
     <div class="p-field p-col-12 p-md-6">
-      <div>
-        <p-panel header="Situação no mês">
-          <p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"></p-chart>
+      <div class="p-shadow-1">
+        <p-panel header="Situação no mês. (Mês: {{nomeMes}})">
+          <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
         </p-panel>
       </div>
     </div>
 
   </div>
 
+  <BR/>
+
+  <div class="p-fluid p-formgrid p-grid">
+    <div class="p-field p-col-12 p-md-6">
+      <div class="p-shadow-1">
+        <p-panel header="Lançamentos por mês">
+          <p-chart type="line" [data]="graficoReceitaDespesaPorMesAno" ariaLabbel="graficoReceitaDespesaPorMesAno"></p-chart>
+        </p-panel>
+      </div>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <div class="p-shadow-1">
+
+        <p-panel header="Despesas / Receitas por ano">
+          <p-chart type="bar" [data]="graficoReceitaDespesaPorAno"  [options]="basicOptions"></p-chart>
+        </p-panel>
+      </div>
+    </div>
+
+  </div>
+
+  </p-panel>
+  </div>
+
+  <BR/>
 
   <div class="p-fluid p-formgrid p-grid">
     <div class="p-field p-col-12 p-md-12">
@@ -143,7 +250,7 @@
             <p-table
             #tabela
             [value] = totaisPorAno
-            styleClass="p-datatable-gridlines"
+            styleClass="p-datatable-gridlines p-datatable-sm"
             [paginator]="false"
             [rows]="5"
             selectionMode="single"

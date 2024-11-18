@@ -118,8 +118,16 @@ export class DashboardInvestimentosComponent implements OnInit {
   hoverBackgroundColorPadrao01 = [];
   borderColorPadrao01 = [];
 
-backgroundColorido01 = ['#3b2dff66', '#611f3066', '#2d6b7966', '#b3532066', '#dbf20566',
-'#44bd0866', '#bd08ae66', '#bd083866', '#3b2dff66', '#3b2dff66', '#3b2dff66', '#3b2dff66'];
+  backgroundColorido01 = [
+    '#FF573366', '#33FF5766', '#3357FF66', '#FF33A666', '#A633FF66',
+    '#33FFF066', '#FFBD3366', '#DB33FF66', '#33FF8E66', '#FF333366',
+    '#33FFBD66', '#5733FF66', '#FF33F666', '#FFAF3366', '#F633FF66',
+    '#33FF5766', '#FF33A666', '#A6FF3366', '#5733FF66', '#FF33BD66',
+    '#33FF7366', '#FF335766', '#57FF3366', '#33A6FF66', '#FF573366',
+    '#33FFBD66', '#AF33FF66', '#33FFAF66', '#FF573366', '#3357FF66',
+    '#33FF5766', '#FF33BD66', '#57FF3366', '#FF33A666', '#AF33FF66',
+    '#33FF5766', '#FF33AF66', '#5733FF66', '#FF33BD66', '#33FFBD66'
+  ];
 
 
   backgroundColorVelaBlue = ['#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99', '#1adbdb99',

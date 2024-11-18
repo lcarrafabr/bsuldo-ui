@@ -1,6 +1,6 @@
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { ControleDividendosService } from './../controle-dividendos.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ControleDividendosFiltro, ControleDividendosService } from './../controle-dividendos.service';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Title } from '@angular/platform-browser';
@@ -20,12 +20,27 @@ export class ControleDividendosPesquisaComponent implements OnInit {
   totalDivRecebido: any = 0;
   totalDivDisponivel: number = 0;
 
+  iconeFiltro: string = "pi pi-filter";
+  iconePanel: string = "pi pi-filter"; // Ícone inicial
+  mensagemDeFiltro = '';
+
+  tickerFiltro: string;
+  tipoRecebimentoFiltro: string;
+  dataReferencia: Date;
+  dataPagamento: Date;
+
+  tipoRecebimento = [
+    {label: 'A RECEBER', value: 'A_RECEBER'},
+    {label: 'RECEBIDO', value: 'RECEBIDO'}
+  ]
+
   constructor(
     private controleDividendosService: ControleDividendosService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
-    private title: Title
+    private title: Title,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -33,18 +48,42 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
     this.codigoUsuarioLogado = localStorage.getItem('idToken');
 
+    this.verificaSeExisteFiltroNaSessao();
+
     this.pesquisar();
   }
 
   pesquisar() {
 
-    this.controleDividendosService.listarTodos(this.codigoUsuarioLogado)
+    const filtro : ControleDividendosFiltro = {
+      ticker: this.tickerFiltro,
+      tipoRecebimento: this.tipoRecebimentoFiltro,
+      dataReferencia: this.dataReferencia,
+      dataPagamento: this.dataPagamento
+    }
+
+    this.controleDividendosService.listarTodos(this.codigoUsuarioLogado, filtro)
     .then(response => {
       this.controleDividendos = response;
       this.totalDividendoRecebido();
       this.totalDividendoDisponivel();
     })
     .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+  }
+
+  pesquisarByFiltro() {
+
+    if((this.tickerFiltro == null || this.tickerFiltro == '')
+    && (this.tipoRecebimento == null || this.tipoRecebimento == undefined)
+    && (this.dataReferencia == null || this.dataReferencia == undefined)
+    && (this.dataPagamento == null || this.dataPagamento == undefined)) {
+
+      this.messageService.add({ severity: 'warn', detail: 'Preencha ao menos 01 (um) campo', closable: false});
+    } else {
+
+      this.pesquisar();
+      this.salvarFiltrosSessao();
+    }
   }
 
   confirmaExclusao(controleDiv: any) {
@@ -98,6 +137,90 @@ export class ControleDividendosPesquisaComponent implements OnInit {
       this.totalDividendoDisponivel();
     })
     .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+  }
+
+  //** ********************  FILTROS DE SESSÃO ******************************************************************************************** */
+
+  salvarFiltrosSessao() {
+
+    if(this.tickerFiltro) {
+      sessionStorage.setItem('cd_ticker-filtro', this.tickerFiltro);
+    } else {
+      sessionStorage.removeItem('cd_ticker-filtro');
+    }
+
+    if(this.tipoRecebimentoFiltro) {
+      sessionStorage.setItem('cd_tipo-recebimento-filtro', this.tipoRecebimentoFiltro);
+    } else {
+      sessionStorage.removeItem('cd_tipo-recebimento-filtro');
+    }
+
+    if(this.dataReferencia) {
+      sessionStorage.setItem('cd_data-referencia', this.dataReferencia.toISOString());
+    } else {
+      sessionStorage.removeItem('cd_data-referencia');
+    }
+
+    if(this.dataPagamento) {
+      sessionStorage.setItem('cd_data-pagamento', this.dataPagamento.toISOString());
+    } else {
+      sessionStorage.removeItem('cd_data-pagamento');
+    }
+  }
+
+  carregarFiltros() {
+
+    this.tickerFiltro = sessionStorage.getItem('cd_ticker-filtro') || '';
+    this.tipoRecebimentoFiltro = sessionStorage.getItem('cd_tipo-recebimento-filtro') || '';
+
+    let dataReferenciaFiltro = sessionStorage.getItem('cd_data-referencia');
+    if(dataReferenciaFiltro !== undefined) {
+      this.dataReferencia = sessionStorage.getItem('cd_data-referencia') ? new Date(sessionStorage.getItem('cd_data-referencia')) : undefined;
+    }
+
+    let dataPagamentoFiltro = sessionStorage.getItem('cd_data-pagamento');
+    if(dataPagamentoFiltro !== undefined) {
+      this.dataPagamento = sessionStorage.getItem('cd_data-pagamento') ? new Date(sessionStorage.getItem('cd_data-pagamento')) : undefined;
+    }
+  }
+
+  verificaSeExisteFiltroNaSessao() {
+
+    this.carregarFiltros();
+
+    if((this.tickerFiltro)
+    || (this.tipoRecebimentoFiltro)
+    || (this.dataReferencia)
+    || (this.dataPagamento)) {
+
+      this.iconeFiltro = "pi pi-filter-fill";
+      this.iconePanel = "pi pi-filter-fill";
+      this.mensagemDeFiltro = '(Há campos com filtro)';
+
+    } else {
+      this.iconeFiltro = "pi pi-filter";
+      this.iconePanel = "pi pi-filter";
+      this.mensagemDeFiltro = '';
+    }
+  }
+
+  resetarCamposFiltro() {
+    this.tickerFiltro = '';
+    this.tipoRecebimentoFiltro = undefined;
+    this.dataReferencia = undefined;
+    this.dataPagamento = undefined;
+
+    this.iconeFiltro = "pi pi-filter";
+    this.iconePanel = "pi pi-filter";
+    this.cdr.detectChanges(); // Detecta as alterações
+    this.mensagemDeFiltro = '';
+
+    sessionStorage.removeItem('cd_ticker-filtro');
+    sessionStorage.removeItem('cd_tipo-recebimento-filtro');
+    sessionStorage.removeItem('cd_data-referencia');
+    sessionStorage.removeItem('cd_data-pagamento');
+
+    this.pesquisar();
   }
 
 }
