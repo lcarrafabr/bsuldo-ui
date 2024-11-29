@@ -130,7 +130,7 @@ export class OrdemDeCompra {
   valorInvestido: number;
   desdobroAgrupado: string;
   dataDesdobroAgrupamento: Date;
-  pessoa = new Pessoa();
+  //pessoa = new Pessoa();
   produtoRendaVariavel = new ProdutoRendaVariavel();
 }
 

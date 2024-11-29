@@ -72,7 +72,7 @@ export class CategoriaCadastroComponent implements OnInit {
       form.reset();
       this.categorias = new Categoria();
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
   }
 
   carregarCategoriaPorId(codigo: number) {
@@ -82,7 +82,7 @@ export class CategoriaCadastroComponent implements OnInit {
       this.categorias = categoria;
       this.statusEdicao = categoria.status;
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
   }
 
   atualizarCategoria(form: FormControl) {
@@ -92,7 +92,7 @@ export class CategoriaCadastroComponent implements OnInit {
       this.categorias = response;
       this.messageService.add({ severity: 'success', detail: 'Categoria atualizada com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
   }
 
   novo(form: NgForm) {

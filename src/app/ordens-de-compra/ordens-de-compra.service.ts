@@ -90,6 +90,7 @@ export class OrdensDeCompraService {
     if(tokenId != null) {
       params = params.set('tokenId', tokenId);
     }
+    console.log(tokenId);
 
     return this.http.post<OrdemDeCompra>(`${this.ordemDeCompraURL}`, ordemDeCompra, { params })
       .toPromise();
