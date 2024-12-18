@@ -1,10 +1,11 @@
+import { ThemeService } from './../../services/theme.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from './../../seguranca/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { ErrorHandlerService } from '../error-handler.service';
-import { ThemeService } from 'src/app/services/theme.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -67,7 +68,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? "";
 
     this.themeService.currentTheme$.subscribe(theme => {
       if (theme === 'vela-blue') {

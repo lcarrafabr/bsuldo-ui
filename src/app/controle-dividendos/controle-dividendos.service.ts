@@ -1,14 +1,14 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ControleDividendos } from '../core/model';
 import * as moment from 'moment';
-import { environment } from 'src/environments/environment';
 
 export class ControleDividendosFiltro {
   ticker: string;
-  tipoRecebimento: string;
-  dataReferencia: Date;
-  dataPagamento: Date;
+  tipoRecebimento: string | undefined;
+  dataReferencia: Date | undefined;
+  dataPagamento: Date | undefined;
 }
 
 @Injectable({
@@ -145,7 +145,7 @@ export class ControleDividendosService {
 
     return this.http.delete(`${this.controleDividendosURL}/${codigo}`)
     .toPromise()
-    .then(() => null);
+    .then(() => {});
   }
 
   mudarStatusAtivo(codigo: number, ativo: boolean) {

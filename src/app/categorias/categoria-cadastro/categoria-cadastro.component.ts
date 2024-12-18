@@ -35,7 +35,7 @@ export class CategoriaCadastroComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     const codigoCategoria = this.route.snapshot.params['codigo'];
 

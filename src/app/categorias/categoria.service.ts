@@ -1,7 +1,8 @@
+import { environment } from './../../environments/environment';
+
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Categoria } from '../core/model';
-import { environment } from 'src/environments/environment';
 
 export interface CategoriaFiltro {
   nomeCategoria: string;
@@ -72,7 +73,7 @@ export class CategoriaService {
 
       return this.http.delete(`${this.categoriaURL}/${codigo}`)
       .toPromise()
-      .then(() => null);
+      .then(() => {});
     }
 
 

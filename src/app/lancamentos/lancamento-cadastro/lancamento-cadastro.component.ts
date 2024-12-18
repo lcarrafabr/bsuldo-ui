@@ -1,3 +1,4 @@
+import { BancoService } from './../../bancos/banco.service';
 import { LancamentoService } from './../lancamento.service';
 import { Bancos, Lancamento } from './../../core/model';
 import { MessageService, SelectItem } from 'primeng/api';
@@ -7,7 +8,6 @@ import { MetodoCobrancaService } from './../../metodo-cobrancas/metodo-cobranca.
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BancoService } from 'src/app/bancos/banco.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -29,7 +29,7 @@ export class LancamentoCadastroComponent implements OnInit {
   tipoLancamentoValue: string = 'DESPESA';
   //tipoLancamento = [];
 
-  tipoLancamento = [];
+  tipoLancamento: { label: string; value: string }[] = [];
 
 
   constructor(
@@ -51,7 +51,7 @@ export class LancamentoCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     const codigoLancamento = this.route.snapshot.params['codigo'];
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     if(codigoLancamento) {
       this.carregarLancamento(codigoLancamento);

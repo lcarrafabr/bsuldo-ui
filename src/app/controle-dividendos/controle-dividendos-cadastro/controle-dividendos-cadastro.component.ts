@@ -1,10 +1,16 @@
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { Component, OnInit } from '@angular/core';
 import { ControleDividendosService } from '../controle-dividendos.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormControl } from '@angular/forms';
-import { ControleDividendos } from 'src/app/core/model';
+import { ControleDividendos } from '../../core/model';
+
+
+interface ProdutoListItem {
+  label: string;
+  value: string | number; // Use o tipo correto de `produtoId`
+}
 
 @Component({
   selector: 'app-controle-dividendos-cadastro',
@@ -14,7 +20,8 @@ import { ControleDividendos } from 'src/app/core/model';
 export class ControleDividendosCadastroComponent implements OnInit {
 
   produtos = [];
-  tipoprodutoList = [];
+  //tipoprodutoList = [];
+  tipoprodutoList: ProdutoListItem[] = [];
   controleDividendos = new ControleDividendos;
   tipoAtivo: string;
 
@@ -42,7 +49,7 @@ export class ControleDividendosCadastroComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     const codigoControleDividendo = this.route.snapshot.params['codigo'];
 

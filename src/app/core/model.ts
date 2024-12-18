@@ -130,7 +130,6 @@ export class OrdemDeCompra {
   valorInvestido: number;
   desdobroAgrupado: string;
   dataDesdobroAgrupamento: Date;
-  //pessoa = new Pessoa();
   produtoRendaVariavel = new ProdutoRendaVariavel();
 }
 
@@ -159,7 +158,6 @@ export class Bancos {
   bancoId: number;
   nomeBanco: string;
   status: boolean;
-  pessoa = new Pessoa();
 }
 
 export class AcompanhamentoEstrategico {

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BancoService } from '../banco.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormControl } from '@angular/forms';
-import { Bancos } from 'src/app/core/model';
+import { Bancos } from '../../core/model';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+
 
 @Component({
   selector: 'app-banco-cadastro',
@@ -28,7 +29,7 @@ export class BancoCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     //this.codigoUsuarioLogado = localStorage.getItem('IDS');
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     const codigoBanco = this.route.snapshot.params['codigo'];
 

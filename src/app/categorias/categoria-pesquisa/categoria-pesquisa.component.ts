@@ -29,7 +29,7 @@ export class CategoriaPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken')  ?? '';
     this.title.setTitle('Categorias');
 
     this.pesquisar()

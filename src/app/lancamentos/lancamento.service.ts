@@ -1,18 +1,18 @@
+import { environment } from './../../environments/environment';
 import { Lancamento } from './../core/model';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import * as moment from 'moment';
-import { environment } from 'src/environments/environment';
 
 export interface LancamentoFiltro {
   descricao: string;
-  dataVencimentoInicio: Date;
-  dataVencimentoFim: Date;
-  situacao: string;
-  metodoDeCobrancaId: string;
+  dataVencimentoInicio: Date | undefined;
+  dataVencimentoFim: Date | undefined;
+  situacao: string | undefined;
+  metodoDeCobrancaId: string | undefined;
   chavePesquisa: string;
-  tipoLancamentoFiltro: string;
+  tipoLancamentoFiltro: string | undefined;
 }
 
 @Injectable({
@@ -80,7 +80,7 @@ export class LancamentoService {
 
     return this.http.delete(`${this.lancamentosUrl}/${codigo}`)
       .toPromise()
-      .then(() => null);
+      .then(() => {});
   }
 
   adicionar(lancamento: Lancamento, tokenId: string): Promise<Lancamento> {

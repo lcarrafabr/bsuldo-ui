@@ -1,6 +1,6 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Bancos } from '../core/model';
 
 export interface BancoFiltro {
@@ -19,12 +19,12 @@ export class BancoService {
       this.bancoURL = `${environment.apiUrl}/bancos`;
      }
 
-     listarTodos(pessoaId: string): Promise<any> {
+     listarTodos(tokenId: string): Promise<any> {
 
       let params = new HttpParams();
 
-      if(pessoaId != null) {
-        params = params.set('pessoaId', pessoaId);
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
       }
 
       return this.http.get(`${this.bancoURL}`, { params })
@@ -32,7 +32,7 @@ export class BancoService {
       .then(response => response);
     }
 
-    listarTodosFiltro(pessoaId: string, filtro: BancoFiltro): Promise<any> {
+    listarTodosFiltro(tokenId: string, filtro: BancoFiltro): Promise<any> {
 
       let params = new HttpParams();
       let urlExtensao = "";
@@ -43,8 +43,8 @@ export class BancoService {
         urlExtensao = '/busca-banco-por-nome'
       }
 
-      if(pessoaId != null) {
-        params = params.set('pessoaId', pessoaId);
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
       }
 
       return this.http.get(`${this.bancoURL}` + urlExtensao, { params })
@@ -52,13 +52,14 @@ export class BancoService {
       .then(response => response);
     }
 
-    adicionar(bancos: Bancos, pessoaId: string): Promise<Bancos> {
+    adicionar(bancos: Bancos, tokenId: string): Promise<Bancos> {
 
       let params = new HttpParams();
 
-      if(pessoaId != null) {
-        params = params.set('pessoaId', pessoaId);
+      if(tokenId != null) {
+        params = params.set('tokenId', tokenId);
       }
+
 
       return this.http.post<Bancos>(`${this.bancoURL}`, bancos, { params })
           .toPromise();
@@ -102,7 +103,7 @@ export class BancoService {
 
       return this.http.delete(`${this.bancoURL}/${codigo}`)
       .toPromise()
-      .then(() => null);
+      .then(() => {});
     }
 
     mudarStatusAtivo(codigo: number, ativo: boolean) {

@@ -1,4 +1,4 @@
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { ControleDividendosFiltro, ControleDividendosService } from './../controle-dividendos.service';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -25,9 +25,9 @@ export class ControleDividendosPesquisaComponent implements OnInit {
   mensagemDeFiltro = '';
 
   tickerFiltro: string;
-  tipoRecebimentoFiltro: string;
-  dataReferencia: Date;
-  dataPagamento: Date;
+  tipoRecebimentoFiltro: string | undefined;
+  dataReferencia: Date | undefined;
+  dataPagamento: Date | undefined;
 
   tipoRecebimento = [
     {label: 'A RECEBER', value: 'A_RECEBER'},
@@ -46,7 +46,7 @@ export class ControleDividendosPesquisaComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('Controle Dividendos');
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? "";
 
     this.verificaSeExisteFiltroNaSessao();
 
@@ -175,12 +175,12 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
     let dataReferenciaFiltro = sessionStorage.getItem('cd_data-referencia');
     if(dataReferenciaFiltro !== undefined) {
-      this.dataReferencia = sessionStorage.getItem('cd_data-referencia') ? new Date(sessionStorage.getItem('cd_data-referencia')) : undefined;
+      this.dataReferencia = sessionStorage.getItem('cd_data-referencia') ? new Date(sessionStorage.getItem('cd_data-referencia') ?? '') : undefined;
     }
 
     let dataPagamentoFiltro = sessionStorage.getItem('cd_data-pagamento');
     if(dataPagamentoFiltro !== undefined) {
-      this.dataPagamento = sessionStorage.getItem('cd_data-pagamento') ? new Date(sessionStorage.getItem('cd_data-pagamento')) : undefined;
+      this.dataPagamento = sessionStorage.getItem('cd_data-pagamento') ? new Date(sessionStorage.getItem('cd_data-pagamento') ?? "") : undefined;
     }
   }
 

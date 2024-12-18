@@ -1,10 +1,10 @@
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+
 import { BancoFiltro, BancoService } from './../banco.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Title } from '@angular/platform-browser';
-import { CategoriaFiltro } from 'src/app/categorias/categoria.service';
 
 @Component({
   selector: 'app-banco-pesquisa',
@@ -30,7 +30,7 @@ export class BancoPesquisaComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('Bancos');
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     this.pesquisar();
   }
@@ -46,7 +46,7 @@ export class BancoPesquisaComponent implements OnInit {
       this.bancosResponse = response;
 
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
   }
 
   confirmaExclusao(bancos: any) {

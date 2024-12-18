@@ -16,14 +16,14 @@ export class LancamentoPesquisaComponent implements OnInit{
 
   lancamentos = [];
   descricao: string;
-  dataVencimentoInicio: Date;
-  dataVencimentoFim: Date;
-  situacao: string;
-  metodoDeCobrancaId: string;
+  dataVencimentoInicio: Date | undefined;
+  dataVencimentoFim: Date | undefined;
+  situacao: string | undefined;
+  metodoDeCobrancaId: string | undefined;
   chavePesquisa: string;
   chavePesquisaPesquisada = '';
   jwtPayloadId: any;
-  tipoLancCombobox: string;
+  tipoLancCombobox: string | undefined;
 
 
   mensagemDeFiltro = '';
@@ -65,10 +65,10 @@ export class LancamentoPesquisaComponent implements OnInit{
 
     this.title.setTitle('Lançamentos');
 
-    this.jwtPayloadId = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+    this.jwtPayloadId = this.jwtHelper.decodeToken(localStorage.getItem('token') ?? '');
     localStorage.setItem('ID', this.jwtPayloadId.id);
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     this.verificaSeExisteFiltroNaSessao();
 
@@ -248,11 +248,11 @@ export class LancamentoPesquisaComponent implements OnInit{
     this.descricao = sessionStorage.getItem('descricao') || '';
     let dataInicio = sessionStorage.getItem('dataVencimentoInicio');
     if(dataInicio !== undefined) {
-      this.dataVencimentoInicio = sessionStorage.getItem('dataVencimentoInicio') ? new Date(sessionStorage.getItem('dataVencimentoInicio')) : undefined;
+      this.dataVencimentoInicio = sessionStorage.getItem('dataVencimentoInicio') ? new Date(sessionStorage.getItem('dataVencimentoInicio') ?? '') : undefined;
     }
 
     if(sessionStorage.getItem('dataVencimentoFim') !== undefined) {
-      this.dataVencimentoFim = sessionStorage.getItem('dataVencimentoFim') ? new Date(sessionStorage.getItem('dataVencimentoFim')) : undefined;
+      this.dataVencimentoFim = sessionStorage.getItem('dataVencimentoFim') ? new Date(sessionStorage.getItem('dataVencimentoFim') ?? '') : undefined;
     }
 
     this.metodoDeCobrancaId = sessionStorage.getItem('metodoDeCobrancaId') || '';
