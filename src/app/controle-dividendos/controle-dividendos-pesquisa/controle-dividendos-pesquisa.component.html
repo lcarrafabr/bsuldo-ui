@@ -104,6 +104,7 @@
               <th class="col-status-header">Data referencia</th>
               <th class="col-status-header">Data Com</th>
               <th class="col-status-header">Data pagamento</th>
+              <th class="col-status-header">Quantidade</th>
               <th class="col-status-header">Valor por cota</th>
               <th class="col-status-header">Dividendo recebido</th>
               <th class="col-status-header">Div utilizado</th>
@@ -124,6 +125,7 @@
                   <td class="col-pessoa-content">{{controleDividendos.dataReferencia | date: 'MMM/y'}}</td>
                   <td class="col-pessoa-content">{{controleDividendos.dataCom | date: 'dd/MM/y'}}</td>
                   <td class="col-pessoa-content">{{controleDividendos.dataPagamento | date: 'dd/MM/y'}}</td>
+                  <td class="col-pessoa-content">{{controleDividendos.qtdCota}}</td>
                   <td class="col-pessoa-content">{{controleDividendos.valorPorCota | currency: 'BRL'}}</td>
                   <td class="col-pessoa-content">{{controleDividendos.valorRecebido | currency: 'BRL'}}</td>
 

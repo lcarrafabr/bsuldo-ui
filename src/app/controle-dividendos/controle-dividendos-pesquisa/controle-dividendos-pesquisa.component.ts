@@ -64,6 +64,7 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
     this.controleDividendosService.listarTodos(this.codigoUsuarioLogado, filtro)
     .then(response => {
+      console.log(response);
       this.controleDividendos = response;
       this.totalDividendoRecebido();
       this.totalDividendoDisponivel();

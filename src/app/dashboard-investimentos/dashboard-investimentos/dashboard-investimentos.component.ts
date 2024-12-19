@@ -195,7 +195,7 @@ export class DashboardInvestimentosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
     this.title.setTitle('Dashboard de Investimentos');
 
     this.themeService.currentTheme$.subscribe(theme => {
