@@ -17,7 +17,7 @@ export class Lancamento {
   quantidadeParcelas: number;
   numeroParcela: number;
   chavePesquisa: string;
-  pessoa = new Pessoa();
+  //pessoa = new Pessoa();
   categoria = new Categoria();
   metodoDeCobranca = new MetodoDeCobranca();
   lancRecorrente: boolean;

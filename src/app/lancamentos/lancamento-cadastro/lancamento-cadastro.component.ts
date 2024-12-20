@@ -124,7 +124,15 @@ export class LancamentoCadastroComponent implements OnInit {
           form.reset();
           this.lancamento = new Lancamento();
         })
-        .catch(erro => this.errorHandler.handle(erro));
+        .catch(erro => {
+          if (erro.error.objects) {
+            erro.error.objects.forEach((obj: any) => {
+              this.messageService.add({ severity: 'error', detail: obj.userMessage });
+            });
+          } else {
+            this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+          }
+        });
       }
   }
 
@@ -257,7 +265,7 @@ export class LancamentoCadastroComponent implements OnInit {
       }
 
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
 
   }
 

@@ -32,7 +32,7 @@
             [(ngModel)]="lancamento.datavencimento"
             dateFormat="dd/mm/yy"
             [readonlyInput]="true"
-            [showIcon]="true"></p-calendar>
+            [showIcon]="true" required></p-calendar>
           </div>
 
           <div class="p-mb-1 p-mr-1 p-fluid">
@@ -59,7 +59,7 @@
             [(ngModel)]="lancamento.categoria.categoriaId"
             [options]="categoria"
             filter="true"
-            placeholder="Selecione"></p-dropdown>
+            placeholder="Selecione" required></p-dropdown>
           </div>
 
           <div class="p-mb-1">
