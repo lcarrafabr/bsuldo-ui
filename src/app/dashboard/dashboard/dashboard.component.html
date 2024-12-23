@@ -274,6 +274,7 @@
                   <th class="col-mes-header">NOV</th>
                   <th class="col-mes-header">DEZ</th>
                   <th class="col-mes-header">TOTAL</th>
+                  <th class="col-mes-header">MÉDIA</th>
               </tr>
           </ng-template>
           <ng-template pTemplate="body" let-totaisPorAno>
@@ -291,6 +292,7 @@
                   <td class="col-mes-content">{{totaisPorAno.nov  | currency: 'BRL'}}</td>
                   <td class="col-mes-content">{{totaisPorAno.dez  | currency: 'BRL'}}</td>
                   <td class="col-total-content">{{totaisPorAno.total  | currency: 'BRL'}}</td>
+                  <td class="col-total-content">{{totaisPorAno.media  | currency: 'BRL'}}</td>
 
 
               </tr>
@@ -300,16 +302,19 @@
           </div>
         </p-panel>
       </div>
+      <BR/>
     </div>
 
-      <div class="p-field p-col-12 p-md-6">
+
+
+      <div class="p-field p-col-12 p-md-12">
         <div>
           <p-panel header="Totais por método de cobrança no mês">
             <div class="p=col=12">
               <p-table
               #tabela
               [value] = totalMetodoCobrancaMes
-              styleClass="p-datatable-gridlines"
+              styleClass="p-datatable-gridlines-sm"
               [paginator]="false"
               [rows]="5"
               selectionMode="single"
@@ -321,13 +326,37 @@
               <ng-template pTemplate="header">
                 <tr>
                     <th class="col-mes-header">Método de cobrança</th>
+                    <th class="col-mes-header">JAN</th>
+                    <th class="col-mes-header">FEV</th>
+                    <th class="col-mes-header">MAR</th>
+                    <th class="col-mes-header">ABR</th>
+                    <th class="col-mes-header">MAI</th>
+                    <th class="col-mes-header">JUN</th>
+                    <th class="col-mes-header">JUL</th>
+                    <th class="col-mes-header">AGO</th>
+                    <th class="col-mes-header">SET</th>
+                    <th class="col-mes-header">OUT</th>
+                    <th class="col-mes-header">NOV</th>
+                    <th class="col-mes-header">DEZ</th>
                     <th class="col-mes-header">TOTAL</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-totaisMetodoCob>
                 <tr>
-                    <td class="col-mes-content">{{totaisMetodoCob.nomeMetodoCobranca}}</td>
-                    <td class="col-total-content">{{totaisMetodoCob.totais  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.metodoCobranca}}</td>
+                    <td class="">{{totaisMetodoCob.jan  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.fev  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.mar  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.abr  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.mai  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.jun  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.jul  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.ago  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.setembro  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.outubro  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.nov  | currency: 'BRL'}}</td>
+                    <td class="">{{totaisMetodoCob.dez  | currency: 'BRL'}}</td>
+                    <td class="col-total-content">{{totaisMetodoCob.total  | currency: 'BRL'}}</td>
 
 
                 </tr>
@@ -350,7 +379,10 @@
             <div class="p=col=12">
 
 
-              <p-table [value]="products" dataKey="name" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
+              <p-table [value]="products"
+              dataKey="name"
+              responsiveLayout="scroll"
+              styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 4rem"></th>

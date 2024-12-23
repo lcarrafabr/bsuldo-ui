@@ -1,7 +1,7 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -338,14 +338,15 @@ export class DashboardService {
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
     const dataFim = this.pegaDataIniEFim(dataReferencia).dataFim;
 
-    params = params.set('dataIni', datainicio);
-    params = params.set('dataFim', dataFim);
+    const ano = this.pegaDataIniEFim(dataReferencia).ano;
+
+    params = params.set('ano', ano);
 
     if(tokenId != null) {
       params = params.set('tokenId', tokenId);
     }
 
-    return this.http.get(`${this.lancamentosDashboardUrl}/total-metodo-cob-mes`, { params })
+    return this.http.get(`${this.lancamentosDashboardUrl}/total-metodo-cobranca-mes`, { params })
     .toPromise()
     .then(response => response);
 

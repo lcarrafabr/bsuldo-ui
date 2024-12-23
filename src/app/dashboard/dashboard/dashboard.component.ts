@@ -3,6 +3,23 @@ import { DashboardService } from './../dashboard.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
+interface TotaisPorAno {
+  jan: number;
+  fev: number;
+  mar: number;
+  abr: number;
+  mai: number;
+  jun: number;
+  jul: number;
+  ago: number;
+  set: number;
+  out: number;
+  nov: number;
+  dez: number;
+  total: number;
+  media: number;
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -31,7 +48,7 @@ export class DashboardComponent implements OnInit {
   basicData: any = 0;
   basicOptions: any;
 
-  totaisPorAno = [];
+  totaisPorAno: TotaisPorAno[] = [];
   totalMetodoCobrancaMes = [];
   products = [];
 
@@ -54,7 +71,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     this.dataSelecionada = new Date();
     this.atualizarDashboard();
@@ -384,7 +401,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.lancamentosPordiaReceitasDespesas(dataReferencia, this.codigoUsuarioLogado)
     .then(dados => {
 
-      console.log(dados);
       this.lancamentosPorDia = {
         labels: dados.map(dado => dado.dia),
         datasets: [
@@ -471,6 +487,10 @@ export class DashboardComponent implements OnInit {
 
     this.dashboardService.gradeTotaisDespesaMesPorAno(dataReferencia, this.codigoUsuarioLogado)
         .then(response => {
+          const totalDespesas = response.reduce((sum, item) => sum + (item.totalDespesas || 0), 0);
+          const mediaDespesas = totalDespesas > 0 ? totalDespesas / 12 : 0;
+
+
             // Transformando a resposta para o formato necessário pela tabela
             const totaisPorAno = {
                 jan: response.find(item => item.mes === 1)?.totalDespesas || 0,
@@ -485,7 +505,8 @@ export class DashboardComponent implements OnInit {
                 out: response.find(item => item.mes === 10)?.totalDespesas || 0,
                 nov: response.find(item => item.mes === 11)?.totalDespesas || 0,
                 dez: response.find(item => item.mes === 12)?.totalDespesas || 0,
-                total: response.reduce((sum, item) => sum + item.totalDespesas, 0)
+                total: totalDespesas,
+                media: parseFloat(mediaDespesas.toFixed(2)),
             };
 
             // Definindo o valor transformado no array esperado pela tabela
@@ -572,6 +593,7 @@ graficoReceitasDespesasPorAno() {
 
     this.dashboardService.gradeTotalMetodoCobrancaPorMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
+      console.log(response);
       this.totalMetodoCobrancaMes = response;
     })
     .catch(erro => this.errorHandler.handle(erro));
@@ -584,7 +606,7 @@ graficoReceitasDespesasPorAno() {
 
     this.dashboardService.gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia)
     .then(response => {
-      this.products = response;
+      this.products = response;//mudar aqui **********************************************************************************
     })
     .catch(erro => this.errorHandler.handle(erro));
 
@@ -593,8 +615,6 @@ graficoReceitasDespesasPorAno() {
 
   testeDatas() {
 
-    console.log(this.dataSelecionada);
-
     const mesReferencia = this.dataSelecionada;
     const startOfMonth = moment(mesReferencia).startOf('month').format('YYYY-MM-DD');
     const endOfMonth   = moment(mesReferencia).endOf('month').format('YYYY-MM-DD');
@@ -602,7 +622,7 @@ graficoReceitasDespesasPorAno() {
 
     const teste = {'dataIni' : startOfMonth, 'dataFim' : endOfMonth, 'ano' : year};
 
-    console.log(teste.ano);
+
   }
 
 
