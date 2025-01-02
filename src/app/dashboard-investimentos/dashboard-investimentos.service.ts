@@ -92,9 +92,11 @@ export class DashboardInvestimentosService {
     .then(response => response);
   }
 
-  retornaDivsRecebidosPorAnoGRID(idToken: string): Promise<any> {
+  retornaDivsRecebidosPorAnoGRID(idToken: string, ano: string): Promise<any> {
 
     let params = new HttpParams();
+
+    params = params.set('ano', ano);
 
     if(idToken != null) {
 
@@ -135,6 +137,20 @@ export class DashboardInvestimentosService {
     }
 
     return this.http.get(`${this.ordemDeCompraURL}/relatorio-basico`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+  retornaComboboxAnoFiltroDivsRecebidosGrid(tokenId: string): Promise<any> {
+
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.dashboardInvestimentosURL}/busca-lista-ano-filtro-dividendos-recebidos`, { params })
     .toPromise()
     .then(response => response);
   }

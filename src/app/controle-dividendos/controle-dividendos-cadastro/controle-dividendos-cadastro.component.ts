@@ -35,7 +35,8 @@ export class ControleDividendosCadastroComponent implements OnInit {
   tipoDividendo = [
     {label: 'DIVIDENDO', value: 'DIVIDENDO'},
     {label: 'JCP', value: 'JCP'},
-    {label: 'REND. TRIBUTADO', value: 'REND_TRIBUTADO'}
+    {label: 'REND. TRIBUTADO', value: 'REND_TRIBUTADO'},
+    {label: 'FRAÇÕES', value: 'FRACOES'}
   ]
 
   constructor(

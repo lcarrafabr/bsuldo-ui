@@ -590,6 +590,8 @@ graficoReceitasDespesasPorAno() {
   carregaGradeTotalMetodoCobrancaMes() {
 
     const dataReferencia = this.dataSelecionada;
+    const mesReferencia = this.dataSelecionada;
+    const year   = moment(mesReferencia).year();
 
     this.dashboardService.gradeTotalMetodoCobrancaPorMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {

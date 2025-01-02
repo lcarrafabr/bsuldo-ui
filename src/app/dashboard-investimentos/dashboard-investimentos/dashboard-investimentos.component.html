@@ -212,6 +212,20 @@
           <div class="p-field p-col-12 p-md-12">
             <div>
               <p-panel header="Total dividendos recebidos por mês">
+                <div class="p-col-5">
+                  <div class="p-d-flex p-flex-column p-flex-md-row">
+
+                    <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+                      <label>Filtro</label>
+                      <p-dropdown
+                      name="filtroAnoDividendosRecebidosGrid"
+                      [(ngModel)]="filtroAnoSelecionado"
+                      [options]="filtroAnoDividendosRecebidosGrid"
+                      (onChange)="buscaTotalDivsRecebidosNoAnoGRID()"
+                      filter="true"></p-dropdown>
+                    </div>
+                  </div>
+                </div>
                 <div class="p=col=12">
                   <p-table
                   #tabela
@@ -227,6 +241,7 @@
                   </ng-template>
                   <ng-template pTemplate="header">
                     <tr>
+                        <th class="col-mes-header">ANO</th>
                         <th class="col-mes-header">JAN</th>
                         <th class="col-mes-header">FEV</th>
                         <th class="col-mes-header">MAR</th>
@@ -240,23 +255,26 @@
                         <th class="col-mes-header">NOV</th>
                         <th class="col-mes-header">DEZ</th>
                         <th class="col-mes-header">TOTAL</th>
+                        <th class="col-mes-header">MÉDIA</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body">
+                <ng-template pTemplate="body" let-totalDivRecebidoNoAno>
                     <tr>
-                        <td class="col-mes-content">{{valorDivRecGridJAN  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridFEV  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridMAR  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridABR  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridMAI  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridJUN  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridJUL  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridAGO  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridSET  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridOUT  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridNOV  | currency: 'BRL'}}</td>
-                        <td class="col-mes-content">{{valorDivRecGridDEZ  | currency: 'BRL'}}</td>
-                        <td class="col-total-content">{{valorTotalDivGrid  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.ano}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.jan  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.fev  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.mar  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.abr  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.mai  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.jun  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.jul  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.ago  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.setembro  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.outubro  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.nov  | currency: 'BRL'}}</td>
+                        <td class="col-mes-content">{{totalDivRecebidoNoAno.dez  | currency: 'BRL'}}</td>
+                        <td class="col-total-content">{{totalDivRecebidoNoAno.total  | currency: 'BRL'}}</td>
+                        <td class="col-total-content">{{totalDivRecebidoNoAno.media  | currency: 'BRL'}}</td>
 
 
                     </tr>

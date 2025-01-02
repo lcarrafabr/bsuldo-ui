@@ -24,6 +24,8 @@ export class DashboardInvestimentosComponent implements OnInit {
     {label: 'A RECEBER', value: 'A_RECEBER'}
   ]
 
+  filtroAnoDividendosRecebidosGrid: { label: string; value: string }[] = [];
+
   panelHeaderTemplate = 'Histórico mensal';
 
   codigoUsuarioLogado: string;
@@ -70,6 +72,7 @@ export class DashboardInvestimentosComponent implements OnInit {
   valorRcebidoGraficoDivMesEAno = [];
 
   filtroSelecionado: string;
+  filtroAnoSelecionado: string = "TODOS";
   gridProventosRecebidosEFuturos = [];
 
 
@@ -284,6 +287,7 @@ export class DashboardInvestimentosComponent implements OnInit {
 
     this.buscaTotalDivsRecebidosNoAnoGRID();
     this.retornaQuatidadeTotalCotasEAcoes();
+    this.retornaComboboxAnoFiltroDivsRecebidosGrid();
     this.buscaTotalDivsRecebidosNoAnoGRID();
     this.retornaQuatidadeTotalCotasEAcoes();
 
@@ -514,7 +518,8 @@ adicionarValoresAosRotulos() {
 
 buscaTotalDivsRecebidosNoAnoGRID() {
 
-  this.dashboardInvestimentoService.retornaDivsRecebidosPorAnoGRID(this.codigoUsuarioLogado)
+  this.dashboardInvestimentoService.retornaDivsRecebidosPorAnoGRID(this.codigoUsuarioLogado,
+    this.filtroAnoSelecionado === 'TODOS' ? '' : this.filtroAnoSelecionado)
   .then(response => {
     this.valorDivRecGridJAN = response[0].jan;
     this.valorDivRecGridFEV = response[0].fev;
@@ -531,7 +536,7 @@ buscaTotalDivsRecebidosNoAnoGRID() {
     this.valorTotalDivGrid = response[0].total;
    this.totalDivRecebidoNoAno = response;
   })
-  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+  .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
 }
 
 retornaQuatidadeTotalCotasEAcoes() {
@@ -703,6 +708,27 @@ buscaTotalProventosRecebidosEFuturos() {
   .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
 }
 
+retornaComboboxAnoFiltroDivsRecebidosGrid() {
+
+  if(this.filtroAnoSelecionado == null) {
+    this.filtroAnoSelecionado = 'TODOS';
+  }
+
+  this.dashboardInvestimentoService.retornaComboboxAnoFiltroDivsRecebidosGrid(this.codigoUsuarioLogado)
+  .then(response => {
+    console.log(response);
+    this.filtroAnoDividendosRecebidosGrid = response.map((item: any) => {
+      return { label: item.ano, value: item.ano };
+    });
+
+    // Define o valor inicial caso ainda não esteja definido
+    if (!this.filtroAnoDividendosRecebidosGrid.some(option => option.value === this.filtroAnoSelecionado)) {
+      this.filtroAnoSelecionado = 'TODOS';
+    }
+  })
+  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+}
+
 
 
 
@@ -736,7 +762,6 @@ retornaRelatorioCompletoBDRsGrid() {
 
   this.dashboardInvestimentoService.retornaRelatorioCompletoBRDsGrid(this.codigoUsuarioLogado)
   .then(response => {
-    console.log(response);
     this.relatorioCompletoBRDsGrid = response;
     this.calculaTotaisBDRGrid(response);
     //this.graficoPercentualFiisPizza(response);
