@@ -379,61 +379,69 @@
             <div class="p=col=12">
 
 
-              <p-table [value]="products"
-              dataKey="name"
+              <p-table
+              [value]="products"
+              dataKey="id"
               responsiveLayout="scroll"
-              styleClass="p-datatable-gridlines">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 4rem"></th>
-                        <th>Método de Cobrança</th>
-                        <th>Valor</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-expanded="expanded">
-                    <tr>
-                        <td>
-                            <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                        </td>
-                        <td class="col-total-content">{{product.nomeMetodoCobranca}}</td>
-                        <td class="col-total-content">{{product.totais | currency: 'BRL'}}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="rowexpansion" let-product>
-                    <tr>
-                        <td colspan="7">
-                            <div class="p-field">
-                                <p-table [value]="product.lancMetodoCobrancaMes" dataKey="id">
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th>Método de cobrança </th>
-                                            <th>Lançamento</th>
-                                            <th>Parcela</th>
-                                            <th>Situação</th>
-                                            <th>Valor</th>
-                                            <th></th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-order>
-                                        <tr>
-                                            <td>{{order.nomeMetodoCobranca}}</td>
-                                            <td>{{order.descricaoLancamento}}</td>
-                                            <td>{{order.parcela}}</td>
-                                            <td>{{order.situacao}}</td>
-                                            <td>{{order.valor | currency: 'BRL'}}</td>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="emptymessage">
-                                        <tr>
-                                            <td colspan="6">Nenhum valor encontrado</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
+              styleClass="p-datatable-gridlines"
+              [(expandedRowKeys)]="expandedRows">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th style="width: 4rem"></th>
+                      <th>Método de Cobrança</th>
+                      <th>Valor</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product let-expanded="expanded">
+                  <tr>
+                      <td>
+                          <button type="button"
+                                  pButton
+                                  pRipple
+                                  [pRowToggler]="product"
+                                  class="p-button-text p-button-rounded p-button-plain"
+                                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                          </button>
+                      </td>
+                      <td class="col-total-content">{{product.nomeMetodoCobranca}}</td>
+                      <td class="col-total-content">{{product.totais | currency: 'BRL'}}</td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="rowexpansion" let-product>
+                  <tr>
+                      <td colspan="7">
+                          <div class="p-field">
+                              <p-table [value]="product.lancMetodoCobrancaMes" dataKey="id">
+                                  <ng-template pTemplate="header">
+                                      <tr>
+                                          <th>Método de cobrança </th>
+                                          <th>Lançamento</th>
+                                          <th>Parcela</th>
+                                          <th>Situação</th>
+                                          <th>Valor</th>
+                                          <th></th>
+                                      </tr>
+                                  </ng-template>
+                                  <ng-template pTemplate="body" let-order>
+                                      <tr>
+                                          <td>{{order.nomeMetodoCobranca}}</td>
+                                          <td>{{order.descricaoLancamento}}</td>
+                                          <td>{{order.parcela}}</td>
+                                          <td>{{order.situacao}}</td>
+                                          <td>{{order.valor | currency: 'BRL'}}</td>
+                                      </tr>
+                                  </ng-template>
+                                  <ng-template pTemplate="emptymessage">
+                                      <tr>
+                                          <td colspan="6">Nenhum valor encontrado</td>
+                                      </tr>
+                                  </ng-template>
+                              </p-table>
+                          </div>
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
 
 
 

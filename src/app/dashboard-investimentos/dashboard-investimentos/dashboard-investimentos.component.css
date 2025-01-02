@@ -52,3 +52,8 @@
 .custom-panel {
   background-color: blue;
 }
+
+.col-total-content {
+  text-align: center;
+  font-weight: bold;
+}

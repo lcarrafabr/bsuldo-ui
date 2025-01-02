@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
   totaisPorAno: TotaisPorAno[] = [];
   totalMetodoCobrancaMes = [];
   products = [];
+  expandedRows: { [key: string]: boolean } = {}; // Controla quais linhas estão expandidas
 
 
 
@@ -603,15 +604,15 @@ graficoReceitasDespesasPorAno() {
   }
 
   carregaGradeLancMetodoCobrancaMesExpansivo() {
-
     const dataReferencia = this.dataSelecionada;
 
-    this.dashboardService.gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia)
-    .then(response => {
-      this.products = response;//mudar aqui **********************************************************************************
-    })
-    .catch(erro => this.errorHandler.handle(erro));
-
+    this.dashboardService.gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia, this.codigoUsuarioLogado)
+      .then(response => {
+        console.log(response);
+        this.products = response; // Dados da tabela
+        this.expandedRows = {};  // Reseta o estado de expansão para evitar inconsistências
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
 

@@ -352,7 +352,7 @@ export class DashboardService {
 
   }
 
-gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia): Promise<any> {
+gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia, tokenId: string): Promise<any> {
 
     let params = new HttpParams();
     const datainicio = this.pegaDataIniEFim(dataReferencia).dataIni;
@@ -360,6 +360,10 @@ gradeExpansivaLancamentosPorMetodoCobranca(dataReferencia): Promise<any> {
 
     params = params.set('dataIni', datainicio);
     params = params.set('dataFim', dataFim);
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
     return this.http.get(`${this.lancamentosDashboardUrl}/grade-lancamentos-por-metodo_cobranca`, { params })
     .toPromise()
