@@ -596,7 +596,7 @@ graficoReceitasDespesasPorAno() {
 
     this.dashboardService.gradeTotalMetodoCobrancaPorMes(dataReferencia, this.codigoUsuarioLogado)
     .then(response => {
-      console.log(response);
+      //console.log(response);
       this.totalMetodoCobrancaMes = response;
     })
     .catch(erro => this.errorHandler.handle(erro));

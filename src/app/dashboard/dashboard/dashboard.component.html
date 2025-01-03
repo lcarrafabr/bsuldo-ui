@@ -314,7 +314,7 @@
               <p-table
               #tabela
               [value] = totalMetodoCobrancaMes
-              styleClass="p-datatable-gridlines-sm"
+              styleClass="p-datatable-gridlines p-datatable-sm"
               [paginator]="false"
               [rows]="5"
               selectionMode="single"
@@ -372,6 +372,8 @@
 
       </div>
 
+      <BR/>
+
 
       <div class="p-field p-col-12 p-md-12">
         <div>
@@ -383,7 +385,7 @@
               [value]="products"
               dataKey="id"
               responsiveLayout="scroll"
-              styleClass="p-datatable-gridlines"
+              styleClass="p-datatable-gridlines p-datatable-sm"
               [(expandedRowKeys)]="expandedRows">
               <ng-template pTemplate="header">
                   <tr>

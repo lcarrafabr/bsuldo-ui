@@ -1,8 +1,9 @@
+import { environment } from './../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -101,7 +102,7 @@ export class AuthService {
 
   limparAccessToken() {
 
-    this.http.delete(`${this.tokenRevokeURL}`, { withCredentials: true })
+    this.http.delete(`${this.tokenRevokeURL}/tokens/revoke`, { withCredentials: true })
     .toPromise()
     .then(() => {
       localStorage.removeItem('token');

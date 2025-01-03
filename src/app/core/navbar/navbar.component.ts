@@ -5,6 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { ErrorHandlerService } from '../error-handler.service';
+import { LogoutService } from '../../seguranca/logout.service';
 
 
 @Component({
@@ -63,7 +64,8 @@ export class NavbarComponent implements OnInit {
     private navBarService: NavbarService,
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private logoutService: LogoutService,
   ) { }
 
   ngOnInit(): void {
@@ -98,7 +100,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.auth.limparAccessToken();
+    //this.auth.limparAccessToken();
+    this.logoutService.logout()
   }
 
   pesquisaQtdAlertas() {
