@@ -50,7 +50,7 @@ export class CategoriaCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.categorias.categoriaId);
+    return Boolean (this.categorias.codigo);
   }
 
   salvar(form: FormControl) {

@@ -85,7 +85,7 @@ export class CategoriaService {
         params = params.set('tokenId', tokenId);
       }
 
-      return this.http.put(`${this.categoriaURL}/${categoria.categoriaId}`, categoria, { params })
+      return this.http.put(`${this.categoriaURL}/${categoria.codigo}`, categoria, { params })
       .toPromise()
       .then(response => {
         const categoriaAlterada = response as Categoria;

@@ -27,7 +27,7 @@ export class Lancamento {
 
 export class Categoria {
 
-  categoriaId: number;
+  codigo: string;
   nomeCategoria: string;
   status: string;
   descricao: string;
