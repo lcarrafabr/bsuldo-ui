@@ -75,7 +75,7 @@ export class CategoriaCadastroComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
   }
 
-  carregarCategoriaPorId(codigo: number) {
+  carregarCategoriaPorId(codigo: string) {
 
     this.categoriaService.buscaCategoriaPorID(codigo, this.codigoUsuarioLogado)
     .then(categoria => {

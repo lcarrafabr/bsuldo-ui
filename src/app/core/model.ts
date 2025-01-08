@@ -35,7 +35,7 @@ export class Categoria {
 
 export class MetodoDeCobranca {
 
-  metodoCobrancaId: number;
+  codigoMetodoCobranca: string;
   nomeMetodoCob: string;
   status: string;
   descricao: string;

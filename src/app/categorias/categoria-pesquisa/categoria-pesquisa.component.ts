@@ -60,7 +60,7 @@ export class CategoriaPesquisaComponent implements OnInit {
 
   removerCategoria(categorias: any) {
 
-    this.categoriaService.removerCategoria(categorias.categoriaId)
+    this.categoriaService.removerCategoria(categorias.codigo)
     .then(() => {
       this.grid.clear();
       this.pesquisar();
@@ -73,7 +73,7 @@ export class CategoriaPesquisaComponent implements OnInit {
 
     const novoStatus = !categorias.status;
 
-    this.categoriaService.mudarStatusAtivo(categorias.categoriaId, novoStatus)
+    this.categoriaService.mudarStatusAtivo(categorias.codigo, novoStatus)
     .then(() => {
       const acao = novoStatus ? 'ATIVO' : 'INATIVO';
 

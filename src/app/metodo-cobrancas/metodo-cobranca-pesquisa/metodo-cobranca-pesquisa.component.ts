@@ -61,26 +61,42 @@ export class MetodoCobrancaPesquisaComponent implements OnInit {
 
   removerMetodoCobranca(metodoCobranca: any) {
 
-    this.metodoCobrancaService.removerMetodoCobranca(metodoCobranca.metodoCobrancaId)
+    this.metodoCobrancaService.removerMetodoCobranca(metodoCobranca.codigoMetodoCobranca)
     .then(() => {
       this.grid.clear();
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Método de cobrança removido com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   alterarStatusAtivo(metodoCobranca: any): void {
 
     const novoStatus = !metodoCobranca.status;
 
-    this.metodoCobrancaService.mudarStatusAtivo(metodoCobranca.metodoCobrancaId, novoStatus)
+    this.metodoCobrancaService.mudarStatusAtivo(metodoCobranca.codigoMetodoCobranca, novoStatus)
     .then(() => {
       const acao = novoStatus ? 'ATIVO' : 'INATIVO';
 
       metodoCobranca.status = novoStatus;
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 }

@@ -47,7 +47,7 @@ export class MetodoCobrancaCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.metodoCobranca.metodoCobrancaId);
+    return Boolean (this.metodoCobranca.codigoMetodoCobranca);
   }
 
 
@@ -68,16 +68,32 @@ export class MetodoCobrancaCadastroComponent implements OnInit {
       form.reset();
       this.metodoCobranca = new MetodoDeCobranca();
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
-  carregaMetodoDeCobrancaPorId(codigo: number) {
+  carregaMetodoDeCobrancaPorId(codigo: string) {
 
     this.metodoCobrancaService.buscaPorId(codigo, this.codigoUsuarioLogado)
     .then(metodoCobranca => {
       this.metodoCobranca = metodoCobranca;
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   atualizarMetodoCobranca(form: FormControl) {
@@ -87,7 +103,15 @@ export class MetodoCobrancaCadastroComponent implements OnInit {
       this.metodoCobranca = response;
       this.messageService.add({ severity: 'success', detail: 'Método de cobrança atualizado com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   novo(form: NgForm) {

@@ -67,7 +67,7 @@ export class MetodoCobrancaService {
     .toPromise();
   }
 
-  removerMetodoCobranca(codigo: number): Promise<void> {
+  removerMetodoCobranca(codigo: string): Promise<void> {
 
     return this.http.delete(`${this.metodoCobrancaURL}/${codigo}`)
     .toPromise()
@@ -75,7 +75,7 @@ export class MetodoCobrancaService {
 
   }
 
-  buscaPorId(codigo: number, tokenId: string): Promise<MetodoDeCobranca> {
+  buscaPorId(codigo: string, tokenId: string): Promise<MetodoDeCobranca> {
 
     let params = new HttpParams();
 
@@ -102,7 +102,7 @@ export class MetodoCobrancaService {
       params = params.set('tokenId', tokenId);
     }
 
-    return this.http.put(`${this.metodoCobrancaURL}/${metodoCobranca.metodoCobrancaId}`, metodoCobranca, { params })
+    return this.http.put(`${this.metodoCobrancaURL}/${metodoCobranca.codigoMetodoCobranca}`, metodoCobranca, { params })
     .toPromise()
     .then(response => {
       const metodoCobrancaAlterado = response as MetodoDeCobranca;
@@ -110,7 +110,7 @@ export class MetodoCobrancaService {
     })
   }
 
-  mudarStatusAtivo(codigo: number, ativo: boolean) {
+  mudarStatusAtivo(codigo: string, ativo: boolean) {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 

@@ -94,7 +94,7 @@ export class CategoriaService {
       });
     }
 
-    buscaCategoriaPorID(codigo: number, tokenId: string): Promise<Categoria> {
+    buscaCategoriaPorID(codigo: string, tokenId: string): Promise<Categoria> {
 
       let params = new HttpParams();
 
@@ -111,7 +111,7 @@ export class CategoriaService {
       });
     }
 
-    mudarStatusAtivo(codigo: number, ativo: boolean) {
+    mudarStatusAtivo(codigo: string, ativo: boolean) {
 
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
