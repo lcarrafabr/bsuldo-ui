@@ -46,7 +46,15 @@ export class BancoPesquisaComponent implements OnInit {
       this.bancosResponse = response;
 
     })
-    .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   confirmaExclusao(bancos: any) {
@@ -61,26 +69,42 @@ export class BancoPesquisaComponent implements OnInit {
 
   removeBanco(bancos: any) {
 
-    this.bancoService.removeBanco(bancos.bancoId)
+    this.bancoService.removeBanco(bancos.codigoBanco)
     .then(() => {
       this.grid.clear();
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Banco removido com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   alterarStatusAtivo(bancos: any): void {
 
     const novoStatus = !bancos.status;
 
-    this.bancoService.mudarStatusAtivo(bancos.bancoId, novoStatus)
+    this.bancoService.mudarStatusAtivo(bancos.codigoBanco, novoStatus)
     .then(() => {
       const acao = novoStatus ? 'ATIVO' : 'INATIVO';
 
       bancos.status = novoStatus;
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 }

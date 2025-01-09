@@ -40,7 +40,7 @@ export class BancoCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.bancos.bancoId);
+    return Boolean (this.bancos.codigoBanco);
   }
 
   salvar(form: FormControl) {
@@ -91,7 +91,7 @@ export class BancoCadastroComponent implements OnInit {
   }
 
 */
-  carregarPorId(codigo: number) {
+  carregarPorId(codigo: string) {
 
     this.bancosService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
     .then(response => {

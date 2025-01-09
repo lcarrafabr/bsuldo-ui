@@ -155,7 +155,7 @@ export class HistoricoRendimentoRF {
 }
 
 export class Bancos {
-  bancoId: number;
+  codigoBanco: string;
   nomeBanco: string;
   status: boolean;
 }

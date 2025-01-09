@@ -65,7 +65,7 @@ export class BancoService {
           .toPromise();
     }
 
-    buscarPorCodigo(codigo: number, tokenId: string): Promise<Bancos> {
+    buscarPorCodigo(codigo: string, tokenId: string): Promise<Bancos> {
 
       let params = new HttpParams();
 
@@ -90,7 +90,7 @@ export class BancoService {
         params = params.set('pessoaId', pessoaId);
       }
 
-      return this.http.put(`${this.bancoURL}/${banco.bancoId}`, banco, { params })
+      return this.http.put(`${this.bancoURL}/${banco.codigoBanco}`, banco, { params })
         .toPromise()
         .then(response => {
           const bancoResponse = response as Bancos;
@@ -99,14 +99,14 @@ export class BancoService {
         });
     }
 
-    removeBanco(codigo: number): Promise<void> {
+    removeBanco(codigo: string): Promise<void> {
 
       return this.http.delete(`${this.bancoURL}/${codigo}`)
       .toPromise()
       .then(() => {});
     }
 
-    mudarStatusAtivo(codigo: number, ativo: boolean) {
+    mudarStatusAtivo(codigo: string, ativo: boolean) {
 
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
 

@@ -104,7 +104,7 @@ export class LancamentoCadastroComponent implements OnInit {
       this.lancamento.situacao = 'PAGO';
     }
 
-    if(this.lancamento.dataPagamento != null && this.tipoLancamentoValue == 'RECEITA' && this.lancamento.banco.bancoId != undefined) {
+    if(this.lancamento.dataPagamento != null && this.tipoLancamentoValue == 'RECEITA' && this.lancamento.banco.codigoBanco != undefined) {
       this.lancamento.situacao = 'RECEBIDO';
     }
 
@@ -140,13 +140,13 @@ export class LancamentoCadastroComponent implements OnInit {
   validarSituacaoRecebido(): boolean {
 
     let travaCadastro = false;
-    if(this.lancamento.dataPagamento != null && this.tipoLancamentoValue == 'RECEITA' && this.lancamento.banco.bancoId == undefined) {
+    if(this.lancamento.dataPagamento != null && this.tipoLancamentoValue == 'RECEITA' && this.lancamento.banco.codigoBanco == undefined) {
 
       travaCadastro = true;
     }
 
     console.log("Antes de despesa");
-    if(this.lancamento.dataPagamento != null && this.tipoLancamentoValue == 'DESPESA' && this.lancamento.banco.bancoId == undefined) {
+    if(this.lancamento.dataPagamento != null && this.tipoLancamentoValue == 'DESPESA' && this.lancamento.banco.codigoBanco == undefined) {
       console.log("entrei no despesa");
       travaCadastro = true;
     }
