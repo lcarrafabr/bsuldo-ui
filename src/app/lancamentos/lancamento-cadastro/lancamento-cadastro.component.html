@@ -29,7 +29,7 @@
             <label>Data vencimento</label>
             <p-calendar
             name="dataVencimento"
-            [(ngModel)]="lancamento.datavencimento"
+            [(ngModel)]="lancamento.dataVencimento"
             dateFormat="dd/mm/yy"
             [readonlyInput]="true"
             [showIcon]="true" required></p-calendar>
@@ -149,7 +149,7 @@
           <label>Informe um banco</label>
           <p-dropdown
           name="bancosAtivos"
-          [(ngModel)]="lancamento.banco.bancoId"
+          [(ngModel)]="lancamento.banco.codigoBanco"
           [options]="bancosAtivos"
           filter="true"
           placeholder="Selecione"></p-dropdown>

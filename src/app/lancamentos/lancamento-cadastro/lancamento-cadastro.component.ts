@@ -66,7 +66,7 @@ export class LancamentoCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.lancamento.lancamentoId)
+    return Boolean (this.lancamento.codigoLancamento)
   }
 
   salvar(form: FormControl) {
@@ -145,7 +145,7 @@ export class LancamentoCadastroComponent implements OnInit {
       travaCadastro = true;
     }
 
-    console.log("Antes de despesa");
+    console.log("Antes de despesa: " + this.lancamento.banco.codigoBanco);
     if(this.lancamento.dataPagamento != null && this.tipoLancamentoValue == 'DESPESA' && this.lancamento.banco.codigoBanco == undefined) {
       console.log("entrei no despesa");
       travaCadastro = true;
@@ -176,7 +176,15 @@ export class LancamentoCadastroComponent implements OnInit {
       form.reset();
       this.lancamento = new Lancamento();
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 
@@ -212,7 +220,15 @@ export class LancamentoCadastroComponent implements OnInit {
         this.lancamento = lancamento;
         this.messageService.add({severity: 'success', detail: 'Lancamento atualizado com sucesso!', closable: false});
       })
-      .catch(erro => this.errorHandler.handle(erro));
+      .catch(erro => {
+        if (erro.error.objects) {
+          erro.error.objects.forEach((obj: any) => {
+            this.messageService.add({ severity: 'error', detail: obj.userMessage });
+          });
+        } else {
+          this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+        }
+      });
     }
   }
 
@@ -221,10 +237,18 @@ export class LancamentoCadastroComponent implements OnInit {
     return this.metodoCobrancaService.listarTodos(this.codigoUsuarioLogado)
     .then(metodoCobrancas => {
       this.metodoCobranca = metodoCobrancas.map(m => {
-        return { label: m.nomeMetodoCob, value: m.metodoCobrancaId }
+        return { label: m.nomeMetodoCob, value: m.codigoMetodoCobranca }
       });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   carregarCategorias() {
@@ -232,10 +256,18 @@ export class LancamentoCadastroComponent implements OnInit {
     return this.categoriaService.listarTodos(this.codigoUsuarioLogado)
     .then(categorias => {
       this.categoria = categorias.map(c => {
-        return { label: c.nomeCategoria, value: c.categoriaId }
+        return { label: c.nomeCategoria, value: c.codigo }
       });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   carregarBancosAtivos() {
@@ -243,10 +275,18 @@ export class LancamentoCadastroComponent implements OnInit {
     return this.bancoService.listaBancosAtivos(this.codigoUsuarioLogado)
     .then(response => {
       this.bancosAtivos = response.map(m => {
-        return { label: m.nomeBanco, value: m.bancoId }
+        return { label: m.nomeBanco, value: m.codigoBanco }
       });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 
@@ -265,7 +305,15 @@ export class LancamentoCadastroComponent implements OnInit {
       }
 
     })
-    .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
 
   }
 

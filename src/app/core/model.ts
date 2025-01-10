@@ -7,9 +7,9 @@ export class Pessoa {
 
 export class Lancamento {
 
-  lancamentoId: number;
+  codigoLancamento: string;
   valor: number;
-  datavencimento: Date;
+  dataVencimento: Date;
   dataPagamento: Date;
   descricao: string;
   situacao: string = 'PENDENTE';

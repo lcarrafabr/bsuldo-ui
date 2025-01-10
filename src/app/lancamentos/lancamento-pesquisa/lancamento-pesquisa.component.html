@@ -159,7 +159,7 @@
           }">{{lancamentos.situacao}}</td>
 
             <td class="col-parcela-content">{{lancamentos.numeroParcela}}/{{lancamentos.quantidadeParcelas}}</td>
-            <td class="col-data-content">{{lancamentos.datavencimento | date: 'dd/MM/y'}}</td>
+            <td class="col-data-content">{{lancamentos.dataVencimento | date: 'dd/MM/y'}}</td>
             <td class="col-data-content">{{lancamentos.dataPagamento | date: 'dd/MM/y'}}</td>
             <td class="col-valor-content" [ngClass]="'config-valor'">
               <span [style.color]="lancamentos.tipoLancamento === 'DESPESA' ? '#a61c1c' : '#2c3296'">
@@ -167,14 +167,14 @@
 
             <td class="col-acoes">
               <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined"
-              pTooltip="Editar Lançamento" tooltipPosition="top" [routerLink]="['/lancamentos', lancamentos.lancamentoId]"></button>
+              pTooltip="Editar Lançamento" tooltipPosition="top" [routerLink]="['/lancamentos', lancamentos.codigoLancamento]"></button>
 
 
 
               <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined"
               pTooltip="Remover lançamento" tooltipPosition="top" (click)="confirmarExclusao(lancamentos)"></button>
 
-              <button pButton icon="pi pi-search" class="p-button-raised p-button-rounded p-button-help p-mr-1 p-button-outlined"
+              <button pButton icon="pi pi-search" class="p-button=sm p-button-raised p-button-rounded p-button-help p-mr-1 p-button-outlined"
               pTooltip="Pesquisar chave" tooltipPosition="top" (click)="buscarPorCodigo(lancamentos.lancamentoId)"></button>
             </td>
         </tr>

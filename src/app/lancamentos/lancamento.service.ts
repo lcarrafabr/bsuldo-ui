@@ -150,7 +150,7 @@ export class LancamentoService {
       params = params.set('tokenId', tokenId);
     }
 
-    return this.http.put(`${this.lancamentosUrl}/${lancamento.lancamentoId}`, lancamento, { params })
+    return this.http.put(`${this.lancamentosUrl}/${lancamento.codigoLancamento}`, lancamento, { params })
       .toPromise()
       .then(response => {
         const lancamentoAlterado = response as Lancamento;
@@ -177,7 +177,7 @@ export class LancamentoService {
 
   private converterStringsParaDatas(lancamentos: Lancamento[]) {
     for (const lancamento of lancamentos) {
-      lancamento.datavencimento = moment(lancamento.datavencimento,
+      lancamento.dataVencimento = moment(lancamento.dataVencimento,
         'YYYY-MM-DD').toDate();
 
       if (lancamento.dataPagamento) {

@@ -21,11 +21,11 @@
 }
 
 .status-pendente {
-  background-color: #99ccff; /* Azul claro */
+  background-color: #d6c981; /* Azul claro */
 }
 
 .status-recebido {
-  background-color: #526294; /* Azul claro */
+  background-color: #526294; /* Azul escuro */
   color: white;
 }
 

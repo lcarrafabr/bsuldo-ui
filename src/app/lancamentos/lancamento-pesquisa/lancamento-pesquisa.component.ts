@@ -95,7 +95,15 @@ export class LancamentoPesquisaComponent implements OnInit{
       this.lancamentos = lancamentos
       this.carregaValorNoMes();
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   pesquisarByFiltro() {
@@ -132,13 +140,21 @@ export class LancamentoPesquisaComponent implements OnInit{
 
   excluir(lancamento: any) {
 
-    this.lancamentoService.excluir(lancamento.lancamentoId)
+    this.lancamentoService.excluir(lancamento.codigoLancamento)
     .then(()=> {
       this.grid.clear();
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!', closable: false});
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   carregarMetodoCobranca() {
@@ -149,7 +165,15 @@ export class LancamentoPesquisaComponent implements OnInit{
         return { label: m.nomeMetodoCob, value: m.metodoCobrancaId }
       });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   carregaValorNoMes() {
@@ -158,7 +182,15 @@ export class LancamentoPesquisaComponent implements OnInit{
     .then(valor => {
       this.valorAPagarNoMes = valor;
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   buscarPorCodigo(codigo: number) {
@@ -167,7 +199,15 @@ export class LancamentoPesquisaComponent implements OnInit{
     .then(lanc => {
       this.chavePesquisa = lanc.chavePesquisa;
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   resetarCamposFiltro() {
