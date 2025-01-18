@@ -603,8 +603,8 @@ adicionarValoresAosRotulos_configuraGraficoBarrasQtdTotalCotasEAcoes() {
 
 configuraGraficoBarrasBarrasGetDadosGraficoDivMesEAn() {
 
-  this.ano = '2024';
-  this.mes = '4';
+ // this.ano = '2026';
+ // this.mes = '4';
 
   this.dashboardInvestimentoService.getDadosGraficoDivMesEAno(this.ano, this.mes, this.codigoUsuarioLogado)
     .then(dados => {

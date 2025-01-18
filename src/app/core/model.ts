@@ -97,7 +97,7 @@ export class Setores {
 }
 
 export class Segmentos {
-  segmentoId: number;
+  codigoSegmento: string;
   nomeSegmento: string;
   status: boolean;
 }

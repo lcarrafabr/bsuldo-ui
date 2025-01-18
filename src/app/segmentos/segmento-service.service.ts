@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Segmentos } from '../core/model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -67,7 +67,7 @@ export class SegmentoServiceService {
       params = params.set('tokenId', tokenId);
     }
 
-    return this.http.put(`${this.segmentoURL}/${segmento.segmentoId}`, segmento, { params })
+    return this.http.put(`${this.segmentoURL}/${segmento.codigoSegmento}`, segmento, { params })
     .toPromise()
     .then(response => {
       const segmentoEditado = response as Segmentos;
@@ -75,14 +75,14 @@ export class SegmentoServiceService {
     })
   }
 
-  removerSegmento(codigo: number): Promise<void> {
+  removerSegmento(codigo: string): Promise<void> {
 
     return this.http.delete(`${this.segmentoURL}/${codigo}`)
     .toPromise()
-    .then(() => null);
+    .then(() => undefined);
   }
 
-  mudarStatusAtivo(codigo: number, ativo: boolean) {
+  mudarStatusAtivo(codigo: string, ativo: boolean) {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 

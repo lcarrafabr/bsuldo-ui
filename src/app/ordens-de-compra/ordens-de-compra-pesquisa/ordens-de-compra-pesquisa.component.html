@@ -16,15 +16,20 @@
 
     <div class="p-col-12" style="color: white;">----------------------</div>
 
-    <!------------ Botão de cadastro ------------------>
-    <div class="p-col-12">
-      <button pButton label="Cadastrar ordem de compra/venda" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary"
-              pTooltip="Cadastrar ordem de compra e venda" tooltipPosition="top" routerLink="/ordens-de-compra/novo"></button>
-    </div>
-    <!-------------------------------------------------->
+
 
     <div class="p-grid">
       <div class="p-col-12 p-shadow-2">
+        <p-toolbar styleClass="p-mb-4 p-shadow-1">
+          <ng-template pTemplate="left">
+              <button pButton pRipple label="Cadastrar ordem de compra e venda" icon="pi pi-plus-circle" class="p-button-secondary p-mr-2 p-button-raised"
+              pTooltip="Cadastrar ordem de compra e venda" tooltipPosition="top" routerLink="/ordens-de-compra/novo"></button>
+          </ng-template>
+          <ng-template pTemplate="right">
+              <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+              <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+          </ng-template>
+        </p-toolbar>
       <p-table
         #tabela
         [value] = ordensDeCompra

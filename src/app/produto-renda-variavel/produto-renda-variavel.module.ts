@@ -21,6 +21,7 @@ import { SharedModule } from 'primeng/api';
 import { HttpClientModule } from '@angular/common/http';
 import { ProdutoRendaVariavelPesquisaComponent } from './produto-renda-variavel-pesquisa/produto-renda-variavel-pesquisa.component';
 import { ProdutoRendaVariavelCadastroComponent } from './produto-renda-variavel-cadastro/produto-renda-variavel-cadastro.component';
+import { ToolbarModule } from 'primeng/toolbar';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ProdutoRendaVariavelCadastroComponent } from './produto-renda-variavel-
     InputMaskModule,
     KeyFilterModule,
     CheckboxModule,
+    ToolbarModule,
 
     SharedModule,
     HttpClientModule,

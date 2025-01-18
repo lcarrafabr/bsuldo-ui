@@ -23,6 +23,7 @@ import { OrdensDeCompraPesquisaComponent } from './ordens-de-compra-pesquisa/ord
 import { OrdensDeCompraCadastroComponent } from './ordens-de-compra-cadastro/ordens-de-compra-cadastro.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ToolbarModule } from 'primeng/toolbar';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CheckboxModule,
     SelectButtonModule,
     InputNumberModule,
+    ToolbarModule,
 
     SharedModule,
     HttpClientModule,

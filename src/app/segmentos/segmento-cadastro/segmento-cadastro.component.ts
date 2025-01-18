@@ -1,10 +1,10 @@
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { Component, OnInit } from '@angular/core';
 import { SegmentoServiceService } from '../segmento-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { Segmentos } from 'src/app/core/model';
 import { FormControl, NgForm } from '@angular/forms';
+import { Segmentos } from '../../core/model';
 
 @Component({
   selector: 'app-segmento-cadastro',
@@ -28,7 +28,7 @@ export class SegmentoCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     const codigoSegmento = this.route.snapshot.params['codigo'];
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     if(codigoSegmento) {
       this.carregarSegmentoPorId(codigoSegmento);
@@ -37,7 +37,7 @@ export class SegmentoCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.segmentos.segmentoId);
+    return Boolean (this.segmentos.codigoSegmento);
   }
 
   salvar(form: FormControl) {
@@ -61,7 +61,15 @@ export class SegmentoCadastroComponent implements OnInit {
       form.reset();
       this.segmentos = new Segmentos();
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   carregarSegmentoPorId(codigo: number) {
@@ -70,16 +78,32 @@ export class SegmentoCadastroComponent implements OnInit {
     .then(segmento => {
       this.segmentos = segmento;
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   atualizarSegmento(form: FormControl) {
     this.segmentoService.editarSegmento(this.segmentos, this.codigoUsuarioLogado)
     .then(response => {
       this.segmentos = response;
-      this.messageService.add({ severity: 'success', detail: 'Setor atualizado com sucesso!', closable: false });
+      this.messageService.add({ severity: 'success', detail: 'Segmento atualizado com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   novo(form: NgForm) {

@@ -1,3 +1,4 @@
+import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -39,6 +40,7 @@ import { SegmentoCadastroComponent } from './segmento-cadastro/segmento-cadastro
     SidebarModule,
     InputTextareaModule,
     InputSwitchModule,
+    ToolbarModule,
 
     SharedModule,
     HttpClientModule,

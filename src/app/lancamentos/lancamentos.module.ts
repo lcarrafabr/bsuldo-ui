@@ -1,3 +1,4 @@
+import { ToolbarModule } from 'primeng/toolbar';
 import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
@@ -48,6 +49,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     SidebarModule,
     PanelModule,
     SelectButtonModule,
+    ToolbarModule,
 
     SharedModule,
     HttpClientModule,

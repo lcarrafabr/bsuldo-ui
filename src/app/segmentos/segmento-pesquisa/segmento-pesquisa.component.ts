@@ -1,4 +1,5 @@
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+
 import { SegmentoServiceService } from './../segmento-service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -26,7 +27,7 @@ export class SegmentoPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
     this.pesquisar();
   }
 
@@ -52,26 +53,42 @@ export class SegmentoPesquisaComponent implements OnInit {
 
   removerSegmento(segmento: any) {
 
-    this.segmentoService.removerSegmento(segmento.segmentoId)
+    this.segmentoService.removerSegmento(segmento.codigoSegmento)
     .then(() => {
       this.grid.clear();
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Segmento removido com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   atualizaStatusAtivo(segmento: any): void {
 
     const novoStatus = !segmento.status;
 
-    this.segmentoService.mudarStatusAtivo(segmento.segmentoId, novoStatus)
+    this.segmentoService.mudarStatusAtivo(segmento.codigoSegmento, novoStatus)
     .then(() => {
       const acao = novoStatus ? 'ATIVO' : 'INATIVO';
 
       segmento.status = novoStatus;
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 }
