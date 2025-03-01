@@ -103,8 +103,6 @@ export class BancoCadastroComponent implements OnInit {
 
   atualizarBancos(form: FormControl) {
 
-    //this.bancos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
-
     this.bancosService.atualizarBanco(this.bancos, this.codigoUsuarioLogado)
     .then(response => {
       this.bancos = response;

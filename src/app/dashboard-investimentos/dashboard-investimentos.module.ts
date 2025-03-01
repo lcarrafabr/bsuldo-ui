@@ -19,6 +19,8 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { DashboardInvestimentosComponent } from './dashboard-investimentos/dashboard-investimentos.component';
 import {TabViewModule} from 'primeng/tabview';
+import { FullCalendarModule } from 'primeng/fullcalendar';
+
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import {TabViewModule} from 'primeng/tabview';
     ChartModule,
     PanelModule,
     TabViewModule,
+    FullCalendarModule,
+
 
     SharedModule,
     DashboardInvestimentosRoutingModule

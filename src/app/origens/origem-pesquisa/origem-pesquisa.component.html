@@ -1,0 +1,92 @@
+<div class="container3 body-content">
+  <p-card>
+
+    <div class="p-col-12">
+      <h2>Pesquisa Origem</h2>
+    </div>
+
+    <form autocomplete="off" (ngSubmit)="pesquisar();">
+
+
+      <div class="p-shadow-1">
+        <p-panel [toggleable]="true" [collapsed]="true" >
+
+          <div class="p-col-12 p-fluid">
+            <label>Nome origem</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por nome origem" name="nomeOrigem" [(ngModel)]="nomeOrigem" >
+          </div>
+          <div class="p-col-12">
+            <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+          </div>
+        </p-panel>
+
+        <BR/>
+
+
+        <div class="p-grid">
+          <div class="p-col-12 p-shadow-2">
+            <p-toolbar styleClass="p-mb-4 p-shadow-1">
+              <ng-template pTemplate="left">
+                  <button pButton pRipple label="Cadastrar Origem" icon="pi pi-plus" class="p-button-success p-mr-2 p-button-raised"
+                  pTooltip="Cadastrar Origem" tooltipPosition="top" routerLink="/origens/novo"></button>
+              </ng-template>
+            </p-toolbar>
+          <p-table
+            #tabela
+            [value] = origemResponse
+            styleClass="p-datatable-sm p-datatable-gridlines"
+            [paginator]="true"
+            [rows]="5"
+            selectionMode="single"
+            [responsive]="true"
+            selectionMode="single">
+            <ng-template pTemplate="emptymessage">
+              Nenhuma origem encontrada
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                  <th class="col-nome-setor-header">Nome origem</th>
+                  <th class="col-status-header">Status</th>
+                  <th class="col-acoes-header">Ações</th>
+              </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-origemResponse>
+                  <tr>
+                      <td class="col-pessoa-content">{{origemResponse.nomeOrigem}}</td>
+
+                      <td class="col-status-content">
+                        <a href="javascript:;" (click)="toggleStatus(origemResponse)"
+                           pTooltip="Clique para alterar status" tooltipPosition="top"
+                           class="status-link"
+                           (click)="alterarStatusAtivo(origemResponse)">
+                          <span class="p-tag" [ngClass]="{ 'p-tag-info': origemResponse.status, 'p-tag-danger': !origemResponse.status }">
+                            {{ origemResponse.status ? 'ATIVO' : 'INATIVO' }}
+                          </span>
+                        </a>
+                      </td>
+
+
+                      <td class="col-acoes-content">
+                        <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-warning p-mr-1  p-button-sm"
+                        pTooltip="Editar origem" tooltipPosition="top" [routerLink]="['/origens', origemResponse.codigoOrigem]"></button>
+
+                        <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-sm"
+                        pTooltip="Remover origem" tooltipPosition="top" (click)="confirmaExclusao(origemResponse)"></button>
+                      </td>
+
+                  </tr>
+              </ng-template>
+
+          </p-table>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+    </form>
+
+  </p-card>
+</div>

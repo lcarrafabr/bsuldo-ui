@@ -7,12 +7,18 @@ import { Title } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ThemeService } from 'src/app/services/theme.service';
 
+import dayGridPlugin from '@fullcalendar/daygrid';//Exemplo fullcalendar
+import timeGridPlugin from '@fullcalendar/timegrid';//Exemplo fullcalendar
+import interactionPlugin from '@fullcalendar/interaction';//Exemplo fullcalendar
+
 @Component({
   selector: 'app-dashboard-investimentos',
   templateUrl: './dashboard-investimentos.component.html',
   styleUrls: ['./dashboard-investimentos.component.css']
 })
 export class DashboardInvestimentosComponent implements OnInit {
+
+  options2: any;  //Exemplo fullcalendar
 
   temaColor: string = '#172230';
   currentTheme: string;
@@ -198,6 +204,23 @@ export class DashboardInvestimentosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    //Esse bloco é exemplo do fullcalendar
+
+    //this.options2 = {
+      //plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      //defaultView: 'dayGridMonth',
+      //header: {
+        //left: 'prev,next today',
+        //center: 'title',
+        //right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      //},
+     // editable: true
+    //};
+
+//********************************************************************* */
+
+
     this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
     this.title.setTitle('Dashboard de Investimentos');
 

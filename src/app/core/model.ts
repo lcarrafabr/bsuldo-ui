@@ -182,3 +182,9 @@ export class AvisosAutomaticos {
   visualizado: boolean;
   pessoa = new Pessoa();
 }
+
+export class Origens {
+  codigoOrigem: string;
+  nomeOrigem: string;
+  status: boolean;
+}

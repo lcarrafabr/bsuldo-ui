@@ -1,3 +1,4 @@
+import { OrigensModule } from './origens/origens.module';
 import { ConfiguracoesModule } from './configuracoes/configuracoes.module';
 import { AvisosAutomaticosModule } from './avisos-automaticos/avisos-automaticos.module';
 import { AcompanhamentoEstrategicoModule } from './acompanhamento-estrategico/acompanhamento-estrategico.module';
@@ -66,6 +67,8 @@ registerLocaleData(localePt);
     AcompanhamentoEstrategicoModule,
     AvisosAutomaticosModule,
     ConfiguracoesModule,
+    OrigensModule,
+
 
     AppRoutingModule
   ],

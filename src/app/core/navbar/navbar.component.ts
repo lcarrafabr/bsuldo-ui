@@ -55,6 +55,8 @@ export class NavbarComponent implements OnInit {
   produtoRendaVariavelRota = '/produto-renda-variavel';
   acompanhamentoEstrategicoRota = '/acompanhamento-estrategico';
 
+  origem = '/origens';
+
   alertasAutomaticosRota = '/avisos-automaticos';
 
 
@@ -195,6 +197,16 @@ export class NavbarComponent implements OnInit {
               {label: 'Acompanhamento estratégico', command: () => this.navigateToAcompanhamentoEstrategico()}
           ]
       },
+
+      {label: '<img src="assets/bitcoin-circle.png" width="16" height="18" style="margin-right: 5px;"> Criptomoeda', escape: false,
+        items: [
+          {label: 'Cadastro Origem', icon: 'pi pi-building', command: () => this.navigateToOrigem()},
+          {label: 'Cadastro Wallet', icon: 'pi pi-wallet', command: () => this.navigateToOrdemRendaVariavel()},
+          {separator:true},
+          {label: 'Transações cripto', command: () => this.navigateToAcompanhamentoEstrategico()}
+      ]
+  },
+
       {separator:true},
       {label: 'Dividendos', icon: 'pi pi-dollar',command: () => this.navigateToControleDividendos() },
       {label: 'Historico rendimento RF', icon: 'pi pi-book',command: () => this.navigateToHistoricoRendaFixa() }
@@ -288,6 +300,10 @@ export class NavbarComponent implements OnInit {
 
   navigateToCoresConfig() {
     this.router.navigate([this.coresConfigRota]);
+  }
+
+  navigateToOrigem() {
+    this.router.navigate([this.origem])
   }
 
 

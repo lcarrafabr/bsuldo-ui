@@ -1,0 +1,54 @@
+<div class="container p-shadow-2 body-content">
+
+  <p-card>
+
+    <div class="p-col-12">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }}  origem</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-12 p-fluid">
+            <label>Nome origem</label>
+            <input type="text" name="nomeOrigem" pInputText class="p-inputtext-sm" placeholder="Nome Origem" [(ngModel)]="origem.nomeOrigem" required>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <div class="p-d-flex p-jc-between p-ai-center p-flex-wrap">
+
+            <button pButton
+              label="Salvar"
+              icon="pi pi-save"
+              class="p-button-raised p-button-primary p-mb-1 p-mr-1 p-shadow-1"
+              pTooltip="Salvar origem"
+              tooltipPosition="top">
+            </button>
+
+              <button pButton
+                icon="pi pi-arrow-left"
+                label="Voltar para Pesquisa"
+                class="p-button-outlined p-button-secondary p-mb-2 p-mr-2 p-shadow-1"
+                routerLink="/origens"
+                pTooltip="Voltar para a página de pesquisa"
+                tooltipPosition="top">
+              </button>
+          </div>
+
+        </p-card>
+      </div>
+
+
+    </form>
+
+
+  </p-card>
+
+</div>
