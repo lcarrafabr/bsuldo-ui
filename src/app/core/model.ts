@@ -188,3 +188,16 @@ export class Origens {
   nomeOrigem: string;
   status: boolean;
 }
+
+export class Wallets {
+  codigoWallet: string
+  nomeCarteira: string;
+  tipoCarteira: string;
+  origem = new Origens;
+}
+
+export class WalletsUpdate {
+  nomeCarteira: string;
+  tipoCarteira: string;
+  origem = new Origens;
+}

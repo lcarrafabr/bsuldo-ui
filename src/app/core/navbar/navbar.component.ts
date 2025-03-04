@@ -56,6 +56,7 @@ export class NavbarComponent implements OnInit {
   acompanhamentoEstrategicoRota = '/acompanhamento-estrategico';
 
   origem = '/origens';
+  wallets = 'wallets';
 
   alertasAutomaticosRota = '/avisos-automaticos';
 
@@ -201,7 +202,7 @@ export class NavbarComponent implements OnInit {
       {label: '<img src="assets/bitcoin-circle.png" width="16" height="18" style="margin-right: 5px;"> Criptomoeda', escape: false,
         items: [
           {label: 'Cadastro Origem', icon: 'pi pi-building', command: () => this.navigateToOrigem()},
-          {label: 'Cadastro Wallet', icon: 'pi pi-wallet', command: () => this.navigateToOrdemRendaVariavel()},
+          {label: 'Cadastro Wallet', icon: 'pi pi-wallet', command: () => this.navigateToWallet()},
           {separator:true},
           {label: 'Transações cripto', command: () => this.navigateToAcompanhamentoEstrategico()}
       ]
@@ -304,6 +305,10 @@ export class NavbarComponent implements OnInit {
 
   navigateToOrigem() {
     this.router.navigate([this.origem])
+  }
+
+  navigateToWallet() {
+    this.router.navigate([this.wallets])
   }
 
 

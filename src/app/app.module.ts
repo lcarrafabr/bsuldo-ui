@@ -32,6 +32,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ThemeService } from './services/theme.service';
+import { WalletsModule } from './wallets/wallets.module';
 
 registerLocaleData(localePt);
 
@@ -68,6 +69,7 @@ registerLocaleData(localePt);
     AvisosAutomaticosModule,
     ConfiguracoesModule,
     OrigensModule,
+    WalletsModule,
 
 
     AppRoutingModule

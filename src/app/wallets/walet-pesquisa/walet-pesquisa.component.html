@@ -1,0 +1,89 @@
+<div class="container2 body-content">
+  <p-card>
+    <div class="p-col-12">
+      <h2>Wallets</h2>
+    </div>
+
+    <div class="p-shadow-1">
+
+      <!-- Painel de Pesquisa
+      <p-panel [toggleable]="true" [collapsed]="true">
+        <div class="p-col-12 p-fluid">
+          <label>Nome Wallet</label>
+          <input type="text" pInputText class="p-inputtext-sm" placeholder="Pesquisa por wallet" name="nomeWallet">
+        </div>
+        <div class="p-col-12">
+          <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
+        </div>
+      </p-panel>-->
+
+      <br/>
+
+      <!-- Botão e Tabela -->
+      <div class="p-grid">
+        <div class="p-col-12 p-shadow-2">
+          <p-toolbar styleClass="p-mb-4 p-shadow-1">
+            <ng-template pTemplate="left">
+              <button pButton pRipple label="Cadastrar Wallet" icon="pi pi-plus" class="p-button-success p-mr-2 p-button-raised"
+                      pTooltip="Cadastrar Wallet" tooltipPosition="top" routerLink="/wallet/novo"></button>
+            </ng-template>
+          </p-toolbar>
+
+          <!-- Tabela de Wallets -->
+          <p-table
+            #tabela
+            [value]="walletResponse"
+            styleClass="p-datatable-sm p-datatable-gridlines"
+            [paginator]="true"
+            [rows]="5"
+            selectionMode="single"
+            [responsive]="true">
+            <ng-template pTemplate="emptymessage">
+              Nenhum wallet encontrado
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="col-nomeWallet-header">Nome Wallet</th>
+                <th class="col-tipoWallet-header">Tipo Wallet</th>
+                <th class="col-header">Valor investido</th>
+                <th class="col-datacriacao-header">Data Criação</th>
+                <th class="col-status-header">Status</th>
+                <th class="col-header">Ações</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-walletResponse>
+              <tr>
+                <td class="col-content">{{walletResponse.nomeCarteira}}</td>
+                <td class="col-content">{{walletResponse.tipoCarteira}}</td>
+                <td class="col-content">{{walletResponse.saldo | currency: 'BRL'}}</td>
+                <td class="col-content">{{walletResponse.dataCriacao | date:'dd/MM/yyyy HH:mm'}}</td>
+
+                <td class="col-status-content">
+                  <a href="javascript:;" (click)="toggleStatus(walletResponse)"
+                     pTooltip="Clique para alterar status" tooltipPosition="top"
+                     class="status-link"
+                     (click)="alterarStatusAtivo(walletResponse)">
+                    <span class="p-tag" [ngClass]="{ 'p-tag-info': walletResponse.status, 'p-tag-danger': !walletResponse.status }">
+                      {{ walletResponse.status ? 'ATIVO' : 'INATIVO' }}
+                    </span>
+                  </a>
+                </td>
+
+                <td class="col-acoes-content">
+                  <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-warning p-mr-1 p-button-sm"
+                          pTooltip="Editar wallet" tooltipPosition="top" [routerLink]="['/wallet', walletResponse.codigoWallet]"></button>
+
+                  <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-sm"
+                          pTooltip="Remover wallet" tooltipPosition="top" (click)="confirmaExclusao(walletResponse)"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+    </div>
+  </p-card>
+
+  <i class="pi pi-exchange"></i>
+</div>

@@ -1,0 +1,81 @@
+<div class="container p-shadow-2 body-content p-p-3">
+
+  <p-card>
+    <div class="p-col-12 p-text-center">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} wallets</h2>
+    </div>
+
+    <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+          <div class="p-mb-1 p-mr-1 p-lg-12 p-fluid">
+
+            <div class="p-mb-3 p-fluid">
+              <label>Nome wallet</label>
+              <input type="text" name="nomeWallet" pInputText class="p-inputtext-sm" placeholder="Nome Wallet" [(ngModel)]="wallet.nomeCarteira" required>
+            </div>
+
+            <div class="p-mb-3 p-fluid">
+              <label>Origem</label>
+              <p-dropdown
+                name="origem"
+                [(ngModel)]="wallet.origem.codigoOrigem"
+                [options]="origensOption"
+                filter="true"
+                placeholder="Selecione"
+                required>
+              </p-dropdown>
+            </div>
+
+            <div class="p-mb-3 p-fluid">
+              <label>Tipo carteira</label>
+              <p-dropdown
+                name="tipoCarteira"
+                [(ngModel)]="wallet.tipoCarteira"
+                [options]="tipoCarteiraOption"
+                filter="true"
+                placeholder="Selecione"
+                required>
+              </p-dropdown>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <div class="p-d-flex p-jc-between p-ai-center p-flex-wrap">
+
+            <button pButton
+              label="Salvar"
+              icon="pi pi-save"
+              class="p-button-raised p-button-primary p-mb-1 p-mr-1 p-shadow-1"
+              pTooltip="Salvar origem"
+              tooltipPosition="top">
+            </button>
+
+              <button pButton
+                icon="pi pi-arrow-left"
+                label="Voltar para Pesquisa"
+                class="p-button-outlined p-button-secondary p-mb-2 p-mr-2 p-shadow-1"
+                routerLink="/wallets"
+                pTooltip="Voltar para a página de pesquisa"
+                tooltipPosition="top">
+              </button>
+          </div>
+
+        </p-card>
+      </div>
+
+
+
+    </form>
+
+
+  </p-card>
+
+</div>

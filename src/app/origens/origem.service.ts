@@ -21,102 +21,115 @@ export class OrigemService {
 
   listarTodos(tokenId: string): Promise<any> {
 
-        let params = new HttpParams();
+    let params = new HttpParams();
 
-        if(tokenId != null) {
-          params = params.set('tokenId', tokenId);
-        }
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
-        return this.http.get(`${this.origemURL}`, { params })
-        .toPromise()
-        .then(response => response);
-      }
-
-
-      listarTodosFiltro(tokenId: string, filtro: OrigemFiltro): Promise<any> {
-
-            let params = new HttpParams();
-            let urlExtensao = "";
-
-            if(filtro.nomeOrigem != null) {
-
-              params = params.set('nomeOrigem', filtro.nomeOrigem);
-              urlExtensao = '/busca-origem-por-nome'
-            }
-
-            if(tokenId != null) {
-              params = params.set('tokenId', tokenId);
-            }
-
-            return this.http.get(`${this.origemURL}` + urlExtensao, { params })
-            .toPromise()
-            .then(response => response);
-          }
+    return this.http.get(`${this.origemURL}`, { params })
+      .toPromise()
+      .then(response => response);
+  }
 
 
-      adicionar(origem: Origens, tokenId: string): Promise<Origens> {
+  listarTodosFiltro(tokenId: string, filtro: OrigemFiltro): Promise<any> {
 
-            let params = new HttpParams();
+    let params = new HttpParams();
+    let urlExtensao = "";
 
-            if(tokenId != null) {
-              params = params.set('tokenId', tokenId);
-            }
+    if (filtro.nomeOrigem != null) {
+
+      params = params.set('nomeOrigem', filtro.nomeOrigem);
+      urlExtensao = '/busca-origem-por-nome'
+    }
+
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.origemURL}` + urlExtensao, { params })
+      .toPromise()
+      .then(response => response);
+  }
 
 
-            return this.http.post<Origens>(`${this.origemURL}`, origem, { params })
-                .toPromise();
-          }
+  adicionar(origem: Origens, tokenId: string): Promise<Origens> {
+
+    let params = new HttpParams();
+
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
 
-          buscarPorCodigo(codigo: string, tokenId: string): Promise<Origens> {
+    return this.http.post<Origens>(`${this.origemURL}`, origem, { params })
+      .toPromise();
+  }
 
-            let params = new HttpParams();
 
-            if(tokenId != null) {
-              params = params.set('tokenId', tokenId);
-            }
+  buscarPorCodigo(codigo: string, tokenId: string): Promise<Origens> {
 
-            return this.http.get(`${this.origemURL}/${codigo}`, { params })
-              .toPromise()
-              .then(response => {
-                const bancosResponse = response as Origens;
+    let params = new HttpParams();
 
-                return bancosResponse;
-              });
-          }
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.origemURL}/${codigo}`, { params })
+      .toPromise()
+      .then(response => {
+        const bancosResponse = response as Origens;
+
+        return bancosResponse;
+      });
+  }
 
 
   atualizarOrigem(origem: Origens, tokenId: string): Promise<Origens> {
 
-        let params = new HttpParams();
+    let params = new HttpParams();
 
-        if(tokenId != null) {
-          params = params.set('tokenId', tokenId);
-        }
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
-        return this.http.put(`${this.origemURL}/${origem.codigoOrigem}`, origem, { params })
-          .toPromise()
-          .then(response => {
-            const origemResponse = response as Origens;
+    return this.http.put(`${this.origemURL}/${origem.codigoOrigem}`, origem, { params })
+      .toPromise()
+      .then(response => {
+        const origemResponse = response as Origens;
 
-            return origemResponse;
-          });
-      }
+        return origemResponse;
+      });
+  }
 
-      removeOrigem(codigo: string): Promise<void> {
+  removeOrigem(codigo: string): Promise<void> {
 
-        return this.http.delete(`${this.origemURL}/${codigo}`)
-        .toPromise()
-        .then(() => {});
-      }
+    return this.http.delete(`${this.origemURL}/${codigo}`)
+      .toPromise()
+      .then(() => { });
+  }
 
 
-      mudarStatusAtivo(codigo: string, ativo: boolean) {
+  mudarStatusAtivo(codigo: string, ativo: boolean) {
 
-            const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-            return this.http.put(`${this.origemURL}/${codigo}/ativo`, ativo, { headers })
-            .toPromise()
-            .then(() => null);
-          }
+    return this.http.put(`${this.origemURL}/${codigo}/ativo`, ativo, { headers })
+      .toPromise()
+      .then(() => null);
+  }
+
+  listaOrigensAtivas(tokenId: string): Promise<any> {
+
+    let params = new HttpParams();
+
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.origemURL}/busca-origem-ativo`, { params })
+      .toPromise()
+      .then(response => response);
+  }
 }

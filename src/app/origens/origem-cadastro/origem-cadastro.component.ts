@@ -18,11 +18,11 @@ export class OrigemCadastroComponent implements OnInit {
 
   constructor(
     private origenService: OrigemService,
-        private confirmation: ConfirmationService,
-        private messageService: MessageService,
-        private errorHandler: ErrorHandlerService,
-        private router: Router,
-        private route: ActivatedRoute
+    private confirmation: ConfirmationService,
+    private messageService: MessageService,
+    private errorHandler: ErrorHandlerService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class OrigemCadastroComponent implements OnInit {
 
     const codigoBanco = this.route.snapshot.params['codigo'];
 
-    if(codigoBanco) {
+    if (codigoBanco) {
       this.carregarPorId(codigoBanco);
     }
 
@@ -39,70 +39,68 @@ export class OrigemCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.origem.codigoOrigem);
+    return Boolean(this.origem.codigoOrigem);
   }
 
 
   salvar(form: FormControl) {
 
-      if(this.editando) {
+    if (this.editando) {
 
-        this.atualizarOrigem(form);
+      this.atualizarOrigem(form);
 
-      } else {
+    } else {
 
-        this.adicionar(form);
-      }
+      this.adicionar(form);
     }
+  }
 
 
-    adicionar(form: FormControl) {
-        this.origenService.adicionar(this.origem, this.codigoUsuarioLogado)
-          .then(() => {
-            this.messageService.add({ severity: 'success', detail: 'Banco cadastrado com sucesso!', closable: false });
-            form.reset();
-            this.origem = new Origens();
-          })
-          .catch(erro => {
-            if (erro.error.objects) {
-              erro.error.objects.forEach((obj: any) => {
-                this.messageService.add({ severity: 'error', detail: obj.userMessage });
-              });
-            } else {
-              this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
-            }
+  adicionar(form: FormControl) {
+    this.origenService.adicionar(this.origem, this.codigoUsuarioLogado)
+      .then(() => {
+        this.messageService.add({ severity: 'success', detail: 'Banco cadastrado com sucesso!', closable: false });
+        form.reset();
+        this.origem = new Origens();
+      })
+      .catch(erro => {
+        if (erro.error.objects) {
+          erro.error.objects.forEach((obj: any) => {
+            this.messageService.add({ severity: 'error', detail: obj.userMessage });
           });
-      }
+        } else {
+          this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+        }
+      });
+  }
 
-      carregarPorId(codigo: string) {
+  carregarPorId(codigo: string) {
 
-        this.origenService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
-        .then(response => {
-          this.origem = response;
+    this.origenService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
+      .then(response => {
+        this.origem = response;
 
-        })
-        .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
-      }
+      })
+      .catch(erro => this.errorHandler.handle(erro.error.mensagemUsuario));
+  }
 
 
-      atualizarOrigem(form: FormControl) {
+  atualizarOrigem(form: FormControl) {
 
-        //this.bancos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
-
-        this.origenService.atualizarOrigem(this.origem, this.codigoUsuarioLogado)
-        .then(response => {
-          this.origem = response;
-          this.messageService.add({ severity: 'success', detail: 'Origem atualizada com sucesso!', closable: false });
-        })
-        .catch(erro => {
-          if (erro.error.objects) {
-            erro.error.objects.forEach((obj: any) => {
-              this.messageService.add({ severity: 'error', detail: obj.userMessage });
-            });
-          } else {
-            this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
-          }
-        });
-      }
+    this.origenService.atualizarOrigem(this.origem, this.codigoUsuarioLogado)
+      .then(response => {
+        this.origem = response;
+        this.messageService.add({ severity: 'success', detail: 'Origem atualizada com sucesso!', closable: false });
+      })
+      .catch(erro => {
+        if (erro.error.objects) {
+          erro.error.objects.forEach((obj: any) => {
+            this.messageService.add({ severity: 'error', detail: obj.userMessage });
+          });
+        } else {
+          this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+        }
+      });
+  }
 
 }

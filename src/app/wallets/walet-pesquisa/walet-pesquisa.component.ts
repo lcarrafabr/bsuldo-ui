@@ -1,26 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table';
-import { OrigemFiltro, OrigemService } from '../origem.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ErrorHandlerService } from '../../core/error-handler.service';
 import { Title } from '@angular/platform-browser';
+import { Table } from 'primeng/table';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { WalletService } from '../wallet.service';
 
 @Component({
-  selector: 'app-origem-pesquisa',
-  templateUrl: './origem-pesquisa.component.html',
-  styleUrls: ['./origem-pesquisa.component.css']
+  selector: 'app-walet-pesquisa',
+  templateUrl: './walet-pesquisa.component.html',
+  styleUrls: ['./walet-pesquisa.component.css']
 })
-export class OrigemPesquisaComponent implements OnInit {
+export class WaletPesquisaComponent implements OnInit {
 
-  @ViewChild('tabela', {static: true}) grid: Table;
+  @ViewChild('tabela', { static: true }) grid: Table;
 
-    codigoUsuarioLogado: string;
-    origemResponse = [];
-
-    nomeOrigem: string;
+  codigoUsuarioLogado: string;
+  walletResponse = [];
 
   constructor(
-    private origemService: OrigemService,
+    private walletService: WalletService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
@@ -29,7 +27,7 @@ export class OrigemPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.title.setTitle('Origem');
+    this.title.setTitle('Wallets');
     this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     this.pesquisar();
@@ -38,13 +36,10 @@ export class OrigemPesquisaComponent implements OnInit {
 
   pesquisar() {
 
-    const filtro: OrigemFiltro = {
-      nomeOrigem: this.nomeOrigem
-    }
-
-      this.origemService.listarTodosFiltro(this.codigoUsuarioLogado, filtro)
+    this.walletService.listarTodos(this.codigoUsuarioLogado)
       .then(response => {
-        this.origemResponse = response;
+        console.log(response);
+        this.walletResponse = response;
 
       })
       .catch(erro => {
@@ -56,48 +51,26 @@ export class OrigemPesquisaComponent implements OnInit {
           this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
         }
       });
-    }
+  }
 
 
-    alterarStatusAtivo(origem: any): void {
+  confirmaExclusao(wallet: any) {
 
-      const novoStatus = !origem.status;
+    this.confirmation.confirm({
+      message: 'Deseja excluir o wallet: ' + wallet.nomeCarteira + '?',
+      accept: () => {
+        this.removeWallet(wallet);
+      }
+    });
+  }
 
-      this.origemService.mudarStatusAtivo(origem.codigoOrigem, novoStatus)
-      .then(() => {
-        const acao = novoStatus ? 'ATIVO' : 'INATIVO';
+  removeWallet(wallet: any) {
 
-        origem.status = novoStatus;
-      })
-      .catch(erro => {
-        if (erro.error.objects) {
-          erro.error.objects.forEach((obj: any) => {
-            this.messageService.add({ severity: 'error', detail: obj.userMessage });
-          });
-        } else {
-          this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
-        }
-      });
-    }
-
-
-    confirmaExclusao(origem: any) {
-
-      this.confirmation.confirm({
-        message: 'Deseja excluir essa origem: ' + origem.nomeOrigem + '?',
-          accept: () => {
-            this.removeOrigem(origem);
-          }
-        });
-    }
-
-    removeOrigem(origem: any) {
-
-      this.origemService.removeOrigem(origem.codigoOrigem)
+    this.walletService.removerWallet(wallet.codigoWallet)
       .then(() => {
         this.grid.clear();
         this.pesquisar();
-        this.messageService.add({ severity: 'success', detail: 'Origem removida com sucesso!', closable: false });
+        this.messageService.add({ severity: 'success', detail: 'Wallet removido com sucesso!', closable: false });
       })
       .catch(erro => {
         if (erro.error.objects) {
@@ -108,6 +81,28 @@ export class OrigemPesquisaComponent implements OnInit {
           this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
         }
       });
-    }
+  }
+
+
+  alterarStatusAtivo(wallet: any): void {
+
+    const novoStatus = !wallet.status;
+
+    this.walletService.mudarStatusAtivo(wallet.codigoWallet, novoStatus)
+      .then(() => {
+        const acao = novoStatus ? 'ATIVO' : 'INATIVO';
+
+        wallet.status = novoStatus;
+      })
+      .catch(erro => {
+        if (erro.error.objects) {
+          erro.error.objects.forEach((obj: any) => {
+            this.messageService.add({ severity: 'error', detail: obj.userMessage });
+          });
+        } else {
+          this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+        }
+      });
+  }
 
 }
