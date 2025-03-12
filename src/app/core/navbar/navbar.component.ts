@@ -57,6 +57,7 @@ export class NavbarComponent implements OnInit {
 
   origem = '/origens';
   wallets = 'wallets';
+  criptoTransacao = 'cripto-transacao';
 
   alertasAutomaticosRota = '/avisos-automaticos';
 
@@ -204,7 +205,7 @@ export class NavbarComponent implements OnInit {
           {label: 'Cadastro Origem', icon: 'pi pi-building', command: () => this.navigateToOrigem()},
           {label: 'Cadastro Wallet', icon: 'pi pi-wallet', command: () => this.navigateToWallet()},
           {separator:true},
-          {label: 'Transações cripto', command: () => this.navigateToAcompanhamentoEstrategico()}
+          {label: 'Transações cripto', icon: 'pi pi-dollar', command: () => this.nativateToCriptoTransacao()}
       ]
   },
 
@@ -309,6 +310,10 @@ export class NavbarComponent implements OnInit {
 
   navigateToWallet() {
     this.router.navigate([this.wallets])
+  }
+
+  nativateToCriptoTransacao() {
+    this.router.navigate([this.criptoTransacao])
   }
 
 

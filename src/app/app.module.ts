@@ -1,3 +1,4 @@
+import { CriptoTransacaoModule } from './cripto-transacao/cripto-transacao.module';
 import { OrigensModule } from './origens/origens.module';
 import { ConfiguracoesModule } from './configuracoes/configuracoes.module';
 import { AvisosAutomaticosModule } from './avisos-automaticos/avisos-automaticos.module';
@@ -33,12 +34,14 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ThemeService } from './services/theme.service';
 import { WalletsModule } from './wallets/wallets.module';
+import { DynamicCurrencyPipe } from './dynamic-currency.pipe';
+import { SharedModule } from 'primeng/api';
 
 registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
 
   ],
   imports: [
@@ -70,7 +73,7 @@ registerLocaleData(localePt);
     ConfiguracoesModule,
     OrigensModule,
     WalletsModule,
-
+    CriptoTransacaoModule,
 
     AppRoutingModule
   ],

@@ -94,4 +94,18 @@ export class WalletService {
         .toPromise()
         .then(() => null);
     }
+
+
+    listarWalletsAtivos(tokenId: string): Promise<any> {
+
+      let params = new HttpParams();
+
+      if (tokenId != null) {
+        params = params.set('tokenId', tokenId);
+      }
+
+      return this.http.get(`${this.walletURL}/lista-wallets-ativos`, { params })
+        .toPromise()
+        .then(response => response);
+    }
 }

@@ -417,7 +417,7 @@
                           <td class="col-mes-content">{{historicoProvendosFuturosGrid.data_com | date: 'dd/MM/y'}}</td>
                           <td class="col-mes-content">{{historicoProvendosFuturosGrid.data_pagamento | date: 'dd/MM/y'}}</td>
                           <td class="col-mes-content">{{historicoProvendosFuturosGrid.qtdCotas}}</td>
-                          <td class="col-mes-content">{{historicoProvendosFuturosGrid.valor_por_cota | currency: 'BRL'}}</td>
+                          <td class="col-mes-content">{{historicoProvendosFuturosGrid.valor_por_cota | dynamicCurrency:'BRL'}}</td>
                           <td class="col-mes-content">{{historicoProvendosFuturosGrid.dividendo_a_receber | currency: 'BRL'}}</td>
 
 

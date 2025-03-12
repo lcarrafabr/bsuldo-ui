@@ -38,7 +38,6 @@ export class WaletPesquisaComponent implements OnInit {
 
     this.walletService.listarTodos(this.codigoUsuarioLogado)
       .then(response => {
-        console.log(response);
         this.walletResponse = response;
 
       })

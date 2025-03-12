@@ -1,11 +1,15 @@
+import { DynamicCurrencyPipe } from './../dynamic-currency.pipe';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardInvestimentosRoutingModule } from './dashboard-investimentos-routing.module';
+import { CriptoTransacaoRoutingModule } from './cripto-transacao-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'primeng/api';
+import { ToolbarModule } from 'primeng/toolbar';
 import { PanelModule } from 'primeng/panel';
-import { ChartModule } from 'primeng/chart';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SidebarModule } from 'primeng/sidebar';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
@@ -17,17 +21,17 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { DashboardInvestimentosComponent } from './dashboard-investimentos/dashboard-investimentos.component';
-import {TabViewModule} from 'primeng/tabview';
-import { FullCalendarModule } from 'primeng/fullcalendar';
-import { CriptoTransacaoModule } from '../cripto-transacao/cripto-transacao.module';
-
+import { CriptoTransacaoPesquisaComponent } from './cripto-transacao-pesquisa/cripto-transacao-pesquisa.component';
+import { CriptoTransacaoCadastroComponent } from './cripto-transacao-cadastro/cripto-transacao-cadastro.component';
 
 
 @NgModule({
-  declarations: [DashboardInvestimentosComponent],
+  declarations: [
+    CriptoTransacaoPesquisaComponent, CriptoTransacaoCadastroComponent, DynamicCurrencyPipe],
   imports: [
     CommonModule,
+    CriptoTransacaoRoutingModule,
+
     FormsModule,
     ButtonModule,
     InputTextModule,
@@ -39,17 +43,16 @@ import { CriptoTransacaoModule } from '../cripto-transacao/cripto-transacao.modu
     MessagesModule,
     MessageModule,
     SidebarModule,
-    ProgressBarModule,
-    ChartModule,
+    InputTextareaModule,
     PanelModule,
-    TabViewModule,
-    FullCalendarModule,
-
-    CriptoTransacaoModule,
-
+    ToolbarModule,
+    KeyFilterModule,
+    InputNumberModule,
 
     SharedModule,
-    DashboardInvestimentosRoutingModule
-  ]
+    HttpClientModule,
+  ],
+  exports: [DynamicCurrencyPipe],
 })
-export class DashboardInvestimentosModule { }
+export class CriptoTransacaoModule {
+}

@@ -1,0 +1,126 @@
+<div class="container3 p-shadow-2 body-content p-p-3">
+  <p-card>
+    <div class="p-col-12 p-text-center">
+      <h2>Cadastro ordem de compra/venda criptos</h2>
+    </div>
+
+    <form autocomplete="off">
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Tipo lançamento</label>
+            <p-dropdown
+            name="tipoOrdemCripto"
+
+            [options]="tipoOrdemCriptoOptions"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Carteira</label>
+            <p-dropdown
+            name="moeda"
+
+            [options]="carteira"
+            filter="true"
+            placeholder="Selecione"></p-dropdown>
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Moeda: {{precoBrl | dynamicCurrency:'BRL'}} {{siglaMoeda}}</label>
+            <p-dropdown
+            name="moeda"
+            [options]="moeda"
+            editable="true"
+            [options]="moedaOption"
+            filter="true"
+            placeholder="Selecione ou digite a moeda"
+
+            (onBlur)="onTickerBlur($event)"></p-dropdown>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Valor investido</label>
+            <input type="text" pKeyFilter="money" name="valorInvestido" pInputText class="p-inputtext-sm" [(ngModel)]="valorInvestido"
+              placeholder="R$ 0,00">
+          </div>
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Quantidade</label>
+            <input type="text" pKeyFilter="money" name="quatidadeMoedas" pInputText class="p-inputtext-sm"
+              placeholder="Qtd de moedas" [(ngModel)]="quantidade">
+          </div>
+
+        </div>
+      </div>
+
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div class="p-col-12">
+        <div class="p-d-flex p-flex-column p-flex-md-row">
+
+          <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
+            <label>Preço BRL</label>
+            <input type="text" pKeyFilter="money" name="precoBrl" pInputText class="p-inputtext-sm"
+              placeholder="R$ 0,00">
+          </div>
+
+        </div>
+      </div>
+
+      <!---------------------------------------------------------------------------------------------------------------------->
+
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
+
+          <div class="p-d-flex p-jc-between p-ai-center p-flex-wrap">
+
+            <button pButton
+              label="Salvar"
+              icon="pi pi-save"
+              class="p-button-raised p-button-primary p-mb-1 p-mr-1 p-shadow-1"
+              pTooltip="Salvar origem"
+              tooltipPosition="top">
+            </button>
+
+              <button pButton
+                icon="pi pi-arrow-left"
+                label="Voltar para Pesquisa"
+                class="p-button-outlined p-button-secondary p-mb-2 p-mr-2 p-shadow-1"
+                routerLink="/cripto-transacao"
+                pTooltip="Voltar para a página de pesquisa"
+                tooltipPosition="top">
+              </button>
+          </div>
+
+        </p-card>
+      </div>
+
+    </form>
+
+
+
+  </p-card>
+
+</div>
