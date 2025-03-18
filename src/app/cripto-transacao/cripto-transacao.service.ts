@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { CriptoTransacao } from '../core/model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,37 +20,94 @@ export class CriptoTransacaoService {
 
   listarTodos(tokenId: string): Promise<any> {
 
-      let params = new HttpParams();
+    let params = new HttpParams();
 
-      if (tokenId != null) {
-        params = params.set('tokenId', tokenId);
-      }
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
 
-      return this.http.get(`${this.criptoTransacaoURL}`, { params })
-        .toPromise()
-        .then(response => response);
+    return this.http.get(`${this.criptoTransacaoURL}`, { params })
+      .toPromise()
+      .then(response => response);
+  }
+
+
+  listarComboMoedas(): Promise<any> {
+
+    return this.http.get(`${this.criptoTransacaoURL}/lista-criptomoedas-list`)
+      .toPromise()
+      .then(response => response);
+  }
+
+
+  consultaValorAtualCota(tickerFiltro: string): Promise<any> {
+
+    let params = new HttpParams();
+
+    params = params.set('ticker', tickerFiltro);
+
+    return this.http.get(`${this.consultaCriptoAPI}/cotacao-cripto`, { params })
+      .toPromise()
+      .then(response => response);
+
+  }
+
+
+  adicionar(criptoTransacao: CriptoTransacao, tokenId: string): Promise<CriptoTransacao> {
+
+    let params = new HttpParams();
+
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
     }
 
 
-    listarComboMoedas(): Promise<any> {
+    return this.http.post<CriptoTransacao>(`${this.criptoTransacaoURL}`, criptoTransacao, { params })
+      .toPromise();
+  }
 
-      return this.http.get(`${this.criptoTransacaoURL}/lista-criptomoedas-list`)
-        .toPromise()
-        .then(response => response);
+
+  atualizarCriptoTransacao(criptoTransacao: CriptoTransacao, tokenId: string): Promise<CriptoTransacao> {
+
+    let params = new HttpParams();
+
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
     }
 
+    return this.http.put(`${this.criptoTransacaoURL}/${criptoTransacao.codigoCriptoTransacao}`, criptoTransacao, { params })
+      .toPromise()
+      .then(response => {
+        const criptoTransacaoResponse = response as CriptoTransacao;
 
-    consultaValorAtualCota(tickerFiltro: string): Promise<any> {
+        return criptoTransacaoResponse;
+      });
+  }
 
-      let params = new HttpParams();
+  buscarPorCodigo(codigo: string, tokenId: string): Promise<CriptoTransacao> {
 
-        params = params.set('ticker', tickerFiltro);
+    let params = new HttpParams();
 
-        return this.http.get(`${this.consultaCriptoAPI}/cotacao-cripto`, { params })
-        .toPromise()
-        .then(response => response);
-
+    if (tokenId != null) {
+      params = params.set('tokenId', tokenId);
     }
+
+    return this.http.get(`${this.criptoTransacaoURL}/${codigo}`, { params })
+      .toPromise()
+      .then(response => {
+        const criptoResponse = response as CriptoTransacao;
+
+        return criptoResponse;
+      });
+  }
+
+
+  removerCriptoTransacao(codigo: string): Promise<void> {
+
+    return this.http.delete(`${this.criptoTransacaoURL}/${codigo}`)
+      .toPromise()
+      .then(() => { });
+  }
 
 
 }

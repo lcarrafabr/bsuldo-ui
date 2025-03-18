@@ -16,6 +16,12 @@ const routes: Routes = [
     component: CriptoTransacaoCadastroComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_PESQUISAR_CATEGORIAS']}
+  },
+  {
+    path: 'cripto-transacao/:codigo',
+    component: CriptoTransacaoCadastroComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_EDITAR_CATEGORIAS']}
   }
 ];
 

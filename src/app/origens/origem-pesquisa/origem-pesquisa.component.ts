@@ -12,12 +12,12 @@ import { Title } from '@angular/platform-browser';
 })
 export class OrigemPesquisaComponent implements OnInit {
 
-  @ViewChild('tabela', {static: true}) grid: Table;
+  @ViewChild('tabela', { static: true }) grid: Table;
 
-    codigoUsuarioLogado: string;
-    origemResponse = [];
+  codigoUsuarioLogado: string;
+  origemResponse = [];
 
-    nomeOrigem: string;
+  nomeOrigem: string;
 
   constructor(
     private origemService: OrigemService,
@@ -42,7 +42,7 @@ export class OrigemPesquisaComponent implements OnInit {
       nomeOrigem: this.nomeOrigem
     }
 
-      this.origemService.listarTodosFiltro(this.codigoUsuarioLogado, filtro)
+    this.origemService.listarTodosFiltro(this.codigoUsuarioLogado, filtro)
       .then(response => {
         this.origemResponse = response;
 
@@ -56,14 +56,14 @@ export class OrigemPesquisaComponent implements OnInit {
           this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
         }
       });
-    }
+  }
 
 
-    alterarStatusAtivo(origem: any): void {
+  alterarStatusAtivo(origem: any): void {
 
-      const novoStatus = !origem.status;
+    const novoStatus = !origem.status;
 
-      this.origemService.mudarStatusAtivo(origem.codigoOrigem, novoStatus)
+    this.origemService.mudarStatusAtivo(origem.codigoOrigem, novoStatus)
       .then(() => {
         const acao = novoStatus ? 'ATIVO' : 'INATIVO';
 
@@ -78,22 +78,22 @@ export class OrigemPesquisaComponent implements OnInit {
           this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
         }
       });
-    }
+  }
 
 
-    confirmaExclusao(origem: any) {
+  confirmaExclusao(origem: any) {
 
-      this.confirmation.confirm({
-        message: 'Deseja excluir essa origem: ' + origem.nomeOrigem + '?',
-          accept: () => {
-            this.removeOrigem(origem);
-          }
-        });
-    }
+    this.confirmation.confirm({
+      message: 'Deseja excluir essa origem: ' + origem.nomeOrigem + '?',
+      accept: () => {
+        this.removeOrigem(origem);
+      }
+    });
+  }
 
-    removeOrigem(origem: any) {
+  removeOrigem(origem: any) {
 
-      this.origemService.removeOrigem(origem.codigoOrigem)
+    this.origemService.removeOrigem(origem.codigoOrigem)
       .then(() => {
         this.grid.clear();
         this.pesquisar();
@@ -108,6 +108,6 @@ export class OrigemPesquisaComponent implements OnInit {
           this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
         }
       });
-    }
+  }
 
 }

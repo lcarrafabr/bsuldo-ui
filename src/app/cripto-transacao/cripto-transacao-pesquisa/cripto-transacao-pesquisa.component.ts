@@ -67,4 +67,40 @@ export class CriptoTransacaoPesquisaComponent implements OnInit {
       });
   }
 
+  confirmaExclusao(cripto: any) {
+    const valorFormatado = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(cripto.valorInvestido);
+
+    this.confirmation.confirm({
+      message: `Deseja excluir a transação: ${cripto.moeda} ${valorFormatado}?`,
+      accept: () => {
+        this.removeCriptoTransacao(cripto);
+      }
+    });
+  }
+
+
+  removeCriptoTransacao(criptotransacao: any) {
+
+    this.criptoTransacaoService.removerCriptoTransacao(criptotransacao.codigoCriptoTransacao)
+      .then(() => {
+        this.grid.clear();
+        this.pesquisar();
+        this.messageService.add({ severity: 'success', detail: 'Crypto transação removido com sucesso!', closable: false });
+      })
+      .catch(erro => {
+        if (erro.error.objects) {
+          erro.error.objects.forEach((obj: any) => {
+            this.messageService.add({ severity: 'error', detail: obj.userMessage });
+          });
+        } else {
+          this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+        }
+      });
+  }
+
+
+
 }

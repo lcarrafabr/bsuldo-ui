@@ -75,10 +75,10 @@
 
                 <td class="col-acoes-content">
                   <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-warning p-mr-1 p-button-sm"
-                          pTooltip="Editar wallet" tooltipPosition="top" ></button>
+                          pTooltip="Editar transação" tooltipPosition="top" [routerLink]="['/cripto-transacao', criptoTransacaoResponse.codigoCriptoTransacao]"></button>
 
                   <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-sm"
-                          pTooltip="Remover wallet" tooltipPosition="top" (click)="confirmaExclusao(walletResponse)"></button>
+                          pTooltip="Remover transação" tooltipPosition="top" (click)="confirmaExclusao(criptoTransacaoResponse)"></button>
                 </td>
               </tr>
             </ng-template>

@@ -1,19 +1,19 @@
 <div class="container3 p-shadow-2 body-content p-p-3">
   <p-card>
-    <div class="p-col-12 p-text-center">
-      <h2>Cadastro ordem de compra/venda criptos</h2>
-    </div>
+    <section class="p-col-12 p-text-center">
+      <h2>{{ editando ? 'Edição de ' : 'Cadastro de ' }} ordem de compra/venda criptos</h2>
+    </section>
 
-    <form autocomplete="off">
+    <form autocomplete="off"  #f="ngForm" (ngSubmit)="salvar(f)">
 
       <div class="p-col-12">
         <div class="p-d-flex p-flex-column p-flex-md-row">
 
           <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
-            <label>Tipo lançamento</label>
+            <label>Tipo lançamento <span class="required">*</span></label>
             <p-dropdown
             name="tipoOrdemCripto"
-
+            [(ngModel)]="tipoLancamentoValue"
             [options]="tipoOrdemCriptoOptions"
             filter="true"
             placeholder="Selecione"></p-dropdown>
@@ -28,17 +28,17 @@
 
 
           <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
-            <label>Carteira</label>
+            <label>Carteira <span class="required">*</span></label>
             <p-dropdown
-            name="moeda"
-
+            name="carteira"
+            [(ngModel)]="criptoTransacao.wallet.codigoWallet"
             [options]="carteira"
             filter="true"
             placeholder="Selecione"></p-dropdown>
           </div>
 
           <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
-            <label>Moeda: {{precoBrl | dynamicCurrency:'BRL'}} {{siglaMoeda}}</label>
+            <label>Moeda:<span class="required">*</span> {{precoBrl | dynamicCurrency:'BRL'}} {{siglaMoeda}}</label>
             <p-dropdown
             name="moeda"
             [options]="moeda"
@@ -46,7 +46,7 @@
             [options]="moedaOption"
             filter="true"
             placeholder="Selecione ou digite a moeda"
-
+            [(ngModel)]="moedaValue"
             (onBlur)="onTickerBlur($event)"></p-dropdown>
           </div>
 
@@ -68,7 +68,7 @@
           <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
             <label>Quantidade</label>
             <input type="text" pKeyFilter="money" name="quatidadeMoedas" pInputText class="p-inputtext-sm"
-              placeholder="Qtd de moedas" [(ngModel)]="quantidade">
+              placeholder="Qtd de moedas" [(ngModel)]="quantidade" (ngModelChange)="calcularValorInvestido()">
           </div>
 
         </div>
@@ -82,7 +82,7 @@
 
           <div class="p-mb-1 p-mr-1 p-lg-5 p-fluid">
             <label>Preço BRL</label>
-            <input type="text" pKeyFilter="money" name="precoBrl" pInputText class="p-inputtext-sm"
+            <input type="text" pKeyFilter="money" name="precoBrl" pInputText class="p-inputtext-sm" [(ngModel)]="valorInvestidoValue"
               placeholder="R$ 0,00">
           </div>
 

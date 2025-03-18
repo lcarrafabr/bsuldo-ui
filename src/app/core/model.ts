@@ -201,3 +201,13 @@ export class WalletsUpdate {
   tipoCarteira: string;
   origem = new Origens;
 }
+
+export class CriptoTransacao {
+  codigoCriptoTransacao: string;
+  moeda: string;
+  quantidade: number;
+  precoNegociacao: number;
+  valorInvestido: number;
+  tipoOrdemCripto: string;
+  wallet = new Wallets;
+}
