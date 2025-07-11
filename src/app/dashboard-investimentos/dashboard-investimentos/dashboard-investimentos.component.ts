@@ -91,6 +91,7 @@ export class DashboardInvestimentosComponent implements OnInit {
   relatorioCompletoAcoesGrid = [];
   relatorioCompletoFIISsGrid = [];
   relatorioCompletoBRDsGrid = [];
+  gerarReportGradeSaldoVariacaoGrid = [];
 
   relatorioSegmentoAcoes = [];
   relatorioSetoresAcoes = [];
@@ -113,9 +114,13 @@ export class DashboardInvestimentosComponent implements OnInit {
   totalProjetivoGridBDR: number = 0;
   totalInvestidoBDRGrid: number = 0;
 
+  totalProjetivoCrypto: number = 0;
+  totalInvestidoCrypto: number = 0;
+
   quantidadeTotalAcoes: number = 0;
   quantidadeTotalFiis: number = 0;
   quantidadeTotalBDR: number = 0;
+  quantidadeTotalCrypto: number = 0;
 
   graficoPizzaAcoesFiis: any;
   graficoPizzaAcoesFiisRendaFixa: any;
@@ -283,6 +288,7 @@ export class DashboardInvestimentosComponent implements OnInit {
     }, 30 * 60 * 1000);
 
     this.retornaRelatorioCompletoBDRsGrid();
+    this.gerarReportGradeSaldoVariacaoCryptoGrid();
 
   }
 
@@ -323,6 +329,7 @@ export class DashboardInvestimentosComponent implements OnInit {
     //====TAB menu 02 ======
 
     this.retornaRelatorioCompletoACOESGrid();
+    //this.gerarReportGradeSaldoVariacaoCryptoGrid();
 
 
     this.retornaRelatorioBasicoVisualizacao();
@@ -739,7 +746,6 @@ retornaComboboxAnoFiltroDivsRecebidosGrid() {
 
   this.dashboardInvestimentoService.retornaComboboxAnoFiltroDivsRecebidosGrid(this.codigoUsuarioLogado)
   .then(response => {
-    console.log(response);
     this.filtroAnoDividendosRecebidosGrid = response.map((item: any) => {
       return { label: item.ano, value: item.ano };
     });
@@ -787,6 +793,17 @@ retornaRelatorioCompletoBDRsGrid() {
   .then(response => {
     this.relatorioCompletoBRDsGrid = response;
     this.calculaTotaisBDRGrid(response);
+    //this.graficoPercentualFiisPizza(response);
+  })
+  .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+}
+
+gerarReportGradeSaldoVariacaoCryptoGrid() {
+
+  this.dashboardInvestimentoService.gerarReportGradeSaldoVariacaoCryptoGrid(this.codigoUsuarioLogado)
+  .then(response => {
+    this.gerarReportGradeSaldoVariacaoGrid = response;
+    this.calculaTotaisCryptos(response);
     //this.graficoPercentualFiisPizza(response);
   })
   .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
@@ -1184,6 +1201,33 @@ private calculaTotaisBDRGrid(relatorioCompletoBRDsGridGrid: any[]) {
   this.totalInvestidoBDRGrid = valorTotalInvestido;
   this.quantidadeTotalBDR = qtdTotalFiis;
 }
+
+private calculaTotaisCryptos(gerarReportGradeSaldoVariacaoGrid: any[]) {
+
+  let valortotalProjetivo = 0;
+  let valorTotalInvestido = 0;
+  let qtdTotalFiis = 0; // Aqui deveria ser a quantidade total de criptomoedas?
+
+  for (const cryptos of gerarReportGradeSaldoVariacaoGrid) {
+    if (cryptos.projetivo !== null && cryptos.projetivo !== undefined) {
+      valortotalProjetivo += Number(cryptos.projetivo);
+    }
+
+    if (cryptos.valorInvestidoTotal !== null && cryptos.valorInvestidoTotal !== undefined) {
+      valorTotalInvestido += Number(cryptos.valorInvestidoTotal);
+    }
+
+    // Se precisar somar a quantidade de criptos, use uma propriedade correta
+    if (cryptos.quantidade !== null && cryptos.quantidade !== undefined) {
+      qtdTotalFiis += Number(cryptos.quantidade);
+    }
+  }
+
+  this.totalProjetivoCrypto = valortotalProjetivo;
+  this.totalInvestidoCrypto = valorTotalInvestido;
+  this.quantidadeTotalCrypto = qtdTotalFiis;
+}
+
 
 
 

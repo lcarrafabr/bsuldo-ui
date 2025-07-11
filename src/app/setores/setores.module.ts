@@ -1,3 +1,4 @@
+import { PanelModule } from 'primeng/panel';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SidebarModule } from 'primeng/sidebar';
@@ -18,6 +19,7 @@ import { SetoresRoutingModule } from './setores-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SetoresPesquisaComponent } from './setores-pesquisa/setores-pesquisa.component';
 import { SetoresCadastroComponent } from './setores-cadastro/setores-cadastro.component';
+import { ToolbarModule } from 'primeng/toolbar';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { SetoresCadastroComponent } from './setores-cadastro/setores-cadastro.co
     SidebarModule,
     InputTextareaModule,
     InputSwitchModule,
+    ToolbarModule,
+    PanelModule,
 
     SharedModule,
     HttpClientModule,

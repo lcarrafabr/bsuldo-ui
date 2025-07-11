@@ -18,6 +18,7 @@ export class DashboardInvestimentosService {
   controleDividendosURL: string;
   ordemRendaFixaURL: string;
   ordemDeCompraURL: string
+  cryptosReportURL: string
 
 
   constructor(private http: HttpClient) {
@@ -26,6 +27,7 @@ export class DashboardInvestimentosService {
     this.controleDividendosURL = `${environment.apiUrl}/controle-dividendos`;
     this.ordemRendaFixaURL = `${environment.apiUrl}/ordem-renda-fixa`;
     this.ordemDeCompraURL = `${environment.apiUrl}/ordens-de-compra`;
+    this.cryptosReportURL = `${environment.apiUrl}/v1/crypto-reports`;
    }
 
 
@@ -224,6 +226,21 @@ export class DashboardInvestimentosService {
     }
 
     return this.http.get(`${this.ordemDeCompraURL}/relatorio-completo`, { params })
+    .toPromise()
+    .then(response => response);
+  }
+
+
+  gerarReportGradeSaldoVariacaoCryptoGrid(tokenId: string): Promise<any> {
+
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.cryptosReportURL}/crypto-grade-saldo-variacao`, { params })
     .toPromise()
     .then(response => response);
   }

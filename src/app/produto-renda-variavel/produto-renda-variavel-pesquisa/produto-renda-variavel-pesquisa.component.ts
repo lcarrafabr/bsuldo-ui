@@ -1,8 +1,8 @@
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { ProdutoRVFiltro, ProdutoRendaVariavelServiceService } from './../produto-renda-variavel-service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 
 @Component({
   selector: 'app-produto-renda-variavel-pesquisa',
@@ -27,7 +27,7 @@ export class ProdutoRendaVariavelPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
     this.pesquisar();
   }
 

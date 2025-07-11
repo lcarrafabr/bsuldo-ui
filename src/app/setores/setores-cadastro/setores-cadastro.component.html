@@ -1,4 +1,4 @@
-<div class="container p-shadow-2">
+<div class="container p-shadow-2 body-content p-p-3">
   <p-card>
     <div class="p-col-12">
       <h2>{{ editando ? 'Edição de' : 'Cadastro de' }} setores</h2>
@@ -6,30 +6,39 @@
 
     <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
       <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6">
+        <div class="p-field p-col-12 p-md-12">
           <label>Nome Setor</label>
           <input type="text" name="nomeSetor" [(ngModel)]="setores.nomeSetor" ngModel #nomeEmissor="ngModel" pInputText class="p-inputtext-sm" placeholder="Nome setor" required required minlength="3">
         </div>
 
-        <div class="p-mb-1 p-mr-1 p-col-1">
-          <label>Status setor</label>
-          <p-inputSwitch name="status" [(ngModel)]="status" [(ngModel)]="setores.status" ngModel></p-inputSwitch>
-        </div>
       </div>
 
       <div style="background-color: thistle;"class="p-col-12">
         <p-card>
 
-          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
-              pTooltip="Salvar setor" tooltipPosition="top"></button>
+          <div class="p-d-flex p-jc-between p-ai-center p-flex-wrap">
 
-              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
-              pTooltip="Novo setor" tooltipPosition="top"></button>
+            <button pButton
+              label="Salvar"
+              icon="pi pi-save"
+              class="p-button-raised p-button-primary p-mb-1 p-mr-1 p-shadow-1"
+              pTooltip="Salvar origem"
+              tooltipPosition="top">
+            </button>
 
-              <a routerLink="/setores" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+              <button pButton
+                icon="pi pi-arrow-left"
+                label="Voltar para Pesquisa"
+                class="p-button-outlined p-button-secondary p-mb-2 p-mr-2 p-shadow-1"
+                routerLink="/setores"
+                pTooltip="Voltar para a página de pesquisa"
+                tooltipPosition="top">
+              </button>
+          </div>
 
         </p-card>
       </div>
+
     </form>
   </p-card>
 </div>

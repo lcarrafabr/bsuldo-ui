@@ -353,7 +353,7 @@
                           <td class="col-mes-content">{{gridProventosRecebidosEFuturos.fev  | currency: 'BRL'}}</td>
                           <td class="col-mes-content">{{gridProventosRecebidosEFuturos.mar  | currency: 'BRL'}}</td>
                           <td class="col-mes-content">{{gridProventosRecebidosEFuturos.abr  | currency: 'BRL'}}</td>
-                          <td class="col-mes-content">{{gridProventosRecebidosEFuturos.mai  | currency: 'BRL'}}</td>
+                          <td class="col-mes-content">{{gridProventosRecebidosEFuturos.mai  | currency: 'BRL'}} </td>
                           <td class="col-mes-content">{{gridProventosRecebidosEFuturos.jun  | currency: 'BRL'}}</td>
                           <td class="col-mes-content">{{gridProventosRecebidosEFuturos.jul  | currency: 'BRL'}}</td>
                           <td class="col-mes-content">{{gridProventosRecebidosEFuturos.ago  | currency: 'BRL'}}</td>
@@ -750,6 +750,94 @@
 
         </p-table>
       </div>
+
+    </p-panel>
+
+    <BR/>
+
+     <!---------------------------------------------------------------------  GRID CRYPTOS ----------------------------------------------------------->
+
+     <p-panel header="Criptomoedas" *ngIf="gerarReportGradeSaldoVariacaoGrid && gerarReportGradeSaldoVariacaoGrid.length > 0" [toggleable]="true" [collapsed]="false">
+
+      <div class="p=col=12">
+        <p-table
+        #tabela
+        [value] = gerarReportGradeSaldoVariacaoGrid
+        styleClass="p-datatable-gridlines p-datatable-sm"
+        [paginator]="false"
+        [rows]="15"
+        selectionMode="single"
+        [responsive]="true"
+        selectionMode="single">
+        <ng-template pTemplate="emptymessage">
+          Nenhum valor encontrado
+        </ng-template>
+        <ng-template pTemplate="header">
+
+          <tr>
+            <th  colspan="5">
+              Total projetivo:  {{totalProjetivoCrypto | currency: 'BRL'}}
+              <ng-container *ngIf="totalProjetivoCrypto < 0; else plusIcon">
+                <i class="pi pi-arrow-down" [ngStyle]="{'color': totalProjetivoCrypto < 0 ? '#a10e0e' : 'green'}"></i>
+              </ng-container>
+              <ng-template #plusIcon>
+                <i class="pi pi-arrow-up" [ngStyle]="{'color': totalProjetivoCrypto < 0 ? '#a10e0e' : 'green'}"></i>
+              </ng-template>
+            </th>
+
+            <th colspan="5">Total investido: {{totalInvestidoCrypto | currency: 'BRL'}}</th>
+          </tr>
+
+          <tr>
+            <th class="col-mes-header">Moeda</th>
+              <th class="col-mes-header">Quantidade</th>
+              <th class="col-mes-header">Média investida</th>
+              <th class="col-mes-header">Preço médio</th>
+              <th class="col-mes-header">Preço atual</th>
+              <th class="col-mes-header">Variação</th>
+              <th class="col-mes-header">Valor investido</th>
+              <th class="col-mes-header">Saldo variação</th>
+              <th class="col-mes-header">Projetivo</th>
+              <th class="col-mes-header">Perc.</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-gerarReportGradeSaldoVariacaoGrid>
+          <tr>
+            <td class="col-mes-content">{{gerarReportGradeSaldoVariacaoGrid.moeda}}</td>
+            <td class="col-mes-content">{{gerarReportGradeSaldoVariacaoGrid.quantidadeTotal}}</td>
+            <td class="col-mes-content">{{gerarReportGradeSaldoVariacaoGrid.mediaInvestida | currency: 'BRL'}}</td>
+            <td class="col-mes-content">{{gerarReportGradeSaldoVariacaoGrid.precoMedio | currency: 'BRL'}}</td>
+            <td class="col-mes-content">{{gerarReportGradeSaldoVariacaoGrid.cotacaoAtual | currency: 'BRL'}}</td>
+
+            <td class="col-mes-content" [ngStyle]="{'color': gerarReportGradeSaldoVariacaoGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+              <ng-container *ngIf="gerarReportGradeSaldoVariacaoGrid.variacao < 0; else plusIcon">
+                <i class="pi pi-arrow-down"></i>
+              </ng-container>
+              <ng-template #plusIcon>
+                <i class="pi pi-arrow-up"></i>
+              </ng-template>
+              {{gerarReportGradeSaldoVariacaoGrid.variacao.toFixed(2).replace('.', ',')}}%</td>
+
+
+            <td class="col-mes-content">{{gerarReportGradeSaldoVariacaoGrid.valorInvestidoTotal | currency: 'BRL'}}</td>
+
+            <td class="col-mes-content" [ngStyle]="{'color': gerarReportGradeSaldoVariacaoGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+              {{gerarReportGradeSaldoVariacaoGrid.saldoVariacao | currency: 'BRL'}}</td>
+
+            <td class="col-mes-content" [ngStyle]="{'color': gerarReportGradeSaldoVariacaoGrid.variacao < 0 ? '#a10e0e' : 'green'}">
+              {{gerarReportGradeSaldoVariacaoGrid.projetivo | currency: 'BRL'}}</td>
+
+            <td class="col-mes-content">{{gerarReportGradeSaldoVariacaoGrid.percentualCarteira.toFixed(2).replace('.', ',')}}%</td>
+
+
+          </tr>
+      </ng-template>
+
+        </p-table>
+      </div>
+
+
+
 
 
     </p-panel>

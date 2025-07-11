@@ -1,7 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Setores } from '../core/model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
+
+export class SetorFiltro {
+  nomeSetor: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +22,17 @@ export class SetoresServiceService {
    }
 
 
-  listarTodos(tokenId: string): Promise<any> {
+  listarTodos(tokenId: string, filtro: SetorFiltro): Promise<any> {
 
     let params = new HttpParams();
 
     if(tokenId != null) {
       params = params.set('tokenId', tokenId);
     }
+
+    if(filtro.nomeSetor !== undefined) {
+        params = params.set('nomeSetor', filtro.nomeSetor)
+      }
 
     return this.http.get(`${this.setorURL}`, { params })
     .toPromise()
@@ -43,7 +51,7 @@ export class SetoresServiceService {
     .toPromise();
   }
 
-  buscaSetoresPorID(codigo: number, tokenId: string): Promise<Setores> {
+  buscaSetoresPorID(codigo: string, tokenId: string): Promise<Setores> {
 
     let params = new HttpParams();
 
@@ -68,7 +76,7 @@ export class SetoresServiceService {
       params = params.set('tokenId', tokenId);
     }
 
-    return this.http.put(`${this.setorURL}/${setor.setorId}`, setor, { params })
+    return this.http.put(`${this.setorURL}/${setor.codigoSetor}`, setor, { params })
     .toPromise()
     .then(response => {
       const setorEditado = response as Setores;
@@ -80,7 +88,7 @@ export class SetoresServiceService {
 
     return this.http.delete(`${this.setorURL}/${codigo}`)
     .toPromise()
-    .then(() => null);
+    .then(() => {});
   }
 
   mudarStatusAtivo(codigo: number, ativo: boolean) {

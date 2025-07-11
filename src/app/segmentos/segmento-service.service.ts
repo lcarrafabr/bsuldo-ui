@@ -42,7 +42,7 @@ export class SegmentoServiceService {
     .toPromise();
   }
 
-  buscaSegmentoPorID(codigo: number, tokenId: string): Promise<Segmentos> {
+  buscaSegmentoPorID(codigo: string, tokenId: string): Promise<Segmentos> {
 
     let params = new HttpParams();
 

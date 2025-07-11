@@ -72,7 +72,7 @@ export class SegmentoCadastroComponent implements OnInit {
     });
   }
 
-  carregarSegmentoPorId(codigo: number) {
+  carregarSegmentoPorId(codigo: string) {
 
     this.segmentoService.buscaSegmentoPorID(codigo, this.codigoUsuarioLogado)
     .then(segmento => {

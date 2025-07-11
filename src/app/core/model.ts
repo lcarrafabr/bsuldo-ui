@@ -91,7 +91,7 @@ export class OrdemRendaFixa {
 }
 
 export class Setores {
-  setorId: number;
+  codigoSetor: string;
   nomeSetor: string;
   status: boolean;
 }
