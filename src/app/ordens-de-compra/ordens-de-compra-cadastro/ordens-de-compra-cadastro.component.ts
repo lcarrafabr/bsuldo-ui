@@ -3,9 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { FormControl } from '@angular/forms';
-import { OrdemDeCompra } from 'src/app/core/model';
+import { OrdemDeCompra } from '../../core/model';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+
 
 @Component({
   selector: 'app-ordens-de-compra-cadastro',
@@ -68,7 +69,7 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
 
     this.title.setTitle('Ordem de compra e venda RV');
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
 
     this.carregarProdutosCombobox();
 
@@ -81,7 +82,7 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.ordemDeCompra.ordemDeCompraId);
+    return Boolean (this.ordemDeCompra.codigoOrdemDeComppra);
   }
 
 
@@ -90,10 +91,18 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
     this.ordemDeCompraService.listarTodosProdutosRendaVariavel(this.codigoUsuarioLogado)
     .then(produtoResponse => {
       this.ticker = produtoResponse.map(p => {
-        return {label: p.ticker, value: p.produtoId}
+        return {label: p.ticker, value: p.codigoProdutoRV}
       });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   calcularValorInvestido() {
@@ -161,7 +170,15 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
       this.quantidadeCotas = 1;
       this.valorUnitario = 0;
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   carregarPorId(codigo: number) {
@@ -177,7 +194,15 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
       this.value1 = response.tipoOrdemRendaVariavelEnum;
       this.tipoOrdemRendaVariavelvalue = response.tipoOrdemRendaVariavelEnum;
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   atualizarOrdemDeCompra(form: FormControl) {
@@ -193,7 +218,15 @@ export class OrdensDeCompraCadastroComponent implements OnInit {
       this.ordemDeCompra = response;
       this.messageService.add({ severity: 'success', detail: 'Ordem de Compra/Venda atualizado com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 }

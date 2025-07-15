@@ -5,3 +5,35 @@
   position: relative; /* Adicione isso para garantir que o conteúdo não seja cortado pela barra de navegação */
   z-index: 1; /* Adicione isso para garantir que o conteúdo esteja acima da barra de navegação */
 }
+
+.tag-compra {
+  background-color: #1976D2;
+  color: white;
+}
+.tag-venda {
+  background-color: #D32F2F;
+  color: white;
+}
+.tag-bonificacao {
+  background-color: #FBC02D;
+  color: black;
+}
+.tag-agrupamento {
+  background-color: #FB8C00;
+  color: black;
+}
+.tag-desdobramento {
+  background-color: #66BB6A;
+  color: white;
+}
+.tag-amortizacao {
+  background-color: #8E24AA;
+  color: white;
+}
+
+.col-pessoa-content {
+  vertical-align: middle;
+}
+td .p-tag {
+  vertical-align: middle !important;
+}

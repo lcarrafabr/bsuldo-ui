@@ -1,3 +1,4 @@
+import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
@@ -49,6 +50,7 @@ import { PanelModule } from 'primeng/panel';
     InputNumberModule,
     CheckboxModule,
     PanelModule,
+    ToolbarModule,
 
     SharedModule,
     HttpClientModule,

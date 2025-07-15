@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-produto-renda-variavel-pesquisa',
@@ -18,15 +19,18 @@ export class ProdutoRendaVariavelPesquisaComponent implements OnInit {
   produtosRendaVariavel = [];
   ticker: string;
 
+
   constructor(
     private produtoRendaVariavelService: ProdutoRendaVariavelServiceService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
 
+    this.title.setTitle('Produtos RV');
     this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
     this.pesquisar();
   }
@@ -41,7 +45,15 @@ export class ProdutoRendaVariavelPesquisaComponent implements OnInit {
     .then(response => {
       this.produtosRendaVariavel = response;
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   confirmaExclusao(produtoRV: any) {
@@ -56,13 +68,21 @@ export class ProdutoRendaVariavelPesquisaComponent implements OnInit {
 
   removerProduto(produtoRV: any) {
 
-    this.produtoRendaVariavelService.removerProduto(produtoRV.produtoId)
+    this.produtoRendaVariavelService.removerProduto(produtoRV.codigoProdutoRV)
     .then(() => {
       this.grid.clear();
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Produto Renda variável removido com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 }

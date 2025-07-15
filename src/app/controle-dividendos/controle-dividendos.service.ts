@@ -77,9 +77,15 @@ export class ControleDividendosService {
       .toPromise();
   }
 
-  buscarPorCodigo(codigo: number): Promise<ControleDividendos> {
+  buscarPorCodigo(codigo: string, tokenId: string): Promise<ControleDividendos> {
 
-    return this.http.get(`${this.controleDividendosURL}/${codigo}`)
+    let params = new HttpParams();
+
+    if(tokenId != null) {
+      params = params.set('tokenId', tokenId);
+    }
+
+    return this.http.get(`${this.controleDividendosURL}/${codigo}`, { params })
       .toPromise()
       .then(response => {
         const controlDividendo = response as ControleDividendos;
@@ -130,7 +136,7 @@ export class ControleDividendosService {
         params = params.set('tokenId', tokenId);
       }
 
-    return this.http.put(`${this.controleDividendosURL}/${controleDiv.controleDividendoId}`, controleDiv, { params })
+    return this.http.put(`${this.controleDividendosURL}/${controleDiv.codigoControleDividendo}`, controleDiv, { params })
       .toPromise()
       .then(response => {
         const controleDivAtualizado = response as ControleDividendos;

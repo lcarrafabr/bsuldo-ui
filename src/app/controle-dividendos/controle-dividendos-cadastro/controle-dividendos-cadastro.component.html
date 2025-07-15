@@ -10,10 +10,10 @@
         <div class="p-d-flex p-flex-column p-flex-md-row">
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Ticker</label>
+            <label>Ticker<span class="required">*</span></label>
             <p-dropdown
-            name="produto"
-            [(ngModel)]="controleDividendos.produtosRendaVariavel.produtoId"
+            name="produtos"
+            [(ngModel)]="controleDividendos.produtosRendaVariavel.codigoProdutoRV"
             [options]="produtos"
             filter="true"
             placeholder="Selecione"
@@ -21,7 +21,7 @@
           </div>
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Tipo recebimento</label>
+            <label>Tipo recebimento<span class="required">*</span></label>
             <p-dropdown
             name="tipoRecebimento"
             [(ngModel)]="controleDividendos.tipoDivRecebimentoEnum"
@@ -31,7 +31,7 @@
           </div>
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Tipo dividendo</label>
+            <label>Tipo dividendo<span class="required">*</span></label>
             <p-dropdown
             name="tipoDividendo"
             [(ngModel)]="controleDividendos.tipoDividendoEnum"
@@ -49,7 +49,7 @@
         <div class="p-d-flex p-flex-column p-flex-md-row">
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Data referencia</label>
+            <label>Data referencia<span class="required">*</span></label>
             <p-calendar
             name="dataReferencia"
             [(ngModel)]="controleDividendos.dataReferencia"
@@ -61,7 +61,7 @@
           </div>
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Data COM</label>
+            <label>Data COM<span class="required">*</span></label>
             <p-calendar
             name="dataCom"
             [(ngModel)]="controleDividendos.dataCom"
@@ -72,7 +72,7 @@
           </div>
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Data pagamento</label>
+            <label>Data pagamento<span class="required">*</span></label>
             <p-calendar
             name="dataPagamento"
             [(ngModel)]="controleDividendos.dataPagamento"
@@ -91,7 +91,7 @@
         <div class="p-d-flex p-flex-column p-flex-md-row">
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label>Valor por cota</label>
+            <label>Valor por cota<span class="required">*</span></label>
             <!--<input type="text" pInputText class="p-inputtext-sm" placeholder="0,00">-->
             <p-inputNumber name="valorPorCota" mode="decimal" inputId="minmaxfraction" [(ngModel)]="controleDividendos.valorPorCota"
             [minFractionDigits]="2" [maxFractionDigits]="8" placeholder="0,00"></p-inputNumber>
@@ -105,7 +105,7 @@
           </div>
 
           <div class="p-mb-1 p-mr-1 p-lg-4 p-fluid">
-            <label style="color: white;">____________________________________________________</label>
+            <br/>
             <p-checkbox name="divUtilizado" inputId="divUtilizado" [binary]="true"  [(ngModel)]="controleDividendos.divUtilizado" ngModel ></p-checkbox>
             <label for="divUtilizado"> Dividendo usado</label>
           </div>
@@ -116,13 +116,25 @@
       <div style="background-color: thistle;"class="p-col-12">
         <p-card>
 
-          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
-              pTooltip="Salvar dividendo" tooltipPosition="top"></button>
+          <div class="p-d-flex p-jc-between p-ai-center p-flex-wrap">
 
-              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
-              pTooltip="Novo setor" tooltipPosition="top"></button>
+            <button pButton
+              label="Salvar"
+              icon="pi pi-save"
+              class="p-button-raised p-button-primary p-mb-1 p-mr-1 p-shadow-1"
+              pTooltip="Salvar produto"
+              tooltipPosition="top">
+            </button>
 
-              <a routerLink="/controle-dividendos" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+              <button pButton
+                icon="pi pi-arrow-left"
+                label="Voltar para Pesquisa"
+                class="p-button-outlined p-button-secondary p-mb-2 p-mr-2 p-shadow-1"
+                routerLink="/controle-dividendos"
+                pTooltip="Voltar para a página de pesquisa"
+                tooltipPosition="top">
+              </button>
+          </div>
 
         </p-card>
       </div>

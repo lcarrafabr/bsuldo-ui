@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProdutoRendaVariavel } from '../core/model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 export interface ProdutoRVFiltro {
   ticker: string;
@@ -125,7 +125,7 @@ export class ProdutoRendaVariavelServiceService {
       .toPromise();
   }
 
-  buscarPorCodigo(codigo: number, tokenId: string): Promise<ProdutoRendaVariavel> {
+  buscarPorCodigo(codigo: string, tokenId: string): Promise<ProdutoRendaVariavel> {
 
     let params = new HttpParams();
 
@@ -150,7 +150,7 @@ export class ProdutoRendaVariavelServiceService {
       params = params.set('tokenId', tokenId);
     }
 
-    return this.http.put(`${this.produtoRendaVariavelURL}/${produtoRV.produtoId}`, produtoRV, { params })
+    return this.http.put(`${this.produtoRendaVariavelURL}/${produtoRV.codigoProdutoRV}`, produtoRV, { params })
     .toPromise()
     .then(response => {
       const produtoRVEditado = response as ProdutoRendaVariavel;
@@ -162,7 +162,7 @@ export class ProdutoRendaVariavelServiceService {
 
     return this.http.delete(`${this.produtoRendaVariavelURL}/${codigo}`)
     .toPromise()
-    .then(() => null);
+    .then(() => {});
   }
 
 

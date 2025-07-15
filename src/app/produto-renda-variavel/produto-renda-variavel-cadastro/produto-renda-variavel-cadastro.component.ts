@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoRendaVariavelServiceService } from '../produto-renda-variavel-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ProdutoRendaVariavel } from 'src/app/core/model';
 import { FormControl, NgForm } from '@angular/forms';
+import { ProdutoRendaVariavel } from '../../core/model';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-produto-renda-variavel-cadastro',
@@ -32,11 +33,13 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private router: Router,
     private route: ActivatedRoute,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
 
-    this.codigoUsuarioLogado = localStorage.getItem('idToken');
+    this.title.setTitle('Cadastro produto rv');
+    this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
     const codigoProdutoRV = this.route.snapshot.params['codigo'];
 
     if(codigoProdutoRV) {
@@ -51,7 +54,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
   get editando() {
 
-    return Boolean (this.produtoRendaVariavel.produtoId);
+    return Boolean (this.produtoRendaVariavel.codigoProdutoRV);
   }
 
   cadastrarRapido() {
@@ -77,10 +80,18 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
     this.produtoRendaVariavelService.listarSegmentosAtivos(this.codigoUsuarioLogado)
     .then(segmentosResponse => {
       this.segmentos = segmentosResponse.map(p => {
-        return {label: p.nomeSegmento, value: p.segmentoId}
+        return {label: p.nomeSegmento, value: p.codigoSegmento}
       });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   carregarSetores() {
@@ -88,10 +99,18 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
     this.produtoRendaVariavelService.listarSetoresAtivos(this.codigoUsuarioLogado)
     .then(setoresResponse => {
       this.setores = setoresResponse.map(p => {
-        return {label: p.nomeSetor, value: p.setorId}
+        return {label: p.nomeSetor, value: p.codigoSetor}
       });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   //********************************************************************************** */
@@ -106,7 +125,15 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
 
       this.produtoRendaVariavel = new ProdutoRendaVariavel();
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
     }
 
   }
@@ -154,7 +181,7 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
     return cnpjFormatado;
   }
 
-  carregarProdutoRVPorId(codigo: number) {
+  carregarProdutoRVPorId(codigo: string) {
 
     this.produtoRendaVariavelService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
     .then(produtoRV => {
@@ -184,7 +211,15 @@ export class ProdutoRendaVariavelCadastroComponent implements OnInit {
       this.produtoRendaVariavel = response;
       this.messageService.add({ severity: 'success', detail: 'Produto atualizado com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   novo(form: NgForm) {

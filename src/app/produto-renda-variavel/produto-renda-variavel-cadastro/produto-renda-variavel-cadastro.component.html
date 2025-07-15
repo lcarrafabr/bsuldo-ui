@@ -15,7 +15,7 @@
           </div>
 
           <div class="p-mb-1" [(hidden)]="btnSalvarRapido">
-            <button pButton icon="pi pi-save"
+            <button type="button" pButton icon="pi pi-save"
             class="p-button-raised p-button-rounded p-button-success p-button-outlined p-mb-1 p-mr-1" style="margin-top: 20px;"
                 pTooltip="Cadastrar Rápido" tooltipPosition="top" (click)="cadastrarRapido()"></button>
           </div>
@@ -130,19 +130,31 @@
         <textarea type="text" rows="4" pInputTextarea autoResize="true" name="descricao" [(ngModel)]="produtoRendaVariavel.descricao" ngModel ></textarea>
       </div>
 
-    <div style="background-color: thistle;"class="p-col-12">
-      <p-card>
+      <div style="background-color: thistle;"class="p-col-12">
+        <p-card>
 
-        <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
-            pTooltip="Salvar setor" tooltipPosition="top"></button>
+          <div class="p-d-flex p-jc-between p-ai-center p-flex-wrap">
 
-            <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
-            pTooltip="Novo setor" tooltipPosition="top"></button>
+            <button pButton
+              label="Salvar"
+              icon="pi pi-save"
+              class="p-button-raised p-button-primary p-mb-1 p-mr-1 p-shadow-1"
+              pTooltip="Salvar produto"
+              tooltipPosition="top">
+            </button>
 
-            <a routerLink="/produto-renda-variavel" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+              <button pButton
+                icon="pi pi-arrow-left"
+                label="Voltar para Pesquisa"
+                class="p-button-outlined p-button-secondary p-mb-2 p-mr-2 p-shadow-1"
+                routerLink="/produto-renda-variavel"
+                pTooltip="Voltar para a página de pesquisa"
+                tooltipPosition="top">
+              </button>
+          </div>
 
-      </p-card>
-    </div>
+        </p-card>
+      </div>
 
     </form>
   </p-card>

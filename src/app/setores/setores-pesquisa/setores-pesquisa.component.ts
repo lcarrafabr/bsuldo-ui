@@ -31,6 +31,8 @@ export class SetoresPesquisaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.title.setTitle('Setores');
     this.codigoUsuarioLogado = localStorage.getItem('idToken') ?? '';
     this.pesquisar();
   }
@@ -41,7 +43,6 @@ export class SetoresPesquisaComponent implements OnInit {
       nomeSetor: this.nomeSetorFiltro
     }
 
-    this.title.setTitle('Setores');
     this.setoresService.listarTodos(this.codigoUsuarioLogado, filtro)
     .then(response => {
       this.setores = response;

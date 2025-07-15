@@ -9,7 +9,7 @@ import { ControleDividendos } from '../../core/model';
 
 interface ProdutoListItem {
   label: string;
-  value: string | number; // Use o tipo correto de `produtoId`
+  value: string | string; // Use o tipo correto de `produtoId`
 }
 
 @Component({
@@ -54,17 +54,19 @@ export class ControleDividendosCadastroComponent implements OnInit {
 
     const codigoControleDividendo = this.route.snapshot.params['codigo'];
 
+     this.carregarProdutosCombobox();
+
     if(codigoControleDividendo) {
       this.carregarPorId(codigoControleDividendo);
     }
 
 
-    this.carregarProdutosCombobox();
+
   }
 
   get editando() {
 
-    return Boolean (this.controleDividendos.controleDividendoId);
+    return Boolean (this.controleDividendos.codigoControleDividendo);
   }
 
 
@@ -74,14 +76,22 @@ export class ControleDividendosCadastroComponent implements OnInit {
     .then(response => {
 
       this.tipoprodutoList = response.map(p => {
-        return {label: p.tipoProdutoEnum, value: p.produtoId}
+        return {label: p.tipoProdutoEnum, value: p.codigoProdutoRV}
       });
 
       this.produtos = response.map(p => {
-        return {label: p.ticker, value: p.produtoId}
+        return {label: p.ticker, value: p.codigoProdutoRV}
       });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   onTickerChange(selectedProdutoId: any) {
@@ -114,7 +124,6 @@ export class ControleDividendosCadastroComponent implements OnInit {
     }
 
     this.controleDividendos.tipoAtivoEnum = this.tipoAtivo;
-    //this.controleDividendos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
 
     this.controleDividendosService.adicionar(this.controleDividendos, this.codigoUsuarioLogado)
     .then(() => {
@@ -122,16 +131,33 @@ export class ControleDividendosCadastroComponent implements OnInit {
       form.reset();
       this.controleDividendos = new ControleDividendos();
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
-  carregarPorId(codigo: number) {
+  carregarPorId(codigo: string) {
 
-    this.controleDividendosService.buscarPorCodigo(codigo)
+    this.controleDividendosService.buscarPorCodigo(codigo, this.codigoUsuarioLogado)
     .then(response => {
+      console.log(response)
       this.controleDividendos = response;
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   atualizarControleDividendos(form: FormControl) {
@@ -142,18 +168,25 @@ export class ControleDividendosCadastroComponent implements OnInit {
     }
 
     if(this.tipoAtivo == null) {
-      this.onTickerChange(this.controleDividendos.produtosRendaVariavel.produtoId);
+      this.onTickerChange(this.controleDividendos.produtosRendaVariavel.codigoProdutoRV);
     }
 
     this.controleDividendos.tipoAtivoEnum = this.tipoAtivo;
-    //this.controleDividendos.pessoa.pessoaID = parseInt(this.codigoUsuarioLogado);
 
     this.controleDividendosService.atualizarControleDividendos(this.controleDividendos, this.codigoUsuarioLogado)
     .then(response => {
       this.controleDividendos = response;
       this.messageService.add({ severity: 'success', detail: 'Controle dividendo atualizado com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
 }

@@ -44,7 +44,7 @@
             <label>Ticker</label>
             <p-dropdown
             name="segmento"
-            [(ngModel)]="ordemDeCompra.produtoRendaVariavel.produtoId"
+            [(ngModel)]="ordemDeCompra.produtoRendaVariavel.codigoProdutoRV"
             [options]="ticker"
             filter="true"
             placeholder="Selecione"
@@ -112,13 +112,25 @@
       <div style="background-color: thistle;"class="p-col-12">
         <p-card>
 
-          <button pButton label="Salvar" icon="pi pi-save" class="p-button-raised p-button-primary p-mb-1 p-mr-1"
-              pTooltip="Salvar setor" tooltipPosition="top"></button>
+          <div class="p-d-flex p-jc-between p-ai-center p-flex-wrap">
 
-              <button pButton label="Novo" icon="pi pi-plus-circle" class="p-button-raised p-button-secondary p-mb-1 p-mr-1"
-              pTooltip="Novo setor" tooltipPosition="top"></button>
+            <button pButton
+              label="Salvar"
+              icon="pi pi-save"
+              class="p-button-raised p-button-primary p-mb-1 p-mr-1 p-shadow-1"
+              pTooltip="Salvar ordem de compra"
+              tooltipPosition="top">
+            </button>
 
-              <a routerLink="/ordens-de-compra" class="p-mb-1 p-mr-1">Voltar para pesquisa</a>
+              <button pButton
+                icon="pi pi-arrow-left"
+                label="Voltar para Pesquisa"
+                class="p-button-outlined p-button-secondary p-mb-2 p-mr-2 p-shadow-1"
+                routerLink="/ordens-de-compra"
+                pTooltip="Voltar para a página de pesquisa"
+                tooltipPosition="top">
+              </button>
+          </div>
 
         </p-card>
       </div>

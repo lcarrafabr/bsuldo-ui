@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrdemDeCompra } from '../core/model';
 import * as moment from 'moment';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 export interface OrdemCompraVendaTicker {
   ticker: string;
@@ -81,6 +81,7 @@ export class OrdensDeCompraService {
       .toPromise()
       .then(response => response);
     }
+    return Promise.resolve(null);
   }
 
   adicionar(ordemDeCompra: OrdemDeCompra, tokenId: string): Promise<OrdemDeCompra> {
@@ -145,7 +146,7 @@ export class OrdensDeCompraService {
       params = params.set('tokenId', tokenId);
     }
 
-    return this.http.put(`${this.ordemDeCompraURL}/${ordemDeCompra.ordemDeCompraId}`, ordemDeCompra, { params })
+    return this.http.put(`${this.ordemDeCompraURL}/${ordemDeCompra.codigoOrdemDeComppra}`, ordemDeCompra, { params })
       .toPromise()
       .then(response => {
         const ordemDeCompraAlterado = response as OrdemDeCompra;

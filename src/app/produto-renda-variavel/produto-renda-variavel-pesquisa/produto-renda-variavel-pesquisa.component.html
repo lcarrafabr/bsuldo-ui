@@ -4,6 +4,7 @@
       <h2>Pesquisa produto renda variável</h2>
     </div>
 
+    <!--
     <form autocomplete="off" (ngSubmit)="pesquisar();">
       <div class="p-col-12 p-fluid">
         <label>Ticker</label>
@@ -12,7 +13,7 @@
       <div class="p-col-12">
         <button pButton type="submit" label="Pesquisar" icon="pi pi-search" class="p-button-raised p-button-rounded"></button>
       </div>
-    </form>
+    </form>-->
 
     <div class="p-col-12" style="color: white;">----------------------</div>
 
@@ -56,18 +57,26 @@
                   <td class="col-pessoa-content">{{produtosRendaVariavel.ticker}}</td>
                   <td class="col-pessoa-content">{{produtosRendaVariavel.shortName}}</td>
 
-                  <td class="col-pessoa-content">{{produtosRendaVariavel.geraDividendos ? 'SIM' : 'NÃO'}}</td>
+                  <td class="col-pessoa-content">
+                    <span class="p-tag" [ngClass]="{ 'p-tag-success': produtosRendaVariavel.geraDividendos, 'p-tag-warning': !produtosRendaVariavel.geraDividendos }">
+                      {{ produtosRendaVariavel.geraDividendos ? 'SIM' : 'NÃO' }}
+                    </span>
+                  </td>
 
                   <td class="col-status-content"><a href="javascript:;" [pTooltip]="produtosRendaVariavel.status ? 'Desativar' : 'Ativar'"
                     tooltipPosition="top"
                     (click)="atualizaStatusAtivo(segmentos)">
-                      {{produtosRendaVariavel.status ? 'ATIVO' : 'INATIVO'}}</a></td>
+                    <span class="p-tag" [ngClass]="{ 'p-tag-info': produtosRendaVariavel.status, 'p-tag-danger': !produtosRendaVariavel.status }">
+                        {{produtosRendaVariavel.status ? 'ATIVO' : 'INATIVO'}}
+                        </span>
+                        </a></td>
+
 
                   <td class="col-acoes-content">
-                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
-                    pTooltip="Editar produto" tooltipPosition="top" [routerLink]="['/produto-renda-variavel', produtosRendaVariavel.produtoId]"></button>
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-warning p-mr-1 p-button-sm"
+                    pTooltip="Editar produto" tooltipPosition="top" [routerLink]="['/produto-renda-variavel', produtosRendaVariavel.codigoProdutoRV]"></button>
 
-                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-sm"
                     pTooltip="Remover produto" tooltipPosition="top" (click)="confirmaExclusao(produtosRendaVariavel)"></button>
                   </td>
 

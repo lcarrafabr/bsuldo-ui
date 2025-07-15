@@ -69,7 +69,15 @@ export class ControleDividendosPesquisaComponent implements OnInit {
       this.totalDividendoRecebido();
       this.totalDividendoDisponivel();
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   pesquisarByFiltro() {
@@ -99,13 +107,21 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
   removerControleDividendo(controleDiv: any) {
 
-    this.controleDividendosService.removerControleDividendo(controleDiv.controleDividendoId)
+    this.controleDividendosService.removerControleDividendo(controleDiv.codigoControleDividendo)
     .then(() => {
       this.grid.clear();
       this.pesquisar();
       this.messageService.add({ severity: 'success', detail: 'Controle de dividendos removido com sucesso!', closable: false });
     })
-    .catch(erro => this.errorHandler.handle(erro));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   totalDividendoRecebido() {
@@ -130,14 +146,22 @@ export class ControleDividendosPesquisaComponent implements OnInit {
 
     const novoStatus = !controlDivs.divUtilizado;
 
-    this.controleDividendosService.mudarStatusAtivo(controlDivs.controleDividendoId, novoStatus)
+    this.controleDividendosService.mudarStatusAtivo(controlDivs.codigoControleDividendo, novoStatus)
     .then(() => {
       const acao = novoStatus ? 'ATIVO' : 'INATIVO';
 
       controlDivs.divUtilizado = novoStatus;
       this.totalDividendoDisponivel();
     })
-    .catch(erro => this.errorHandler.handle(erro.error[0].mensagemUsuario));
+    .catch(erro => {
+      if (erro.error.objects) {
+        erro.error.objects.forEach((obj: any) => {
+          this.messageService.add({ severity: 'error', detail: obj.userMessage });
+        });
+      } else {
+        this.errorHandler.handle(erro.error.mensagemUsuario || 'Erro ao processar a solicitação.');
+      }
+    });
   }
 
   //** ********************  FILTROS DE SESSÃO ******************************************************************************************** */

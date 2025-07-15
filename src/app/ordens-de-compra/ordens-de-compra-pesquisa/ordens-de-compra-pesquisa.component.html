@@ -65,8 +65,19 @@
                   <td class="col-pessoa-content">{{ordensDeCompra.produtoRendaVariavel.setor.nomeSetor}}</td>
                   <td class="col-pessoa-content" pTooltip={{ordensDeCompra.produtoRendaVariavel.longName}} tooltipPosition="top">
                     {{ordensDeCompra.produtoRendaVariavel.ticker}}</td>
-                  <td class="col-pessoa-content"><span [style.color]="ordensDeCompra.tipoOrdemRendaVariavelEnum === 'VENDA' ? 'red' : 'blue'">
-                    {{ordensDeCompra.tipoOrdemRendaVariavelEnum}}</span></td>
+                  <td class="col-pessoa-content">
+                    <span class="p-tag"
+                          [ngClass]="{
+                            'tag-compra': ordensDeCompra.tipoOrdemRendaVariavelEnum === 'COMPRA',
+                            'tag-venda': ordensDeCompra.tipoOrdemRendaVariavelEnum === 'VENDA',
+                            'tag-bonificacao': ordensDeCompra.tipoOrdemRendaVariavelEnum === 'BONIFICACAO',
+                            'tag-agrupamento': ordensDeCompra.tipoOrdemRendaVariavelEnum === 'AGRUPAMENTO',
+                            'tag-desdobramento': ordensDeCompra.tipoOrdemRendaVariavelEnum === 'DESDOBRAMENTO',
+                            'tag-amortizacao': ordensDeCompra.tipoOrdemRendaVariavelEnum === 'AMORTIZACAO'
+                          }">
+                      {{ ordensDeCompra.tipoOrdemRendaVariavelEnum }}
+                    </span>
+                  </td>
                   <td class="col-pessoa-content">{{ordensDeCompra.dataTransacao | date: 'dd/MM/y'}}</td>
                   <td class="col-pessoa-content">{{ordensDeCompra.dataExecucao | date: 'dd/MM/y'}}</td>
                   <td class="col-pessoa-content">{{ordensDeCompra.precoUnitarioCota | currency: 'BRL'}}</td>
@@ -76,10 +87,10 @@
                   <td class="col-status-content">{{ordensDeCompra.valorInvestido | currency: 'BRL'}}</td>
 
                   <td class="col-acoes-content">
-                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-secondary p-mr-1 p-button-outlined p-button-sm"
-                    pTooltip="Editar ordem" tooltipPosition="top" [routerLink]="['/ordens-de-compra', ordensDeCompra.ordemDeCompraId]"></button>
+                    <button pButton icon="pi pi-pencil" class="p-button-raised p-button-rounded p-button-warning p-mr-1 p-button-sm"
+                    pTooltip="Editar ordem" tooltipPosition="top" [routerLink]="['/ordens-de-compra', ordensDeCompra.codigoOrdemDeComppra]"></button>
 
-                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-outlined p-button-sm"
+                    <button pButton icon="pi pi-trash" class="p-button-raised p-button-rounded p-button-danger p-mr-1 p-button-sm"
                     pTooltip="Remover ordem" tooltipPosition="top" (click)="confirmaExclusao(ordensDeCompra)"></button>
                   </td>
 

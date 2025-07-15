@@ -103,7 +103,7 @@ export class Segmentos {
 }
 
 export class ProdutoRendaVariavel {
-  produtoId: number;
+  codigoProdutoRV: string;
   longName: string;
   shortName: string;
   ticker: string;
@@ -120,7 +120,7 @@ export class ProdutoRendaVariavel {
 }
 
 export class OrdemDeCompra {
-  ordemDeCompraId: number;
+  codigoOrdemDeComppra: string;
   tipoAtivoEnum: string;
   tipoOrdemRendaVariavelEnum: string;
   dataTransacao: Date;
@@ -134,7 +134,7 @@ export class OrdemDeCompra {
 }
 
 export class ControleDividendos {
-  controleDividendoId: number;
+  codigoControleDividendo: string;
   tipoAtivoEnum: string;
   tipoDivRecebimentoEnum: string;
   dataReferencia: Date;
@@ -144,7 +144,6 @@ export class ControleDividendos {
   valorPorCota: number;
   valorRecebido: number;
   divUtilizado: boolean;
-  pessoa = new Pessoa();
   produtosRendaVariavel = new ProdutoRendaVariavel();
 }
 export class HistoricoRendimentoRF {
